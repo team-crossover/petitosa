@@ -10,4 +10,8 @@ export class NovoPrestador {
     precos: number[];
     senha: string;
     servicosPrestados: boolean[];
+
+    constructor() {
+        this.endereco = new NovoEndereco();
+    }
 }

@@ -1,6 +1,6 @@
 export class Endereco {    
     bairro: string;
-    cep: string;
+    cep: number;
     cidade: string;
     id: number;
     latitude: number;

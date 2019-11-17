@@ -7,4 +7,8 @@ export class NovoContratante {
     genero: string;
     nome: string;
     senha: string;
+
+    constructor() {
+        this.endereco = new NovoEndereco();
+    }
 }
