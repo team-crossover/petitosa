@@ -11,8 +11,12 @@ import { first } from 'rxjs/operators';
 })
 export class CadastrarPrestadorComponent implements OnInit {
 
+  SIZE_ARRAY = 15;
+
   novoPrestador: NovoPrestador = new NovoPrestador();
   error: string = null;
+  servicosPrestados: boolean[] = [];
+  precos: number[] = []; 
 
   constructor(
     public prestadorService: PrestadorService,
@@ -20,9 +24,13 @@ export class CadastrarPrestadorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.fillArrayBoolean(this.servicosPrestados);
+    this.fillArrayNumber(this.precos);
   }
 
   onSubmit() {
+    this.novoPrestador.servicosPrestados = this.servicosPrestados;
+    this.novoPrestador.precos = this.precos;
     console.log(this.novoPrestador);
     this.prestadorService.createPrestador(this.novoPrestador)
       .pipe(first())
@@ -34,8 +42,21 @@ export class CadastrarPrestadorComponent implements OnInit {
         }, 
         error => {
           this.error = JSON.stringify(error);
+          console.log(this.error);
         }
       );
+  }
+
+  fillArrayBoolean(array: boolean[]) {
+    for (let i = 0; i < this.SIZE_ARRAY; i++) {
+      array[i] = false;
+    }
+  }
+
+  fillArrayNumber(array: number[]) {
+    for (let i = 0; i < this.SIZE_ARRAY; i++) {
+      array[i] = 0;
+    }
   }
 
 }

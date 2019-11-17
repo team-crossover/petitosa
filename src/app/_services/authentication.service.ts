@@ -11,7 +11,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(login: Login) {
-    return this.http.post<Login>(`${environment.apiBaseUrl}/api/v1/authentication/login`, login);
+    return this.http.post<Login>(`${environment.apiBaseUrl}api/v1/authentication/login`, login);
   }
 
 }

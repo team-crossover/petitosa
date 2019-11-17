@@ -10,6 +10,7 @@ import { CadastrarPrestadorComponent } from './cadastrar-prestador/cadastrar-pre
 import { CadastrarContratanteComponent } from './cadastrar-contratante/cadastrar-contratante.component';
 import { EditarContratanteComponent } from './editar-contratante/editar-contratante.component';
 import { EditarPrestadorComponent } from './editar-prestador/editar-prestador.component';
+import { PerfilPrestadorComponent } from './perfil-prestador/perfil-prestador.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EditarPrestadorComponent } from './editar-prestador/editar-prestador.co
     CadastrarPrestadorComponent,
     CadastrarContratanteComponent,
     EditarContratanteComponent,
-    EditarPrestadorComponent
+    EditarPrestadorComponent,
+    PerfilPrestadorComponent
   ],
   imports: [
     BrowserModule,

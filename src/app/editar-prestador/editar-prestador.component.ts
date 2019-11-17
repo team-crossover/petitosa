@@ -14,6 +14,8 @@ export class EditarPrestadorComponent implements OnInit {
   prestador: Prestador;
   novoPrestador: NovoPrestador = new NovoPrestador();
   error: string = null;
+  servicosPrestados: boolean[] = [];
+  precos: number[] = []; 
 
   idPrestador: number;
 
@@ -36,13 +38,14 @@ export class EditarPrestadorComponent implements OnInit {
       this.novoPrestador.endereco.logradouro = this.prestador.endereco.logradouro;
       this.novoPrestador.genero = this.prestador.genero;
       this.novoPrestador.nome = this.prestador.nome;
-      this.novoPrestador.precos = this.prestador.precos;
-      this.novoPrestador.servicosPrestados = this.prestador.servicosPrestados;
+      this.precos = this.prestador.precos;
+      this.servicosPrestados = this.prestador.servicosPrestados;
     });
   }
 
   onSubmit() {
-    console.log(this.novoPrestador);
+    this.novoPrestador.servicosPrestados = this.servicosPrestados;
+    this.novoPrestador.precos = this.precos;
     this.prestadorService.updatePrestador(this.idPrestador, this.novoPrestador)
       .pipe(first())
       .subscribe(
