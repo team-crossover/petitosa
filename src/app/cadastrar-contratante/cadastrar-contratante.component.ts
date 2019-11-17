@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NovoContratante } from '../_models';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ContratanteService } from '../_services';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastrar-contratante',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastrarContratanteComponent implements OnInit {
 
-  constructor() { }
+  novoContratante: NovoContratante = new NovoContratante();
+  error: string = null;
+
+
+  constructor(
+    public contratanteService: ContratanteService,
+    public router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    console.log(this.novoContratante);
+    this.contratanteService.createContratante(this.novoContratante)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data) {
+            this.router.navigate(["/login"]);
+          }
+        }, 
+        error => {
+          this.error = JSON.stringify(error);
+          console.log(this.error);
+        }
+      );
   }
 
 }
