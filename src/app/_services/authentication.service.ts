@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Login } from '../_models';
 
@@ -8,10 +9,15 @@ import { Login } from '../_models';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  login(login: Login) {
-    return this.http.post<Login>(`${environment.apiBaseUrl}api/v1/authentication/login`, login);
+  login(login: Login): Observable<Login> {
+    const requestOptions: Object = {
+      responseType: 'text'
+    }
+    return this.http.post<Login>(`${environment.apiBaseUrl}api/v1/authentication/login`, login, requestOptions);
   }
 
 }

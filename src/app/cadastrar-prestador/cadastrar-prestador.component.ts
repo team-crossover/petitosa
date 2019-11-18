@@ -3,6 +3,7 @@ import { NovoPrestador } from '../_models';
 import { PrestadorService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cadastrar-prestador',
@@ -14,13 +15,14 @@ export class CadastrarPrestadorComponent implements OnInit {
   SIZE_ARRAY = 15;
 
   novoPrestador: NovoPrestador = new NovoPrestador();
-  error: string = null;
+  error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = []; 
 
   constructor(
     public prestadorService: PrestadorService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -37,12 +39,12 @@ export class CadastrarPrestadorComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
+            this.toastr.success('Prestador de serviços cadastrado com sucesso');
             this.router.navigate(["/login"]);
           }
         }, 
         error => {
-          this.error = JSON.stringify(error);
-          console.log(this.error);
+          this.toastr.error(error.error);
         }
       );
   }

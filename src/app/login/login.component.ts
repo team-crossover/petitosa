@@ -3,6 +3,7 @@ import { Login } from '../_models';
 import { AuthenticationService } from '../_services';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,28 +13,28 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   login: Login = new Login();
-  error: string = null;
+  error: any;
 
   constructor(
     public authService: AuthenticationService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    console.log(this.login);
     this.authService.login(this.login)
       .pipe(first())
       .subscribe(
         data => {
           if (data) {
-            console.log('OK');
+            console.log(data);
           }
         }, 
         error => {
-          this.error = JSON.stringify(error);
+          this.toastr.error(error.error);
         }
       );
   }

@@ -3,6 +3,7 @@ import { NovoPrestador, Prestador } from '../_models';
 import { PrestadorService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-prestador',
@@ -13,7 +14,7 @@ export class EditarPrestadorComponent implements OnInit {
 
   prestador: Prestador;
   novoPrestador: NovoPrestador = new NovoPrestador();
-  error: string = null;
+  error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = []; 
 
@@ -21,7 +22,8 @@ export class EditarPrestadorComponent implements OnInit {
 
   constructor(
     public prestadorService: PrestadorService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -51,11 +53,12 @@ export class EditarPrestadorComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
+            this.toastr.success('Prestador de serviços atualizado com sucesso');
             this.router.navigate(["/login"]);
           }
         }, 
         error => {
-          this.error = JSON.stringify(error);
+          this.toastr.error(error.error);
         }
       );
   }
