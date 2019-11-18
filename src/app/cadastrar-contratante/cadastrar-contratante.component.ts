@@ -3,6 +3,7 @@ import { NovoContratante } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ContratanteService } from '../_services';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cadastrar-contratante',
@@ -17,7 +18,8 @@ export class CadastrarContratanteComponent implements OnInit {
 
   constructor(
     public contratanteService: ContratanteService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -30,11 +32,12 @@ export class CadastrarContratanteComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
+            this.toastr.success('Contratante cadastrado com sucesso');
             this.router.navigate(["/login"]);
           }
         }, 
         error => {
-          this.error = JSON.stringify(error);
+          this.toastr.error(error.error);
           console.log(this.error);
         }
       );

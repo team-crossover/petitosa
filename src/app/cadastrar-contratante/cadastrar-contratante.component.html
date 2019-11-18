@@ -68,15 +68,12 @@
                     [(ngModel)]="novoContratante.endereco.cep" name="cep">
                 </div>
               </div>
-              <!-- AJUSTAR ENDERECO
               <div class="form-group row">
-                <label for="complemento" class="col-sm-3 col-form-label">Complemento</label>
+                <label for="logradouro" class="col-sm-3 col-form-label">Logradouro</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="complemento" placeholder="Informar complemento"
-                    [(ngModel)]="novoContratante.endereco.complemento" name="complemento">
+                  <input type="text" class="form-control" id="logradouro" placeholder="Informar logradouro" [(ngModel)]="novoContratante.endereco.logradouro" name="logradouro">
                 </div>
               </div>
-              -->
 
             </form>
             <button type="button" class="btn btn-primary" (click)="onSubmit()">Cadastrar</button>
