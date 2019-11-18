@@ -5,3 +5,4 @@ export * from './novo-contratante';
 export * from './novo-endereco';
 export * from './novo-prestador';
 export * from './prestador';
+export * from './usuario';

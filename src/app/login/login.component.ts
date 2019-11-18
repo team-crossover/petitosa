@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../_models';
 import { AuthenticationService } from '../_services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,10 +14,12 @@ export class LoginComponent implements OnInit {
 
   login: Login = new Login();
   error: any;
+  returnUrl: string;
 
   constructor(
     public authService: AuthenticationService,
     public router: Router,
+    private route: ActivatedRoute,
     public toastr: ToastrService
   ) { }
 
@@ -29,9 +31,13 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if (data) {
-            console.log(data);
+          console.log(data);
+          if (data.body.idContratante == null) {
+            this.returnUrl = 'perfil-prestador/' + data.body.idPrestador;
+          } else if (data.body.idPrestador == null) {
+            this.returnUrl = 'perfil-contratante/' + data.body.idContratante;
           }
+          this.router.navigate([this.returnUrl]);
         }, 
         error => {
           this.toastr.error(error.error);

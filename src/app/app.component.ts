@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from './_services';
+import { Usuario } from './_models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,53 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'petitosa';
+
+  isAuthenticated = false;
+  userRole = '';
+  userName = '???';
+  urlProfile = '';
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public toastr: ToastrService,
+    private auth: AuthenticationService
+  ) {
+
+    auth.currentUser.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.userRole = user.role;
+        if (this.userRole == 'PRESTADOR')
+          this.urlProfile = 'perfil-prestador/' + user.idPrestador;
+        else if (this.userRole == 'CONTRATANTE')
+          this.urlProfile = 'perfil-contratante/' + user.idContratante;
+        else
+          this.urlProfile = null;
+          
+        if (this.userRole == 'PRESTADOR') {
+          auth.getCurrentUserPrestador().subscribe(prestador => {
+            this.userName = prestador.nome;
+          });
+        } else if (this.userRole == 'CONTRATANTE') {
+          auth.getCurrentUserContratante().subscribe(contratante => {
+            this.userName = contratante.nome;
+          });
+        }
+
+      } else {
+        this.isAuthenticated = false;
+        this.userRole = null;
+        this.urlProfile = null;
+      }
+    })
+
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    this.toastr.success('Usuário deslogado com sucesso');
+  }
+
 }

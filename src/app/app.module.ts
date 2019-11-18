@@ -13,6 +13,7 @@ import { CadastrarContratanteComponent } from './cadastrar-contratante/cadastrar
 import { EditarContratanteComponent } from './editar-contratante/editar-contratante.component';
 import { EditarPrestadorComponent } from './editar-prestador/editar-prestador.component';
 import { PerfilPrestadorComponent } from './perfil-prestador/perfil-prestador.component';
+import { PerfilContratanteComponent } from './perfil-contratante/perfil-contratante.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PerfilPrestadorComponent } from './perfil-prestador/perfil-prestador.co
     CadastrarContratanteComponent,
     EditarContratanteComponent,
     EditarPrestadorComponent,
-    PerfilPrestadorComponent
+    PerfilPrestadorComponent,
+    PerfilContratanteComponent
   ],
   imports: [
     BrowserModule,

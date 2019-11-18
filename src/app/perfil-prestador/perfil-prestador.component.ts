@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-prestador',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilPrestadorComponent implements OnInit {
 
-  constructor() { }
+  public idPrestador: number;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.idPrestador = params['id'];
+      }
+    })
+  }
 
   ngOnInit() {
   }

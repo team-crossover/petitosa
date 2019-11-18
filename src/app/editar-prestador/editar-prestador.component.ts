@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NovoPrestador, Prestador } from '../_models';
-import { PrestadorService } from '../_services';
+import { PrestadorService, AuthenticationService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { PerfilPrestadorComponent } from '../perfil-prestador/perfil-prestador.component'; 
 
 @Component({
   selector: 'app-editar-prestador',
@@ -22,11 +23,14 @@ export class EditarPrestadorComponent implements OnInit {
 
   constructor(
     public prestadorService: PrestadorService,
+    public auth: AuthenticationService,
     public router: Router,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private perfilPrestador: PerfilPrestadorComponent
   ) { }
 
   ngOnInit() {
+    this.idPrestador = this.perfilPrestador.idPrestador;
     this.patchNovoPrestador();
   }
 
@@ -54,6 +58,7 @@ export class EditarPrestadorComponent implements OnInit {
         data => {
           if (data) {
             this.toastr.success('Prestador de serviços atualizado com sucesso');
+            this.auth.logout();
             this.router.navigate(["/login"]);
           }
         }, 

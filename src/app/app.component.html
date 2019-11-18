@@ -3,7 +3,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="navbar-nav ml-auto">
+  <ul *ngIf="!isAuthenticated" class="navbar-nav ml-auto">
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="./login">Entrar</a>
     </li>
@@ -12,6 +12,15 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" routerLinkActive="active" routerLink="./cadastrar-contratante">Contratante</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="./cadastrar-prestador">Prestador</a>
+        </div>
+    </li>
+  </ul>
+  <ul *ngIf="isAuthenticated" class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ userName }}</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLinkActive="active" [routerLink]="[urlProfile]">Ver perfil</a>
+          <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>
     </li>
   </ul>
