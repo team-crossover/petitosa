@@ -15,7 +15,7 @@
           
                   <div class="row justify-content-md-center">
                     <div class="col">
-                      <form (ngSubmit)="onSubmit()">
+                      <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
           
                         <h5>Dados pessoais</h5>
           
@@ -73,7 +73,7 @@
                         </div>
           
                       </form>
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Salvar Alterações</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()" [disabled]="!usuarioForm.form.valid">Salvar Alterações</button>
                     </div>
                   </div>
           

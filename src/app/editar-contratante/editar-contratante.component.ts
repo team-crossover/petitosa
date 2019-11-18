@@ -59,7 +59,7 @@ export class EditarContratanteComponent implements OnInit {
           }
         }, 
         error => {
-          this.toastr.error(error.error);
+          this.toastr.error(error.error.error);
         }
       );
   }

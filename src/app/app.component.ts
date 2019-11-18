@@ -16,6 +16,7 @@ export class AppComponent {
   userRole = '';
   userName = '???';
   urlProfile = '';
+  linkBotaoPrincipal: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,12 +29,15 @@ export class AppComponent {
       if (user) {
         this.isAuthenticated = true;
         this.userRole = user.role;
-        if (this.userRole == 'PRESTADOR')
+        if (this.userRole == 'PRESTADOR') {
           this.urlProfile = 'perfil-prestador/' + user.idPrestador;
-        else if (this.userRole == 'CONTRATANTE')
+          this.linkBotaoPrincipal = this.urlProfile;
+        } else if (this.userRole == 'CONTRATANTE') {
           this.urlProfile = 'perfil-contratante/' + user.idContratante;
-        else
+          this.linkBotaoPrincipal = this.urlProfile;
+        } else {
           this.urlProfile = null;
+        }
           
         if (this.userRole == 'PRESTADOR') {
           auth.getCurrentUserPrestador().subscribe(prestador => {
@@ -49,6 +53,7 @@ export class AppComponent {
         this.isAuthenticated = false;
         this.userRole = null;
         this.urlProfile = null;
+        this.linkBotaoPrincipal = 'login';
       }
     })
 

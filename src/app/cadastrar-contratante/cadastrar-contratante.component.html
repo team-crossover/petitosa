@@ -11,7 +11,7 @@
 
         <div class="row justify-content-md-center">
           <div class="col">
-            <form (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
 
               <h5>Dados pessoais</h5>
 
@@ -76,7 +76,7 @@
               </div>
 
             </form>
-            <button type="button" class="btn btn-primary" (click)="onSubmit()">Cadastrar</button>
+            <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!usuarioForm.form.valid">Cadastrar</button>
           </div>
         </div>
 

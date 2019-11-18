@@ -11,55 +11,85 @@
 
         <div class="row justify-content-md-center">
           <div class="col">
-            <form (ngSubmit)="onSubmit()">
+            <form #usuarioForm="ngForm" novalidate>
 
               <h5>Dados pessoais</h5>
 
               <div class="form-group row">
-                <label for="name" class="col-sm-3 col-form-label">Nome</label>
+                <label for="nome" class="col-sm-3 col-form-label">Nome</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="name" placeholder="Informar nome completo"
-                    [(ngModel)]="novoPrestador.nome" name="name">
+                  <input type="text" class="form-control" id="nome" required placeholder="Informar nome completo"
+                    [(ngModel)]="novoPrestador.nome" name="nome" #nome="ngModel">
+                    <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!nome.errors.required">
+                        <i>Nome é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="email" placeholder="Informar endereço de e-mail"
-                    [(ngModel)]="novoPrestador.email" name="email">
+                  <input type="text" class="form-control" id="email" required placeholder="Informar endereço de e-mail"
+                    [(ngModel)]="novoPrestador.email" name="email" #email="ngModel">
+                    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!email.errors.required">
+                        <i>E-mail é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="senha" class="col-sm-3 col-form-label">Senha</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" id="senha" placeholder="Informar a senha"
-                    [(ngModel)]="novoPrestador.senha" name="senha">
+                  <input type="password" class="form-control" id="senha" required placeholder="Informar a senha"
+                    [(ngModel)]="novoPrestador.senha" name="senha" #senha="ngModel">
+                    <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!senha.errors.required">
+                        <i>Senha é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="dataNascimento" class="col-sm-3 col-form-label">Data de nascimento</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="dataNascimento" placeholder="Informar data de nascimento"
-                    [(ngModel)]="novoPrestador.dataNascimento" name="dataNascimento">
+                  <input type="text" class="form-control" id="dataNascimento" required placeholder="Informar data de nascimento"
+                    [(ngModel)]="novoPrestador.dataNascimento" name="dataNascimento" #dataNascimento="ngModel">
+                    <div *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!dataNascimento.errors.required">
+                        <i>Data de nascimento é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="genero" class="col-sm-3 col-form-label">Gênero</label>
                 <div class="col-sm-9">
-                  <select class="form-control" id="genero" placeholder="Informar gênero"
-                    [(ngModel)]="novoPrestador.genero" name="genero">
+                  <select class="form-control" id="genero" required placeholder="Informar gênero"
+                    [(ngModel)]="novoPrestador.genero" name="genero" #genero="ngModel">
                     <option value="F">Feminino</option>
                     <option value="M">Masculino</option>
-                    <option value="M">Outro</option>
+                    <option value="O">Outro</option>
                   </select>
+                  <div *ngIf="genero.errors && (genero.dirty || genero.touched)" class="alert-danger" style="background-color: white">
+                    <div [hidden]="!genero.errors.required">
+                      <i>Gênero é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="password" class="col-sm-3 col-form-label">Descrição</label>
                 <div class="col-sm-9">
-                  <textarea class="form-control" id="descricao"
+                  <textarea class="form-control" id="descricao" required
                     placeholder="Informar descrição do prestador de serviços" rows="3"
-                    [(ngModel)]="novoPrestador.descricao" name="descricao"></textarea>
+                    [(ngModel)]="novoPrestador.descricao" name="descricao" #descricao="ngModel"></textarea>
+                    <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!genero.errors.required">
+                        <i>Descrição é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
 
@@ -68,15 +98,25 @@
               <div class="form-group row">
                 <label for="cep" class="col-sm-3 col-form-label">CEP</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="cep" placeholder="Informar cep"
-                    [(ngModel)]="novoPrestador.endereco.cep" name="cep">
+                  <input type="text" class="form-control" id="cep" required placeholder="Informar cep"
+                    [(ngModel)]="novoPrestador.endereco.cep" name="cep" #cep="ngModel">
+                    <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!cep.errors.required">
+                        <i>CEP é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="logradouro" class="col-sm-3 col-form-label">Logradouro</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="logradouro" placeholder="Informar logradouro"
-                    [(ngModel)]="novoPrestador.endereco.logradouro" name="logradouro">
+                  <input type="text" class="form-control" id="logradouro" required placeholder="Informar logradouro"
+                    [(ngModel)]="novoPrestador.endereco.logradouro" name="logradouro" #logradouro="ngModel">
+                    <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert-danger" style="background-color: white">
+                      <div [hidden]="!logradouro.errors.required">
+                        <i>Logradouro é um campo obrigatório</i>
+                      </div>
+                    </div>
                 </div>
               </div>
 
@@ -333,7 +373,7 @@
                 </div>
               </div>
             </form>
-            <button type="button" class="btn btn-primary" (click)="onSubmit()">Cadastrar</button>
+            <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!usuarioForm.form.valid">Cadastrar</button>
           </div>
         </div>
 
