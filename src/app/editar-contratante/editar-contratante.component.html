@@ -1,3 +1,89 @@
-<p>
-  editar-contratante works!
-</p>
+<div class="modal fade" id="modalEditarContratante" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+
+        <div class="row justify-content-md-center">
+            <div class="col">
+          
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h3>Atualizar dados do contratante</h3>
+                    </div>
+                  </div>
+          
+                  <div class="row justify-content-md-center">
+                    <div class="col">
+                      <form (ngSubmit)="onSubmit()">
+          
+                        <h5>Dados pessoais</h5>
+          
+                        <div class="form-group row">
+                          <label for="name" class="col-sm-3 col-form-label">Nome</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="name" placeholder="Informar nome completo"
+                              [(ngModel)]="novoContratante.nome" name="name">
+                          </div>
+                        </div>
+          
+                        <div class="form-group row">
+                          <label for="email" class="col-sm-3 col-form-label">Email</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="email" placeholder="Informar endereço de e-mail"
+                              [(ngModel)]="novoContratante.email" name="email">
+                          </div>
+                        </div>
+          
+                        <div class="form-group row">
+                          <label for="dataNascimento" class="col-sm-3 col-form-label">Data de nascimento</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="dataNascimento" placeholder="Informar data de nascimento"
+                              [(ngModel)]="novoContratante.dataNascimento" name="dataNascimento">
+                          </div>
+                        </div>
+          
+                        <div class="form-group row">
+                          <label for="genero" class="col-sm-3 col-form-label">Gênero</label>
+                          <div class="col-sm-9">
+                            <select class="form-control" id="genero" placeholder="Informar gênero"
+                              [(ngModel)]="novoContratante.genero" name="genero">
+                              <option value="F">Feminino</option>
+                              <option value="M">Masculino</option>
+                              <option value="M">Outro</option>
+                            </select>
+                          </div>
+                        </div>
+          
+                        <h5>Endereço</h5>
+          
+                        <div class="form-group row">
+                          <label for="cep" class="col-sm-3 col-form-label">CEP</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="cep" placeholder="Informar cep"
+                              [(ngModel)]="novoContratante.endereco.cep" name="cep">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="logradouro" class="col-sm-3 col-form-label">Logradouro</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="logradouro" placeholder="Informar logradouro"
+                              [(ngModel)]="novoContratante.endereco.logradouro" name="logradouro">
+                          </div>
+                        </div>
+          
+                      </form>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Salvar Alterações</button>
+                    </div>
+                  </div>
+          
+                </div>
+              </div>
+          
+            </div>
+          </div>
+
+    </div>
+  </div>
+</div>
+

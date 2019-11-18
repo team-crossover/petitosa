@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-contratante',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilContratanteComponent implements OnInit {
 
-  constructor() { }
+  public idContratante: number;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.idContratante = params['id'];
+      }
+    })
+  }
 
   ngOnInit() {
   }
