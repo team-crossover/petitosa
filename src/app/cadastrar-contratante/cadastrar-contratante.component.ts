@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NovoContratante } from '../_models';
+import { NovoContratante, Endereco } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ContratanteService } from '../_services';
+import { ContratanteService, EnderecoService } from '../_services';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,19 +13,30 @@ import { ToastrService } from 'ngx-toastr';
 export class CadastrarContratanteComponent implements OnInit {
 
   novoContratante: NovoContratante = new NovoContratante();
+  endereco: Endereco = new Endereco();
   error: string = null;
-
 
   constructor(
     public contratanteService: ContratanteService,
+    public enderecoService: EnderecoService,
     public router: Router,
     public toastr: ToastrService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  verifyCep() {
+    if (this.novoContratante.endereco.cep != null) {
+      this.enderecoService.getEndereco(this.novoContratante.endereco.cep).subscribe(data => {
+        this.endereco = data;
+        console.log(this.endereco);
+      })
+    }
   }
 
   onSubmit() {
+    this.novoContratante.endereco.logradouro = this.endereco.logradouro;
+    this.dateFormat();
     console.log(this.novoContratante);
     this.contratanteService.createContratante(this.novoContratante)
       .pipe(first())
@@ -37,10 +48,19 @@ export class CadastrarContratanteComponent implements OnInit {
           }
         }, 
         error => {
-          this.toastr.error(error.error);
-          console.log(this.error);
+          console.log(error);
+          this.toastr.error(error.error.error);
         }
       );
+  }
+
+  dateFormat(){
+    var data = this.novoContratante.dataNascimento;
+    var splitted = data.split("-");
+    var dia = splitted[2];
+    var mes = splitted[1];
+    var ano = splitted[0];
+    this.novoContratante.dataNascimento = dia + "/" + mes + "/" + ano;
   }
 
 }

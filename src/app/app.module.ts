@@ -33,7 +33,7 @@ import { PerfilContratanteComponent } from './perfil-contratante/perfil-contrata
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

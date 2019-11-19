@@ -37,7 +37,8 @@ export class EditarPrestadorComponent implements OnInit {
   patchNovoPrestador() {
     this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
       this.prestador = data;
-      this.novoPrestador.dataNascimento = this.prestador.dataNascimento;
+      //this.novoPrestador.dataNascimento = this.prestador.dataNascimento;
+      this.dateFormatToSee();
       this.novoPrestador.descricao = this.prestador.descricao;
       this.novoPrestador.email = this.prestador.email;
       this.novoPrestador.endereco.cep = this.prestador.endereco.cep;
@@ -52,6 +53,7 @@ export class EditarPrestadorComponent implements OnInit {
   onSubmit() {
     this.novoPrestador.servicosPrestados = this.servicosPrestados;
     this.novoPrestador.precos = this.precos;
+    this.dateFormatToSave();
     this.prestadorService.updatePrestador(this.idPrestador, this.novoPrestador)
       .pipe(first())
       .subscribe(
@@ -66,6 +68,26 @@ export class EditarPrestadorComponent implements OnInit {
           this.toastr.error(error.error);
         }
       );
+  }
+
+  dateFormatToSave(){
+    //yyyy-mm-dd to dd/mm/yyyy
+    var data = this.novoPrestador.dataNascimento;
+    var splitted = data.split("-");
+    var dia = splitted[2];
+    var mes = splitted[1];
+    var ano = splitted[0];
+    this.novoPrestador.dataNascimento = dia + "/" + mes + "/" + ano;
+  }
+
+  dateFormatToSee(){
+    //dd/mm/yyyy to yyyy-mm-dd
+    var data = this.prestador.dataNascimento;
+    var splitted = data.split("/");
+    var dia = splitted[0];
+    var mes = splitted[1];
+    var ano = splitted[2];
+    this.novoPrestador.dataNascimento = ano + "-" + mes + "-" + dia;
   }
 
 }

@@ -45,6 +45,7 @@ export class CadastrarPrestadorComponent implements OnInit {
     this.novoPrestador.servicosPrestados = this.servicosPrestados;
     this.novoPrestador.precos = this.precos;
     this.novoPrestador.endereco.logradouro = this.endereco.logradouro;
+    this.dateFormat();
     console.log(this.novoPrestador);
     this.prestadorService.createPrestador(this.novoPrestador)
       .pipe(first())
@@ -72,6 +73,15 @@ export class CadastrarPrestadorComponent implements OnInit {
     for (let i = 0; i < this.SIZE_ARRAY; i++) {
       array[i] = 0;
     }
+  }
+
+  dateFormat(){
+    var data = this.novoPrestador.dataNascimento;
+    var splitted = data.split("-");
+    var dia = splitted[2];
+    var mes = splitted[1];
+    var ano = splitted[0];
+    this.novoPrestador.dataNascimento = dia + "/" + mes + "/" + ano;
   }
 
 }

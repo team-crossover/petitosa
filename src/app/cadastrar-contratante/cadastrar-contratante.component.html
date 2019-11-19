@@ -11,51 +11,78 @@
 
         <div class="row justify-content-md-center">
           <div class="col">
-            <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
+            <form #usuarioForm="ngForm" novalidate>
 
               <h5>Dados pessoais</h5>
 
               <div class="form-group row">
-                <label for="name" class="col-sm-3 col-form-label">Nome</label>
+                <label for="nome" class="col-sm-3 col-form-label">Nome</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="name" placeholder="Informar nome completo"
-                    [(ngModel)]="novoContratante.nome" name="name">
+                  <input type="text" class="form-control" id="nome" required placeholder="Informar nome completo"
+                    [(ngModel)]="novoContratante.nome" name="nome" #nome="ngModel">
+                  <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!nome.errors.required">
+                      <i>Nome é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="email" placeholder="Informar endereço de e-mail"
-                    [(ngModel)]="novoContratante.email" name="email">
+                  <input type="email" class="form-control" id="email" required placeholder="Informar endereço de e-mail"
+                    [(ngModel)]="novoContratante.email" name="email" #email="ngModel">
+                  <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!email.errors.required">
+                      <i>E-mail é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="senha" class="col-sm-3 col-form-label">Senha</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" id="senha" placeholder="Informar a senha"
-                    [(ngModel)]="novoContratante.senha" name="senha">
+                  <input type="password" class="form-control" id="senha" required placeholder="Informar a senha"
+                    [(ngModel)]="novoContratante.senha" name="senha" #senha="ngModel">
+                  <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!senha.errors.required">
+                      <i>Senha é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="dataNascimento" class="col-sm-3 col-form-label">Data de nascimento</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="dataNascimento" placeholder="Informar data de nascimento"
-                    [(ngModel)]="novoContratante.dataNascimento" name="dataNascimento">
+                  <input type="date" class="form-control" id="dataNascimento" required
+                    placeholder="Informar data de nascimento (dia/mês/ano)" [(ngModel)]="novoContratante.dataNascimento"
+                    name="dataNascimento" #dataNascimento="ngModel">
+                  <div *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)"
+                    class="alert-danger" style="background-color: white">
+                    <div [hidden]="!dataNascimento.errors.required">
+                      <i>Data de nascimento é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="genero" class="col-sm-3 col-form-label">Gênero</label>
                 <div class="col-sm-9">
-                  <select class="form-control" id="genero" placeholder="Informar gênero"
-                    [(ngModel)]="novoContratante.genero" name="genero">
+                  <select class="form-control" id="genero" required placeholder="Informar gênero"
+                    [(ngModel)]="novoContratante.genero" name="genero" #genero="ngModel">
                     <option value="F">Feminino</option>
                     <option value="M">Masculino</option>
-                    <option value="M">Outro</option>
+                    <option value="O">Outro</option>
                   </select>
+                  <div *ngIf="genero.errors && (genero.dirty || genero.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!genero.errors.required">
+                      <i>Gênero é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -63,20 +90,61 @@
 
               <div class="form-group row">
                 <label for="cep" class="col-sm-3 col-form-label">CEP</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="cep" placeholder="Informar cep"
-                    [(ngModel)]="novoContratante.endereco.cep" name="cep">
+                <div class="col">
+                  <input type="number" class="form-control" id="cep" required placeholder="Informar cep"
+                    [(ngModel)]="novoContratante.endereco.cep" name="cep" #cep="ngModel">
+                  <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!cep.errors.required">
+                      <i>CEP é um campo obrigatório</i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-light" (click)="verifyCep()">Verificar CEP</button>
                 </div>
               </div>
+
+              <div *ngIf="novoContratante.endereco.cep != null">
+                <div class="form-group row">
+                  <label for="uf" class="col-sm-3 col-form-label">UF</label>
+                  <div class="col-sm-3">
+                    <input type="text" readonly class="form-control" id="uf" [(ngModel)]="endereco.uf" name="uf"
+                      #uf="ngModel" value="endereco.uf">
+                  </div>
+
+                  <label for="cidade" class="col-sm-3 col-form-label">Cidade</label>
+                  <div class="col-sm-3">
+                    <input type="text" readonly class="form-control" id="cidade" [(ngModel)]="endereco.cidade"
+                      name="cidade" #cidade="ngModel" value="endereco.cidade">
+                  </div>
+
+                  <label for="bairro" class="col-sm-3 col-form-label" style="margin-top: 2%">Bairro</label>
+                  <div class="col-sm-9" style="margin-top: 2%">
+                    <input type="text" readonly class="form-control" id="bairro" [(ngModel)]="endereco.bairro"
+                      name="bairro" #bairro="ngModel" value="endereco.bairro">
+                  </div>
+
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label for="logradouro" class="col-sm-3 col-form-label">Logradouro</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="logradouro" placeholder="Informar logradouro" [(ngModel)]="novoContratante.endereco.logradouro" name="logradouro">
+                  <input type="text" class="form-control" id="logradouro" required placeholder="Informar logradouro"
+                    [(ngModel)]="endereco.logradouro" name="logradouro" #logradouro="ngModel">
+                  <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!logradouro.errors.required">
+                      <i>Logradouro é um campo obrigatório</i>
+                    </div>
+                  </div>
                 </div>
               </div>
 
             </form>
-            <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!usuarioForm.form.valid">Cadastrar</button>
+            <button type="button" class="btn btn-primary" (click)="onSubmit()"
+              [disabled]="!usuarioForm.form.valid">Cadastrar</button>
           </div>
         </div>
 

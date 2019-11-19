@@ -54,7 +54,7 @@
               <div class="form-group row">
                 <label for="dataNascimento" class="col-sm-3 col-form-label">Data de nascimento</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="dataNascimento" required placeholder="Informar data de nascimento"
+                  <input type="date" class="form-control" id="dataNascimento" required placeholder="Informar data de nascimento"
                     [(ngModel)]="novoPrestador.dataNascimento" name="dataNascimento" #dataNascimento="ngModel">
                     <div *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)" class="alert-danger" style="background-color: white">
                       <div [hidden]="!dataNascimento.errors.required">
