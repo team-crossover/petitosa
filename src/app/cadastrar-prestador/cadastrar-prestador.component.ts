@@ -75,11 +75,18 @@ export class CadastrarPrestadorComponent implements OnInit {
     for (let i = 0; i < this.SIZE_ARRAY; i++) {
       array[i] = false;
     }
+    for (let i = 0; i < 3; i++) {
+      array[i] = true;
+    }
   }
 
   fillArrayNumber(array: number[]) {
     for (let i = 0; i < this.SIZE_ARRAY; i++) {
       array[i] = 0;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      array[i] = 15.99;
     }
   }
 
