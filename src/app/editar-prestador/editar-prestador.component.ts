@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NovoPrestador, Prestador } from '../_models';
-import { PrestadorService, AuthenticationService } from '../_services';
+import { NovoPrestador, Prestador, Endereco } from '../_models';
+import { PrestadorService, AuthenticationService, EnderecoService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { PerfilPrestadorComponent } from '../perfil-prestador/perfil-prestador.c
 export class EditarPrestadorComponent implements OnInit {
 
   prestador: Prestador;
+  endereco: Endereco = new Endereco();
   novoPrestador: NovoPrestador = new NovoPrestador();
   error: any;
   servicosPrestados: boolean[] = [];
@@ -23,6 +24,7 @@ export class EditarPrestadorComponent implements OnInit {
 
   constructor(
     public prestadorService: PrestadorService,
+    public enderecoService: EnderecoService,
     public auth: AuthenticationService,
     public router: Router,
     public toastr: ToastrService,
@@ -37,12 +39,14 @@ export class EditarPrestadorComponent implements OnInit {
   patchNovoPrestador() {
     this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
       this.prestador = data;
-      //this.novoPrestador.dataNascimento = this.prestador.dataNascimento;
       this.dateFormatToSee();
       this.novoPrestador.descricao = this.prestador.descricao;
       this.novoPrestador.email = this.prestador.email;
       this.novoPrestador.endereco.cep = this.prestador.endereco.cep;
-      this.novoPrestador.endereco.logradouro = this.prestador.endereco.logradouro;
+      this.endereco.logradouro = this.prestador.endereco.logradouro;
+      this.endereco.bairro = this.prestador.endereco.bairro;
+      this.endereco.cidade = this.prestador.endereco.cidade;
+      this.endereco.uf = this.prestador.endereco.uf;
       this.novoPrestador.genero = this.prestador.genero;
       this.novoPrestador.nome = this.prestador.nome;
       this.precos = this.prestador.precos;
@@ -53,6 +57,7 @@ export class EditarPrestadorComponent implements OnInit {
   onSubmit() {
     this.novoPrestador.servicosPrestados = this.servicosPrestados;
     this.novoPrestador.precos = this.precos;
+    this.novoPrestador.endereco.logradouro = this.endereco.logradouro;
     this.dateFormatToSave();
     this.prestadorService.updatePrestador(this.idPrestador, this.novoPrestador)
       .pipe(first())
@@ -68,6 +73,15 @@ export class EditarPrestadorComponent implements OnInit {
           this.toastr.error(error.error);
         }
       );
+  }
+
+  verifyCep() {
+    if (this.novoPrestador.endereco.cep != null) {
+      this.enderecoService.getEndereco(this.novoPrestador.endereco.cep).subscribe(data => {
+        this.endereco = data;
+        console.log(this.endereco);
+      })
+    }
   }
 
   dateFormatToSave(){
