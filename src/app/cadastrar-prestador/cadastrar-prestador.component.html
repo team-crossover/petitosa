@@ -30,7 +30,7 @@
               <div class="form-group row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="email" required placeholder="Informar endereço de e-mail"
+                  <input type="email" class="form-control" id="email" required placeholder="Informar endereço de e-mail"
                     [(ngModel)]="novoPrestador.email" name="email" #email="ngModel">
                     <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger" style="background-color: white">
                       <div [hidden]="!email.errors.required">
@@ -97,8 +97,8 @@
 
               <div class="form-group row">
                 <label for="cep" class="col-sm-3 col-form-label">CEP</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="cep" required placeholder="Informar cep"
+                <div class="col">
+                  <input type="number" class="form-control" id="cep" required placeholder="Informar cep"
                     [(ngModel)]="novoPrestador.endereco.cep" name="cep" #cep="ngModel">
                     <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert-danger" style="background-color: white">
                       <div [hidden]="!cep.errors.required">
@@ -106,12 +106,36 @@
                       </div>
                     </div>
                 </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-light" (click)="verifyCep()">Verificar CEP</button>
+                </div>
               </div>
+
+              <div *ngIf="novoPrestador.endereco.cep != null">
+                <div class="form-group row">
+                  <label for="uf" class="col-sm-3 col-form-label">UF</label>
+                  <div class="col-sm-3">
+                    <input type="text" readonly class="form-control" id="uf" [(ngModel)]="endereco.uf" name="uf" #uf="ngModel" value="endereco.uf">
+                  </div>
+
+                  <label for="cidade" class="col-sm-3 col-form-label">Cidade</label>
+                  <div class="col-sm-3">
+                    <input type="text" readonly class="form-control" id="cidade" [(ngModel)]="endereco.cidade" name="cidade" #cidade="ngModel" value="endereco.cidade">
+                  </div>
+
+                  <label for="bairro" class="col-sm-3 col-form-label" style="margin-top: 2%">Bairro</label>
+                  <div class="col-sm-9" style="margin-top: 2%">
+                    <input type="text" readonly class="form-control" id="bairro" [(ngModel)]="endereco.bairro" name="bairro" #bairro="ngModel" value="endereco.bairro">
+                  </div>
+
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label for="logradouro" class="col-sm-3 col-form-label">Logradouro</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="logradouro" required placeholder="Informar logradouro"
-                    [(ngModel)]="novoPrestador.endereco.logradouro" name="logradouro" #logradouro="ngModel">
+                    [(ngModel)]="endereco.logradouro" name="logradouro" #logradouro="ngModel">
                     <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert-danger" style="background-color: white">
                       <div [hidden]="!logradouro.errors.required">
                         <i>Logradouro é um campo obrigatório</i>

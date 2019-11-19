@@ -11,7 +11,7 @@ export class EnderecoService {
   constructor(private http: HttpClient) { }
 
   getEndereco(cep: number) {
-    return this.http.get<Endereco>(`${environment.apiBaseUrl}api/v1/endereco/${cep}`);
+    return this.http.get<Endereco>(`${environment.apiBaseUrl}api/v1/endereco?cep=${cep}`);
   }
 
 }

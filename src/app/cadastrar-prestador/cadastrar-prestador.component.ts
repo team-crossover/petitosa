@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NovoPrestador } from '../_models';
-import { PrestadorService } from '../_services';
+import { NovoPrestador, Endereco } from '../_models';
+import { PrestadorService, EnderecoService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -15,12 +15,14 @@ export class CadastrarPrestadorComponent implements OnInit {
   SIZE_ARRAY = 15;
 
   novoPrestador: NovoPrestador = new NovoPrestador();
+  endereco: Endereco = new Endereco();
   error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = []; 
 
   constructor(
     public prestadorService: PrestadorService,
+    public enderecoService: EnderecoService,
     public router: Router,
     public toastr: ToastrService
   ) { }
@@ -28,6 +30,15 @@ export class CadastrarPrestadorComponent implements OnInit {
   ngOnInit() {
     this.fillArrayBoolean(this.servicosPrestados);
     this.fillArrayNumber(this.precos);
+  }
+
+  verifyCep() {
+    if (this.novoPrestador.endereco.cep != null) {
+      this.enderecoService.getEndereco(this.novoPrestador.endereco.cep).subscribe(data => {
+        this.endereco = data;
+        console.log(this.endereco);
+      })
+    }
   }
 
   onSubmit() {
