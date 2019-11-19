@@ -66,7 +66,7 @@ export class EditarContratanteComponent implements OnInit {
           }
         }, 
         error => {
-          this.toastr.error(error.error);
+          this.toastr.error(error.error.error);
         }
       );
   }
@@ -76,6 +76,14 @@ export class EditarContratanteComponent implements OnInit {
       this.enderecoService.getEndereco(this.novoContratante.endereco.cep).subscribe(data => {
         this.endereco = data;
         console.log(this.endereco);
+      }, error => {
+        this.toastr.error('CEP inválido');
+        this.endereco.bairro = '';
+        this.endereco.cidade = '';
+        this.endereco.latitude = 0;
+        this.endereco.longitude = 0;
+        this.endereco.logradouro = '';
+        this.endereco.uf = '';
       })
     }
   }
