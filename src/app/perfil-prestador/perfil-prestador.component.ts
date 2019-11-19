@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Prestador } from '../_models';
-import { PrestadorService } from '../_services';
+import { Prestador, Endereco } from '../_models';
+import { PrestadorService, EnderecoService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil-prestador',
@@ -11,14 +12,17 @@ import { PrestadorService } from '../_services';
 export class PerfilPrestadorComponent implements OnInit {
 
   public idPrestador: number;
-  prestador: Prestador;
+  prestador: Prestador = new Prestador();
+  endereco: Endereco = new Endereco();
   error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private prestadorService: PrestadorService
+    private prestadorService: PrestadorService,
+    private enderecoService: EnderecoService,
+    public toastr: ToastrService
   ) {
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -28,10 +32,15 @@ export class PerfilPrestadorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadPrestador();
+  }
+
+  loadPrestador() {
     this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
       this.prestador = data;
       this.precos = this.prestador.precos;
       this.servicosPrestados = this.prestador.servicosPrestados;
+      this.loadEndereco(this.prestador.endereco.cep);
 
       if (this.prestador.genero === "M") {
         this.prestador.genero = "Masculino";
@@ -40,8 +49,18 @@ export class PerfilPrestadorComponent implements OnInit {
         this.prestador.genero = "Feminino";
       }
       else {
-        this.prestador.genero = "Outros";
+        this.prestador.genero = "Outro";
       }
     });
   }
+
+  loadEndereco(cep: number) {
+    this.enderecoService.getEndereco(cep).subscribe(data => {
+      this.endereco = data;
+      console.log(this.endereco);
+    }, error => {
+      this.toastr.error(error.error.error);
+    });
+  }
+
 }

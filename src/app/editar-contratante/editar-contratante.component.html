@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalEditarPrestador" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalEditarContratante" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
 
@@ -37,13 +37,18 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="email" required
                           placeholder="Informar endereço de e-mail" [(ngModel)]="novoContratante.email" name="email"
-                          #email="ngModel">
+                          #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                         <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger"
                           style="background-color: white">
                           <div [hidden]="!email.errors.required">
                             <i>E-mail é um campo obrigatório</i>
                           </div>
                         </div>
+                        <div *ngIf="email.errors &&(email.touched || email.dirty)" class ="alert-danger" style="background-color: white">
+                          <div [hidden]="!email.errors?.pattern">
+                            Email inválido
+                          </div> 
+                        </div> 
                       </div>
                     </div>
                     <div class="form-group row">

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Contratante } from '../_models';
-import { ContratanteService } from '../_services';
+import { Contratante, Endereco } from '../_models';
+import { ContratanteService, EnderecoService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil-contratante',
@@ -10,7 +11,8 @@ import { ContratanteService } from '../_services';
 })
 export class PerfilContratanteComponent implements OnInit {
 
-  contratante: Contratante;
+  contratante: Contratante = new Contratante();
+  endereco: Endereco = new Endereco();
   error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = [];
@@ -19,7 +21,9 @@ export class PerfilContratanteComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private contratanteService: ContratanteService
+    private contratanteService: ContratanteService,
+    private enderecoService: EnderecoService,
+    public toastr: ToastrService
   ) {
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -29,8 +33,13 @@ export class PerfilContratanteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadContratante();
+  }
+
+  loadContratante() {
     this.contratanteService.getContratante(this.idContratante).subscribe(data => {
       this.contratante = data;
+      this.loadEndereco(this.contratante.endereco.cep);
 
       if (this.contratante.genero === "M") {
         this.contratante.genero = "Masculino";
@@ -39,8 +48,17 @@ export class PerfilContratanteComponent implements OnInit {
         this.contratante.genero = "Feminino";
       }
       else {
-        this.contratante.genero = "Outros";
+        this.contratante.genero = "Outro";
       }
+    });
+  }
+  
+  loadEndereco(cep: number) {
+    this.enderecoService.getEndereco(this.contratante.endereco.cep).subscribe(data => {
+      this.endereco = data;
+      console.log(this.endereco);
+    }, error => {
+      this.toastr.error(error.error.error);
     });
   }
 
