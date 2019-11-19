@@ -1,3 +1,268 @@
-<button type="button" class="btn btn-primary" routerLinkActive="active" routerLink="editar-prestador"
-    data-toggle="modal" data-target="#modalEditarPrestador">Editar</button>
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h3>Perfil do Prestador de serviços
+                            <button type="button" style="float: right;" class="btn btn-primary"
+                                routerLinkActive="active" routerLink="editar-prestador" data-toggle="modal"
+                                data-target="#modalEditarPrestador">Editar</button>
+                        </h3>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <h5 style="margin-bottom: 20px;">Dados pessoais</h5>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Nome:</strong> {{ prestador.nome }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Email:</strong> {{ prestador.email }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Data de nascimento:</strong> {{ prestador.dataNascimento }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Gênero:</strong> {{ prestador.genero }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Descrição:</strong> {{ prestador.descricao }}
+                            </div>
+                        </div>
+
+                        <h5>Endereço</h5>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>CEP:</strong> {{ prestador.endereco.cep }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Logradouro:</strong> {{ prestador.endereco.logradouro }}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h5>Atendimento</h5>
+
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Serviços prestados</label>
+                            <div class="col-sm-9">
+
+                                <h6 class="text-center"><i>Cães</i></h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">M</th>
+                                            <th scope="col">G</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Banho</th>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[0]"
+                                                    name="servicosPrestados[0]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[1]"
+                                                    name="servicosPrestados[1]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[2]"
+                                                    name="servicosPrestados[2]"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tosa</th>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[3]"
+                                                    name="servicosPrestados[3]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[4]"
+                                                    name="servicosPrestados[4]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[5]"
+                                                    name="servicosPrestados[5]"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Passeio</th>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[6]"
+                                                    name="servicosPrestados[6]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[7]"
+                                                    name="servicosPrestados[7]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[8]"
+                                                    name="servicosPrestados[8]"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h6 class="text-center"><i>Gatos</i></h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">M</th>
+                                            <th scope="col">G</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Banho</th>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[9]"
+                                                    name="servicosPrestados[9]"></td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[10]"
+                                                    name="servicosPrestados[10]">
+                                            </td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[11]"
+                                                    name="servicosPrestados[11]">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tosa</th>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[12]"
+                                                    name="servicosPrestados[12]">
+                                            </td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[13]"
+                                                    name="servicosPrestados[13]">
+                                            </td>
+                                            <td><input disabled type="checkbox" [(ngModel)]="servicosPrestados[14]"
+                                                    name="servicosPrestados[14]">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Preços</label>
+                            <div class="col-sm-9 table-responsive">
+                                <h6 class="text-center"><i>Cães</i></h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">M</th>
+                                            <th scope="col">G</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Banho</th>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[0]" name="precos[0]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[1]" name="precos[1]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[2]" name="precos[2]">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tosa</th>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[3]" name="precos[3]">
+
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[4]" name="precos[4]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[5]" name="precos[5]">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Passeio</th>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[6]" name="precos[6]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[7]" name="precos[7]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[8]" name="precos[8]">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h6 class="text-center"><i>Gatos</i></h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">M</th>
+                                            <th scope="col">G</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Banho</th>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[9]" name="precos[9]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[10]" name="precos[10]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[11]" name="precos[11]">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tosa</th>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[12]" name="precos[12]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[13]" name="precos[13]">
+                                            </td>
+                                            <td>
+                                                <input disabled type="number" style="width: 60px" step="0.01"
+                                                    [(ngModel)]="precos[14]" name="precos[14]">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <router-outlet></router-outlet>

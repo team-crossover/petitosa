@@ -1,3 +1,68 @@
-<button type="button" class="btn btn-primary" routerLinkActive="active" routerLink="editar-contratante"
-    data-toggle="modal" data-target="#modalEditarContratante">Editar</button>
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h3>Perfil do Contratante
+                            <button type="button" class="btn btn-primary" routerLinkActive="active"
+                                routerLink="editar-contratante" data-toggle="modal" style="float: right;"
+                                data-target="#modalEditarContratante">Editar</button>
+                        </h3>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <h5 style="margin-bottom: 20px;">Dados pessoais</h5>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Nome: </strong> {{contratante.nome}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Email: </strong> {{contratante.email}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Data de nascimento: </strong> {{contratante.dataNascimento}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Gênero: </strong> {{contratante.genero}}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h5 style="margin-bottom: 20px;">Endereço</h5>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>CEP: </strong> {{contratante.endereco.cep}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Logradouro: </strong> {{contratante.endereco.logradouro}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <router-outlet></router-outlet>
