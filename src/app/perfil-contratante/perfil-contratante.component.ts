@@ -54,7 +54,7 @@ export class PerfilContratanteComponent implements OnInit {
   }
   
   loadEndereco(cep: number) {
-    this.enderecoService.getEndereco(this.contratante.endereco.cep).subscribe(data => {
+    this.enderecoService.getEndereco(cep).subscribe(data => {
       this.endereco = data;
       console.log(this.endereco);
     }, error => {
