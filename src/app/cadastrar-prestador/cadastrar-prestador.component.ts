@@ -44,6 +44,7 @@ export class CadastrarPrestadorComponent implements OnInit {
   onSubmit() {
     this.novoPrestador.servicosPrestados = this.servicosPrestados;
     this.novoPrestador.precos = this.precos;
+    this.novoPrestador.endereco.logradouro = this.endereco.logradouro;
     console.log(this.novoPrestador);
     this.prestadorService.createPrestador(this.novoPrestador)
       .pipe(first())
