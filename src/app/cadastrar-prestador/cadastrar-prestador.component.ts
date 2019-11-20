@@ -85,7 +85,7 @@ export class CadastrarPrestadorComponent implements OnInit {
       array[i] = 0;
     }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       array[i] = 15.99;
     }
   }

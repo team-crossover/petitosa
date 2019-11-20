@@ -169,19 +169,19 @@
                       <tr>
                         <th scope="row">Banho</th>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[0]" name="servicosPrestados[0]"></td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[1]" name="servicosPrestados[1]"></td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[2]" name="servicosPrestados[2]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[3]" name="servicosPrestados[3]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[6]" name="servicosPrestados[6]"></td>
                       </tr>
                       <tr>
                         <th scope="row">Tosa</th>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[3]" name="servicosPrestados[3]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[1]" name="servicosPrestados[1]"></td>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[4]" name="servicosPrestados[4]"></td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[5]" name="servicosPrestados[5]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[7]" name="servicosPrestados[7]"></td>
                       </tr>
                       <tr>
                         <th scope="row">Passeio</th>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[6]" name="servicosPrestados[6]"></td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[7]" name="servicosPrestados[7]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[2]" name="servicosPrestados[2]"></td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[5]" name="servicosPrestados[5]"></td>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[8]" name="servicosPrestados[8]"></td>
                       </tr>
                     </tbody>
@@ -201,16 +201,16 @@
                       <tr>
                         <th scope="row">Banho</th>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[9]" name="servicosPrestados[9]"></td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[10]" name="servicosPrestados[10]">
-                        </td>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[11]" name="servicosPrestados[11]">
+                        </td>
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[13]" name="servicosPrestados[13]">
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">Tosa</th>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[12]" name="servicosPrestados[12]">
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[10]" name="servicosPrestados[10]">
                         </td>
-                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[13]" name="servicosPrestados[13]">
+                        <td><input type="checkbox" [(ngModel)]="servicosPrestados[12]" name="servicosPrestados[12]">
                         </td>
                         <td><input type="checkbox" [(ngModel)]="servicosPrestados[14]" name="servicosPrestados[14]">
                         </td>
@@ -245,20 +245,20 @@
                           </ng-template>
                         </td>
                         <td>
-                          <div *ngIf="servicosPrestados[1] else else1">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[1]"
-                              name="precos[1]">
+                          <div *ngIf="servicosPrestados[3] else else3">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[3]"
+                              name="precos[3]">
                           </div>
-                          <ng-template #else1>
+                          <ng-template #else3>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
                         <td>
-                          <div *ngIf="servicosPrestados[2] else else2">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[2]"
-                              name="precos[2]">
+                          <div *ngIf="servicosPrestados[6] else else6">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[6]"
+                              name="precos[6]">
                           </div>
-                          <ng-template #else2>
+                          <ng-template #else6>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
@@ -266,11 +266,11 @@
                       <tr>
                         <th scope="row">Tosa</th>
                         <td>
-                          <div *ngIf="servicosPrestados[3] else else3">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[3]"
-                              name="precos[3]">
+                          <div *ngIf="servicosPrestados[1] else else3">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[1]"
+                              name="precos[1]">
                           </div>
-                          <ng-template #else3>
+                          <ng-template #else1>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
@@ -284,11 +284,11 @@
                           </ng-template>
                         </td>
                         <td>
-                          <div *ngIf="servicosPrestados[5] else else5">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[5]"
-                              name="precos[5]">
+                          <div *ngIf="servicosPrestados[7] else else7">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[7]"
+                              name="precos[7]">
                           </div>
-                          <ng-template #else5>
+                          <ng-template #else7>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
@@ -296,20 +296,20 @@
                       <tr>
                         <th scope="row">Passeio</th>
                         <td>
-                          <div *ngIf="servicosPrestados[6] else else6">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[6]"
-                              name="precos[6]">
+                          <div *ngIf="servicosPrestados[2] else else2">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[2]"
+                              name="precos[2]">
                           </div>
-                          <ng-template #else6>
+                          <ng-template #else2>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
                         <td>
-                          <div *ngIf="servicosPrestados[7] else else7">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[7]"
-                              name="precos[7]">
+                          <div *ngIf="servicosPrestados[5] else else5">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[5]"
+                              name="precos[5]">
                           </div>
-                          <ng-template #else7>
+                          <ng-template #else5>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
@@ -349,32 +349,11 @@
                           </ng-template>
                         </td>
                         <td>
-                          <div *ngIf="servicosPrestados[10] else else10">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[10]"
-                              name="precos[10]">
-                          </div>
-                          <ng-template #else10>
-                            <input type="number" style="width: 75px" step="0.01" disabled>
-                          </ng-template>
-                        </td>
-                        <td>
-                          <div *ngIf="servicosPrestados[11] else else1">
+                          <div *ngIf="servicosPrestados[11] else else11">
                             <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[11]"
                               name="precos[11]">
                           </div>
                           <ng-template #else11>
-                            <input type="number" style="width: 75px" step="0.01" disabled>
-                          </ng-template>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Tosa</th>
-                        <td>
-                          <div *ngIf="servicosPrestados[12] else else12">
-                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[12]"
-                              name="precos[12]">
-                          </div>
-                          <ng-template #else12>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
@@ -384,6 +363,27 @@
                               name="precos[13]">
                           </div>
                           <ng-template #else13>
+                            <input type="number" style="width: 75px" step="0.01" disabled>
+                          </ng-template>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Tosa</th>
+                        <td>
+                          <div *ngIf="servicosPrestados[10] else else10">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[10]"
+                              name="precos[10]">
+                          </div>
+                          <ng-template #else10>
+                            <input type="number" style="width: 75px" step="0.01" disabled>
+                          </ng-template>
+                        </td>
+                        <td>
+                          <div *ngIf="servicosPrestados[12] else else12">
+                            <input type="number" style="width: 75px" step="0.01" [(ngModel)]="precos[12]"
+                              name="precos[12]">
+                          </div>
+                          <ng-template #else12>
                             <input type="number" style="width: 75px" step="0.01" disabled>
                           </ng-template>
                         </td>
