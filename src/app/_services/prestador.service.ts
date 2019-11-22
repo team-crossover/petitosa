@@ -11,15 +11,19 @@ export class PrestadorService {
   constructor(private http: HttpClient) { }
 
   createPrestador(novoPrestador: NovoPrestador) {
-    return this.http.post<Prestador>(`${environment.apiBaseUrl}api/v1/prestadores`, novoPrestador);
+    return this.http.post<NovoPrestador>(`${environment.apiBaseUrl}api/v1/prestadores`, novoPrestador);
   }
 
   getPrestador(id: number) {
     return this.http.get<Prestador>(`${environment.apiBaseUrl}api/v1/prestador/${id}`);
   }
 
+  getPrestadores() {
+    return this.http.get<Prestador[]>(`${environment.apiBaseUrl}api/v1/prestadores`); 
+  }
+
   updatePrestador(id: number, novoPrestador: NovoPrestador) {
-    return this.http.post<Prestador>(`${environment.apiBaseUrl}api/v1/prestador/${id}`, novoPrestador);
+    return this.http.post<NovoPrestador>(`${environment.apiBaseUrl}api/v1/prestador/${id}`, novoPrestador);
   }
 
 }

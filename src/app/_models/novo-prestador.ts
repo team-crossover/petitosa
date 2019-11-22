@@ -1,6 +1,8 @@
 import { NovoEndereco } from './novo-endereco';
+import { ContaBancaria } from './conta-bancaria';
 
 export class NovoPrestador {
+    contaBancaria: ContaBancaria;
     dataNascimento: string;
     descricao: string;
     email: string;
@@ -13,5 +15,6 @@ export class NovoPrestador {
 
     constructor() {
         this.endereco = new NovoEndereco();
+        this.contaBancaria = new ContaBancaria();
     }
 }
