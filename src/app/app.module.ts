@@ -14,6 +14,12 @@ import { EditarContratanteComponent } from './editar-contratante/editar-contrata
 import { EditarPrestadorComponent } from './editar-prestador/editar-prestador.component';
 import { PerfilPrestadorComponent } from './perfil-prestador/perfil-prestador.component';
 import { PerfilContratanteComponent } from './perfil-contratante/perfil-contratante.component';
+import { AnimaisComponent } from './animais/animais.component';
+import { EditarAnimalComponent } from './editar-animal/editar-animal.component';
+import { RemoverAnimalComponent } from './remover-animal/remover-animal.component';
+import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.component';
+import { EspeciePipe } from './_pipes/especie.pipe';
+import { TamanhoPipe } from './_pipes/tamanho.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import { PerfilContratanteComponent } from './perfil-contratante/perfil-contrata
     EditarContratanteComponent,
     EditarPrestadorComponent,
     PerfilPrestadorComponent,
-    PerfilContratanteComponent
+    PerfilContratanteComponent,
+    AnimaisComponent,
+    EditarAnimalComponent,
+    RemoverAnimalComponent,
+    AdicionarAnimalComponent,
+    EspeciePipe,
+    TamanhoPipe
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col">
+    <h3>Animais</h3>
+  </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary" routerLinkActive="active" routerLink="adicionar">Novo animal</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4" *ngFor="let animal of animais">
+    <div class="card">
+      <!-- <img class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title">{{ animal.apelido }}</h5>
+        <p class="card-text">
+          {{ animal.observacoes }}
+          <br />
+          {{ animal.especie | especie }} da raça
+          {{ animal.raca }}
+          <br />
+          Porte: {{ animal.porte | tamanho }}
+          <br />
+          Nasceu em: {{ animal.dataNascimento }}
+        </p>
+      </div>
+      <div class="card-footer bg-transparent">
+        <a routerLinkActive="active" routerLink="{{animal.id}}/editar" class="card-link">Editar</a>
+        <a routerLinkActive="active" routerLink="{{animal.id}}/remover" class="card-link">Remover</a>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

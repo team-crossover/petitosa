@@ -6,6 +6,11 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <ul class="navbar-nav mr-auto" *ngIf="isAuthenticated && userRole == 'CONTRATANTE'">
+    <li class="nav-item active">
+      <a class="nav-link" routerLinkActive="active" routerLink="./animais">Animais</a>
+    </li>
+  </ul>
   <ul *ngIf="!isAuthenticated" class="navbar-nav ml-auto">
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="./login">Entrar</a>

@@ -8,6 +8,10 @@ import { CadastrarContratanteComponent } from './cadastrar-contratante/cadastrar
 import { EditarContratanteComponent } from './editar-contratante/editar-contratante.component';
 import { PerfilPrestadorComponent } from './perfil-prestador/perfil-prestador.component';
 import { PerfilContratanteComponent } from './perfil-contratante/perfil-contratante.component';
+import { AnimaisComponent } from './animais/animais.component';
+import { EditarAnimalComponent } from './editar-animal/editar-animal.component';
+import { RemoverAnimalComponent } from './remover-animal/remover-animal.component';
+import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +25,13 @@ const routes: Routes = [
   { path: 'perfil-contratante/:id', component: PerfilContratanteComponent,
     children: [
       { path: 'editar-contratante', component: EditarContratanteComponent }
+    ]
+  },
+  { path: 'animais', component: AnimaisComponent,
+    children: [
+      { path: 'adicionar', component: AdicionarAnimalComponent },
+      { path: ':id/editar', component: EditarAnimalComponent },
+      { path: ':id/remover', component: RemoverAnimalComponent },
     ]
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' }
