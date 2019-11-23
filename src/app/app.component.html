@@ -7,8 +7,11 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <ul class="navbar-nav mr-auto" *ngIf="isAuthenticated && userRole == 'CONTRATANTE'">
-    <li class="nav-item active">
+    <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="./animais">Animais</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="./solicitar-servico">Solicitar serviço</a>
     </li>
   </ul>
   <ul *ngIf="!isAuthenticated" class="navbar-nav ml-auto">

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../_models';
 import { AnimalService, AuthenticationService } from '../_services';
-import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { PerfilContratanteComponent } from '../perfil-contratante/perfil-contratante.component';
 
 @Component({
   selector: 'app-animais',
@@ -14,6 +11,8 @@ export class AnimaisComponent implements OnInit {
 
   animais: Animal[] = [];
   idContratante: number;
+
+  public imgAnimalDefault = 'assets/dogcat.jpg';
 
   constructor(
     private animalService: AnimalService,
@@ -29,7 +28,6 @@ export class AnimaisComponent implements OnInit {
       this.idContratante = data.id;
       this.animalService.getAnimals(this.idContratante).subscribe(data => {
         this.animais = data;
-        console.log(this.animais);
       });
     });
   }

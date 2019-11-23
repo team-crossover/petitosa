@@ -12,6 +12,7 @@ import { AnimaisComponent } from './animais/animais.component';
 import { EditarAnimalComponent } from './editar-animal/editar-animal.component';
 import { RemoverAnimalComponent } from './remover-animal/remover-animal.component';
 import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.component';
+import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,11 +30,12 @@ const routes: Routes = [
   },
   { path: 'animais', component: AnimaisComponent,
     children: [
-      { path: 'adicionar', component: AdicionarAnimalComponent },
       { path: ':id/editar', component: EditarAnimalComponent },
       { path: ':id/remover', component: RemoverAnimalComponent },
     ]
   },
+  { path: 'adicionar-animal', component: AdicionarAnimalComponent },
+  { path: 'solicitar-servico', component: SolicitarServicoComponent },
   { path: '', pathMatch: 'full', redirectTo: 'login' }
 ];
 

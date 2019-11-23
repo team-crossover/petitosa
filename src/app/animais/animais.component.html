@@ -3,14 +3,15 @@
     <h3>Animais</h3>
   </div>
   <div class="col-auto">
-    <button type="button" class="btn btn-primary" routerLinkActive="active" routerLink="adicionar">Novo animal</button>
+    <button type="button" class="btn btn-primary" routerLinkActive="active" routerLink="/adicionar-animal">Novo animal</button>
   </div>
 </div>
 <div class="row">
   <div class="col-sm-4" *ngFor="let animal of animais">
     <div class="card">
-      <!-- <img class="card-img-top" alt="..."> -->
+      
       <div class="card-body">
+        <img src="{{(animal && animal.imgAnimal) ? animal.imgAnimal : imgAnimalDefault}}" class="card-img-top img-thumbnail mx-auto d-block" alt="...">
         <h5 class="card-title">{{ animal.apelido }}</h5>
         <p class="card-text">
           {{ animal.observacoes }}
@@ -24,8 +25,8 @@
         </p>
       </div>
       <div class="card-footer bg-transparent">
-        <a routerLinkActive="active" routerLink="{{animal.id}}/editar" class="card-link">Editar</a>
-        <a routerLinkActive="active" routerLink="{{animal.id}}/remover" class="card-link">Remover</a>
+        <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalEditarAnimal" routerLinkActive="active" routerLink="{{animal.id}}/editar">Editar</button>
+        <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalRemoverAnimal" routerLinkActive="active" routerLink="{{animal.id}}/remover">Remover</button>
       </div>
     </div>
   </div>

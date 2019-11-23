@@ -1,3 +1,117 @@
-<p>
-  editar-animal works!
-</p>
+<div class="modal fade" id="modalEditarAnimal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar animal</h5>
+      </div>
+      <div class="modal-body">
+        <form #animalForm="ngForm" novalidate>
+          <div class="form-group row">
+            <label for="apelido" class="col-sm-3 col-form-label">Apelido</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="apelido" required placeholder="Informar apelido"
+                [(ngModel)]="novoAnimal.apelido" name="apelido" #apelido="ngModel">
+              <div *ngIf="apelido.errors && (apelido.dirty || apelido.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!apelido.errors.required">
+                  <i>Apelido é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="especie" class="col-sm-3 col-form-label">Espécie</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="especie" required placeholder="Informar espécie"
+                [(ngModel)]="novoAnimal.especie" name="especie" #especie="ngModel">
+                <option value="CACHORRO">Cachorro</option>
+                <option value="GATO">Gato</option>
+              </select>
+              <div *ngIf="especie.errors && (especie.dirty || especie.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!especie.errors.required">
+                  <i>Espécie é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="raca" class="col-sm-3 col-form-label">Raça</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="raca" required placeholder="Informar raça"
+                [(ngModel)]="novoAnimal.raca" name="raca" #raca="ngModel">
+              <div *ngIf="raca.errors && (raca.dirty || raca.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!raca.errors.required">
+                  <i>Raça é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="porte" class="col-sm-3 col-form-label">Porte</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="porte" required placeholder="Informar espécie"
+                [(ngModel)]="novoAnimal.porte" name="porte" #porte="ngModel">
+                <option value="PEQUENO">Pequeno</option>
+                <option value="MEDIO">Médio</option>
+                <option value="GRANDE">Grande</option>
+              </select>
+              <div *ngIf="porte.errors && (porte.dirty || porte.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!porte.errors.required">
+                  <i>Porte é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="dataNascimento" class="col-sm-3 col-form-label">Data de nascimento</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" id="dataNascimento" required
+                placeholder="Informar data de nascimento" [(ngModel)]="novoAnimal.dataNascimento"
+                name="dataNascimento" #dataNascimento="ngModel">
+              <div *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)"
+                class="alert-danger" style="background-color: white">
+                <div [hidden]="!dataNascimento.errors.required">
+                  <i>Data de nascimento é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="observacoes" class="col-sm-3 col-form-label">Observações</label>
+            <div class="col-sm-9">
+              <textarea type="text" class="form-control" id="observacoes" rows="2" required
+                placeholder="Informar observações" [(ngModel)]="novoAnimal.observacoes" name="observacoes"
+                #observacoes="ngModel"></textarea>
+              <div *ngIf="observacoes.errors && (observacoes.dirty || observacoes.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!apelido.errors.required">
+                  <i>Observações é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="observacoes" class="col-sm-3 col-form-label">Imagem</label>
+            <div class="col-sm-9">
+              <input type="file" #imageInput class="form-control-file" accept="image/*" (change)="imgChangeListener(imageInput)">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

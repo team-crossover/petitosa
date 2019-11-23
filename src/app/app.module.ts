@@ -20,6 +20,7 @@ import { RemoverAnimalComponent } from './remover-animal/remover-animal.componen
 import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.component';
 import { EspeciePipe } from './_pipes/especie.pipe';
 import { TamanhoPipe } from './_pipes/tamanho.pipe';
+import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TamanhoPipe } from './_pipes/tamanho.pipe';
     RemoverAnimalComponent,
     AdicionarAnimalComponent,
     EspeciePipe,
-    TamanhoPipe
+    TamanhoPipe,
+    SolicitarServicoComponent
   ],
   imports: [
     BrowserModule,
