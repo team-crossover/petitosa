@@ -1,3 +1,96 @@
-<p>
-  solicitar-servico works!
-</p>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h3>Solicitar serviço</h3>
+          </div>
+        </div>
+
+        <!--Adicionar serviço-->
+        <div class="row justify-content-md-center">
+          <div class="col">
+            <form #servicoForm="ngForm" novalidate>
+
+              <h5>Adicione um serviço para um animal de estimação</h5>
+
+              <div class="form-group row">
+                <label for="animal" class="col-sm-3 col-form-label">Animal</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="animal" required placeholder="Escolha um animal de estimação"
+                    name="animal" [(ngModel)]="animais">
+                    <option *ngFor="let animal of animais" value= {{animal.id}}>
+                      {{ animal.apelido }}
+                    </option>
+                  </select>
+                  <!--<div *ngIf="animal.errors && (animal.dirty || animal.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!animal.errors.required">
+                      <i>Este é um campo obrigatório</i>
+                    </div>
+                  </div>-->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="animal" class="col-sm-3 col-form-label">Serviços desejados</label>
+                <div class="col-sm-9">
+                  <input type="checkbox" id="banho" name="banho" [(ngModel)]="checkboxes[0]"> Banho 
+                  <br>
+                  <input type="checkbox" id="tosa" name="tosa" [(ngModel)]="checkboxes[1]"> Tosa
+                  <br>
+                  <input type="checkbox" id="passeio" name="passeio" [(ngModel)]="checkboxes[2]"> Passeio
+<!--
+                  <div *ngIf="!(banho.touched && tosa.touched && passeio.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!animal.errors.required">
+                      <i>Escolha pelo menos um tipo de serviço</i>
+                    </div>
+                  </div>-->
+
+                </div>
+              </div> 
+
+            </form>
+            <button type="button" class="btn btn-primary" (click)="addServico()"
+              [disabled]="!servicoForm.form.valid">Adicionar</button>
+          </div>
+        </div>
+
+        <!--Buscar Prestadores-->
+        <br>
+        <hr>
+        <div class="row justify-content-md-center">
+          <div class="col">
+            <form #solicitarForm="ngForm" novalidate>
+
+              <h5>Serviços adicionados:</h5>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Apelido</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Porte</th>
+                    <th scope="col">Serviço(s)</th>
+                  </tr>
+                </thead>
+              </table>
+
+              <p>filtro de preço bla bla</p>
+
+            </form>
+            <button type="button" class="btn btn-primary" (click)="searchPrestadores()"
+              [disabled]="!solicitarForm.form.valid">Buscar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <h5>Prestadores...</h5>
+
+
+  </div>
+</div>
