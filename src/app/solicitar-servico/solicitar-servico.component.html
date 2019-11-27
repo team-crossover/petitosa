@@ -6,6 +6,8 @@
         <div class="row">
           <div class="col">
             <h3>Solicitar serviço</h3>
+            <hr>
+            <br>
           </div>
         </div>
 
@@ -20,29 +22,29 @@
                 <label for="animal" class="col-sm-3 col-form-label">Animal</label>
                 <div class="col-sm-9">
                   <select class="form-control" id="animal" required placeholder="Escolha um animal de estimação"
-                    name="animal" [(ngModel)]="animais">
-                    <option *ngFor="let animal of animais" value= {{animal.id}}>
+                    name="animal" [(ngModel)]="idAnimal" #animal="ngModel">
+                    <option *ngFor="let animal of animais" value={{animal.id}}>
                       {{ animal.apelido }}
                     </option>
                   </select>
-                  <!--<div *ngIf="animal.errors && (animal.dirty || animal.touched)" class="alert-danger"
+                  <div *ngIf="animal.errors && (animal.dirty || animal.touched)" class="alert-danger"
                     style="background-color: white">
                     <div [hidden]="!animal.errors.required">
                       <i>Este é um campo obrigatório</i>
                     </div>
-                  </div>-->
+                  </div>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label for="animal" class="col-sm-3 col-form-label">Serviços desejados</label>
                 <div class="col-sm-9">
-                  <input type="checkbox" id="banho" name="banho" [(ngModel)]="checkboxes[0]"> Banho 
+                  <input type="checkbox" id="banho" name="banho" [(ngModel)]="checkboxes[0]"> Banho
                   <br>
                   <input type="checkbox" id="tosa" name="tosa" [(ngModel)]="checkboxes[1]"> Tosa
                   <br>
                   <input type="checkbox" id="passeio" name="passeio" [(ngModel)]="checkboxes[2]"> Passeio
-<!--
+                  <!--
                   <div *ngIf="!(banho.touched && tosa.touched && passeio.touched)" class="alert-danger"
                     style="background-color: white">
                     <div [hidden]="!animal.errors.required">
@@ -51,7 +53,7 @@
                   </div>-->
 
                 </div>
-              </div> 
+              </div>
 
             </form>
             <button type="button" class="btn btn-primary" (click)="addServico()"
@@ -62,6 +64,7 @@
         <!--Buscar Prestadores-->
         <br>
         <hr>
+        <br>
         <div class="row justify-content-md-center">
           <div class="col">
             <form #solicitarForm="ngForm" novalidate>
@@ -74,11 +77,39 @@
                     <th scope="col">Especie</th>
                     <th scope="col">Porte</th>
                     <th scope="col">Serviço(s)</th>
+                    <th scope="col">Ação</th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr *ngFor="let animal of animalViews">
+                    <th scope="row">{{ animal.apelido }}</th>
+                    <td>{{ animal.especie }}</td>
+                    <td>{{ animal.porte }}</td>
+                    <td> {{animal.tiposServicos[0]}} <br> {{animal.tiposServicos[1]}} <br> {{animal.tiposServicos[2]}}
+                    </td>
+                    <td><button type="button" class="btn btn-danger"
+                        (click)="removeAnimalView(animal.id)">Remover</button></td>
+                  </tr>
+                </tbody>
               </table>
 
-              <p>filtro de preço bla bla</p>
+              <br>
+              <h5>Filtros de busca</h5>
+              <div class="form-group row">
+                <label for="preco" class="col-sm-3 col-form-label">Preço máximo<br>(em reais)</label>
+                <div class="col">
+                  <input type="range" class="custom-range" min="10" max="500" step="10" id="preco"
+                    [(ngModel)]="precoMaximo" name="preco"> {{precoMaximo}} Reais
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="distancia" class="col-sm-3 col-form-label">Distância máxima<br>(em metros)</label>
+                <div class="col">
+                  <input type="range" class="custom-range" min="100" max="1000" step="10" id="distancia"
+                    [(ngModel)]="distanciaMaxima" name="distancia"> {{distanciaMaxima}} Metros
+                </div>
+              </div>
 
             </form>
             <button type="button" class="btn btn-primary" (click)="searchPrestadores()"
@@ -89,7 +120,45 @@
       </div>
     </div>
 
-    <h5>Prestadores...</h5>
+    <!--Resultados-->
+    <br>
+    <div class="card">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col">
+            <h3>Prestadores encontrados</h3>
+            <hr>
+            <br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4" *ngFor="let animal of animais">
+            <div class="card mb-3">
+
+              <div class="card-body">
+                <img src="https://img.icons8.com/pastel-glyph/64/000000/person-male.png"
+                  class="card-img-top img-thumbnail mx-auto d-block" alt="...">
+                <h5 class="card-title">Nome</h5>
+                <p class="card-text">
+                  Distancia
+                  <br />
+                  Preço
+                  <br />
+                  <a>Ver perfil</a>
+                </p>
+              </div>
+              <div class="card-footer bg-transparent">
+                botao confirmar solicitação
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
 
   </div>

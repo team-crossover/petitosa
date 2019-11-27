@@ -21,6 +21,8 @@ import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.co
 import { EspeciePipe } from './_pipes/especie.pipe';
 import { TamanhoPipe } from './_pipes/tamanho.pipe';
 import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
+import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
+import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/confirmar-soliitar-servico.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico
     AdicionarAnimalComponent,
     EspeciePipe,
     TamanhoPipe,
-    SolicitarServicoComponent
+    SolicitarServicoComponent,
+    VerPrestadorComponent,
+    ConfirmarSoliitarServicoComponent
   ],
   imports: [
     BrowserModule,

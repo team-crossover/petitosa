@@ -13,6 +13,8 @@ import { EditarAnimalComponent } from './editar-animal/editar-animal.component';
 import { RemoverAnimalComponent } from './remover-animal/remover-animal.component';
 import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.component';
 import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
+import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
+import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/confirmar-soliitar-servico.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,7 +37,12 @@ const routes: Routes = [
     ]
   },
   { path: 'adicionar-animal', component: AdicionarAnimalComponent },
-  { path: 'solicitar-servico', component: SolicitarServicoComponent },
+  { path: 'solicitar-servico', component: SolicitarServicoComponent,
+  children: [
+    { path: ':id/ver-prestador', component: VerPrestadorComponent },
+    { path: ':id/confirmar-solicitar-servico', component: ConfirmarSoliitarServicoComponent },
+  ]
+},
   { path: '', pathMatch: 'full', redirectTo: 'login' }
 ];
 

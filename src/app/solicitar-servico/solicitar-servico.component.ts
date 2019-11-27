@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimalService, AuthenticationService} from '../_services';
+import { AnimalService, AuthenticationService, PrestadorService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
-import { ServicosPorAnimal, FiltroServico, Contratante, Animal, Endereco } from '../_models';
+import { ServicosPorAnimal, FiltroServico, Contratante, Animal, Endereco, Prestador } from '../_models';
+import { AnimalView } from '../_models/animal-view';
 
 @Component({
   selector: 'app-solicitar-servico',
@@ -22,17 +23,23 @@ export class SolicitarServicoComponent implements OnInit {
   tosa: boolean;
   passeio: boolean;
 
-  servicos: ServicosPorAnimal[] = [];
+  servicos: ServicosPorAnimal[];
   checkboxes: boolean[] = [];
   tiposServicos: string[] = [];
+  prestadores: Prestador[] = [];
+
+  animalViews: AnimalView[] = [];
+  precoMaximo: number;
+  distanciaMaxima: number;
 
   public idContratante: number;
 
   constructor(
     private animalService: AnimalService,
     private auth: AuthenticationService,
+    private prestadorService: PrestadorService,
     public toastr: ToastrService
-  ) {  }
+  ) { }
 
   ngOnInit() {
     this.loadAnimais();
@@ -48,11 +55,19 @@ export class SolicitarServicoComponent implements OnInit {
   }
 
   addServico() {
-    this.checkboxToString();
-    console.log(this.tiposServicos);
+    this.createNewAnimalView();
+
   }
 
   searchPrestadores() {
+    this.servicos = [];
+    this.animalViews.forEach(element => {
+      let novoServico: ServicosPorAnimal = new ServicosPorAnimal();
+      novoServico.idAnimal= element.id;
+      novoServico.tiposServicos = element.tiposServicos;
+      this.servicos.push(novoServico);
+    });
+    console.log(this.servicos);
 
   }
 
@@ -60,16 +75,61 @@ export class SolicitarServicoComponent implements OnInit {
 
   }
 
-  checkboxToString() {
+  createNewAnimalView() {
+
+    let animalSelecionado: AnimalView = new AnimalView();
+    let servicosSelecionados: string[] = [];
+
     if (this.checkboxes[0]) {
-      this.tiposServicos.push('BANHO');
+      servicosSelecionados.push('BANHO');
     }
     if (this.checkboxes[1]) {
-      this.tiposServicos.push('TOSA');
+      servicosSelecionados.push('TOSA');
     }
     if (this.checkboxes[2]) {
-      this.tiposServicos.push('PASSEIO');
+      servicosSelecionados.push('PASSEIO');
     }
+    animalSelecionado.tiposServicos = servicosSelecionados;
+    console.log(animalSelecionado.tiposServicos);
+
+    animalSelecionado.id = this.idAnimal;
+    this.animalService.getAnimal(this.idAnimal).subscribe(data => {
+      animalSelecionado.porte = data.porte;
+      animalSelecionado.especie = data.especie;
+      animalSelecionado.apelido = data.apelido;
+    });
+
+    this.animalViews.push(animalSelecionado);
+
+    //remover animal selecioado das opções de animais
+    this.removeAnimalFromOptions(animalSelecionado.id);
+  }
+
+  removeAnimalView(id: number) {
+    for (var i = 0; i < this.animalViews.length; i++) {
+      if (this.animalViews[i].id === id) {
+        this.animalViews.splice(i, 1);
+      }
+    }
+
+    //retorna animal para as opções
+    this.returnAnimalFromOptions(id);
+
+  }
+
+  removeAnimalFromOptions(id: number) {
+    for (var i = 0; i < this.animais.length; i++) {
+      var teste = this.animais[i].id
+      if (teste === id) {
+        this.animais.splice(i, 1);
+      }
+    }
+  }
+
+  returnAnimalFromOptions(id: number) {
+    this.animalService.getAnimal(id).subscribe(data => {
+      this.animais.push(data);
+    });
   }
 
 }
