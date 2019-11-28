@@ -11,7 +11,7 @@ export class ServicoService {
   constructor(private http: HttpClient) { }
 
   searchPrestadores(filtroServico: FiltroServico) {
-    return this.http.post<PrestadorEncontrado>(`${environment.apiBaseUrl}api/v1/servicos`, filtroServico);
+    return this.http.post<PrestadorEncontrado[]>(`${environment.apiBaseUrl}api/v1/servicos`, filtroServico);
   }
 
 }

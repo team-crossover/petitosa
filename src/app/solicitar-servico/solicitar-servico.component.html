@@ -88,7 +88,7 @@
                     <td> {{animal.tiposServicos[0]}} <br> {{animal.tiposServicos[1]}} <br> {{animal.tiposServicos[2]}}
                     </td>
                     <td><button type="button" class="btn btn-danger"
-                        (click)="removeAnimalView(animal.id)">Remover</button></td>
+                        (click)="removeServico(animal.id)">Remover</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -106,7 +106,7 @@
               <div class="form-group row">
                 <label for="distancia" class="col-sm-3 col-form-label">Distância máxima<br>(em metros)</label>
                 <div class="col">
-                  <input type="range" class="custom-range" min="100" max="1000" step="10" id="distancia"
+                  <input type="range" class="custom-range" min="100" max="20000" step="10" id="distancia"
                     [(ngModel)]="distanciaMaxima" name="distancia"> {{distanciaMaxima}} Metros
                 </div>
               </div>
@@ -134,17 +134,19 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-4" *ngFor="let animal of animais">
+          <div class="col-sm-4" *ngFor="let prestador of prestadoresEncontrados">
             <div class="card mb-3">
 
               <div class="card-body">
-                <img src="https://img.icons8.com/pastel-glyph/64/000000/person-male.png"
+                <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
                   class="card-img-top img-thumbnail mx-auto d-block" alt="...">
-                <h5 class="card-title">Nome</h5>
+                <h5 class="card-title">{{prestador.nome}}</h5>
                 <p class="card-text">
-                  Distancia
+                  {{prestador.avaliacao}}
                   <br />
-                  Preço
+                  Há {{prestador.distancia}} de distância
+                  <br />
+                  <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span>
                   <br />
                   <a>Ver perfil</a>
                 </p>

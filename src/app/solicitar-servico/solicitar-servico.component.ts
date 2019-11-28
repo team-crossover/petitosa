@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimalService, AuthenticationService, PrestadorService } from '../_services';
+import { AnimalService, AuthenticationService, PrestadorService, ServicoService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
-import { ServicosPorAnimal, FiltroServico, Contratante, Animal, Endereco, Prestador } from '../_models';
+import { ServicosPorAnimal, FiltroServico, Contratante, Animal, Endereco, Prestador, PrestadorEncontrado } from '../_models';
 import { AnimalView } from '../_models/animal-view';
 
 @Component({
@@ -11,22 +11,24 @@ import { AnimalView } from '../_models/animal-view';
 })
 export class SolicitarServicoComponent implements OnInit {
 
-  novoServico: ServicosPorAnimal = new ServicosPorAnimal;
+  /**
+   * TODO: 
+   * - Tornar pelo menos 1 item do checkbox de serviço obrigatório
+   * - Bloquear botão de buscar prestadores se tiver nenhum serviço adicionado
+   * - Perfil de prestador (esperar a natália atualizar o perfil, vou só copiar) 
+   */
+
+  public imgPrestadorDefault = '/assets/person.png';
+
   novoFiltro: FiltroServico = new FiltroServico;
   animais: Animal[] = [];
-  contratante: Contratante = new Contratante();
-  endereco: Endereco = new Endereco();
   error: any;
 
   idAnimal: number;
-  banho: boolean;
-  tosa: boolean;
-  passeio: boolean;
-
   servicos: ServicosPorAnimal[];
   checkboxes: boolean[] = [];
   tiposServicos: string[] = [];
-  prestadores: Prestador[] = [];
+  prestadoresEncontrados: PrestadorEncontrado[] = [];
 
   animalViews: AnimalView[] = [];
   precoMaximo: number;
@@ -37,15 +39,15 @@ export class SolicitarServicoComponent implements OnInit {
   constructor(
     private animalService: AnimalService,
     private auth: AuthenticationService,
-    private prestadorService: PrestadorService,
+    private servicoService: ServicoService,
     public toastr: ToastrService
   ) { }
 
   ngOnInit() {
-    this.loadAnimais();
+    this.loadAnimaisAndContratante();
   }
 
-  loadAnimais() {
+  loadAnimaisAndContratante() {
     this.auth.getCurrentUserContratante().subscribe(data => {
       this.idContratante = data.id;
       this.animalService.getAnimals(this.idContratante).subscribe(data => {
@@ -54,29 +56,32 @@ export class SolicitarServicoComponent implements OnInit {
     });
   }
 
-  addServico() {
-    this.createNewAnimalView();
-
-  }
-
   searchPrestadores() {
     this.servicos = [];
     this.animalViews.forEach(element => {
       let novoServico: ServicosPorAnimal = new ServicosPorAnimal();
-      novoServico.idAnimal= element.id;
+      novoServico.idAnimal = element.id;
       novoServico.tiposServicos = element.tiposServicos;
       this.servicos.push(novoServico);
     });
-    console.log(this.servicos);
+    this.novoFiltro.servicosPorAnimais = this.servicos;
+    this.novoFiltro.idContratante = this.idContratante;
+    this.novoFiltro.distanciaMaxima = this.distanciaMaxima;
+    this.novoFiltro.precoTotalMaximo = this.precoMaximo;
+
+    this.servicoService.searchPrestadores(this.novoFiltro).subscribe(data => {
+      this.prestadoresEncontrados = data;
+
+      if (data.length > 0) {
+        this.toastr.success(data.length + ' Prestadores de serviços encontrados');
+      } else {
+        this.toastr.error('Nenhum prestador encontrado. Tente alterar suas opções de busca');
+      }
+    });
 
   }
 
-  onSubmit() {
-
-  }
-
-  createNewAnimalView() {
-
+  addServico() {
     let animalSelecionado: AnimalView = new AnimalView();
     let servicosSelecionados: string[] = [];
 
@@ -90,7 +95,6 @@ export class SolicitarServicoComponent implements OnInit {
       servicosSelecionados.push('PASSEIO');
     }
     animalSelecionado.tiposServicos = servicosSelecionados;
-    console.log(animalSelecionado.tiposServicos);
 
     animalSelecionado.id = this.idAnimal;
     this.animalService.getAnimal(this.idAnimal).subscribe(data => {
@@ -101,13 +105,14 @@ export class SolicitarServicoComponent implements OnInit {
 
     this.animalViews.push(animalSelecionado);
 
-    //remover animal selecioado das opções de animais
+    //remover animal selecioado das opções
     this.removeAnimalFromOptions(animalSelecionado.id);
+
   }
 
-  removeAnimalView(id: number) {
+  removeServico(id: number) {
     for (var i = 0; i < this.animalViews.length; i++) {
-      if (this.animalViews[i].id === id) {
+      if (this.animalViews[i].id == id) {
         this.animalViews.splice(i, 1);
       }
     }
@@ -119,8 +124,7 @@ export class SolicitarServicoComponent implements OnInit {
 
   removeAnimalFromOptions(id: number) {
     for (var i = 0; i < this.animais.length; i++) {
-      var teste = this.animais[i].id
-      if (teste === id) {
+      if (this.animais[i].id == id) {
         this.animais.splice(i, 1);
       }
     }
