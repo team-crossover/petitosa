@@ -15,6 +15,7 @@ import { AdicionarAnimalComponent } from './adicionar-animal/adicionar-animal.co
 import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
 import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
 import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/confirmar-soliitar-servico.component';
+import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -38,11 +39,12 @@ const routes: Routes = [
   },
   { path: 'adicionar-animal', component: AdicionarAnimalComponent },
   { path: 'solicitar-servico', component: SolicitarServicoComponent,
-  children: [
-    { path: ':id/ver-prestador', component: VerPrestadorComponent },
-    { path: ':id/confirmar-solicitar-servico', component: ConfirmarSoliitarServicoComponent },
-  ]
-},
+    children: [
+      { path: ':id/ver-prestador', component: VerPrestadorComponent },
+      { path: ':id/confirmar-solicitar-servico', component: ConfirmarSoliitarServicoComponent },
+    ]
+  },
+  { path: 'ver-solicitacoes', component: VerSolicitacoesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'login' }
 ];
 

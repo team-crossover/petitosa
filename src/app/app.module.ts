@@ -23,6 +23,7 @@ import { TamanhoPipe } from './_pipes/tamanho.pipe';
 import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
 import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
 import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/confirmar-soliitar-servico.component';
+import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/
     TamanhoPipe,
     SolicitarServicoComponent,
     VerPrestadorComponent,
-    ConfirmarSoliitarServicoComponent
+    ConfirmarSoliitarServicoComponent,
+    VerSolicitacoesComponent
   ],
   imports: [
     BrowserModule,
