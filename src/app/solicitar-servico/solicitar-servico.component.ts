@@ -14,8 +14,8 @@ export class SolicitarServicoComponent implements OnInit {
   /**
    * TODO: 
    * - Tornar pelo menos 1 item do checkbox de serviço obrigatório
-   * - Bloquear botão de buscar prestadores se tiver nenhum serviço adicionado
    * - Perfil de prestador (esperar a natália atualizar o perfil, vou só copiar) 
+   * - Esconder/mostrar card de prestadores
    */
 
   public imgPrestadorDefault = '/assets/person.png';
@@ -108,6 +108,8 @@ export class SolicitarServicoComponent implements OnInit {
     //remover animal selecioado das opções
     this.removeAnimalFromOptions(animalSelecionado.id);
 
+    //Limpa a busca de prestadores
+    this.clearPrestadores();
   }
 
   removeServico(id: number) {
@@ -120,6 +122,8 @@ export class SolicitarServicoComponent implements OnInit {
     //retorna animal para as opções
     this.returnAnimalFromOptions(id);
 
+    //Limpa a busca de prestadores
+    this.clearPrestadores();
   }
 
   removeAnimalFromOptions(id: number) {
@@ -134,6 +138,14 @@ export class SolicitarServicoComponent implements OnInit {
     this.animalService.getAnimal(id).subscribe(data => {
       this.animais.push(data);
     });
+  }
+
+  clearPrestadores() {
+    this.prestadoresEncontrados = [];
+  }
+
+  showPrestadores() {
+    return this.prestadoresEncontrados.length > 0;
   }
 
 }

@@ -44,20 +44,12 @@
                   <input type="checkbox" id="tosa" name="tosa" [(ngModel)]="checkboxes[1]"> Tosa
                   <br>
                   <input type="checkbox" id="passeio" name="passeio" [(ngModel)]="checkboxes[2]"> Passeio
-                  <!--
-                  <div *ngIf="!(banho.touched && tosa.touched && passeio.touched)" class="alert-danger"
-                    style="background-color: white">
-                    <div [hidden]="!animal.errors.required">
-                      <i>Escolha pelo menos um tipo de serviço</i>
-                    </div>
-                  </div>-->
-
                 </div>
               </div>
 
             </form>
-            <button type="button" class="btn btn-primary" (click)="addServico()"
-              [disabled]="!servicoForm.form.valid">Adicionar</button>
+            <button type="button" class="btn btn-primary" (click)="addServico()" 
+            [disabled]="!servicoForm.form.valid || (!checkboxes[0] && !checkboxes[1] && !checkboxes[2])">Adicionar</button>
           </div>
         </div>
 
@@ -87,8 +79,8 @@
                     <td>{{ animal.porte }}</td>
                     <td> {{animal.tiposServicos[0]}} <br> {{animal.tiposServicos[1]}} <br> {{animal.tiposServicos[2]}}
                     </td>
-                    <td><button type="button" class="btn btn-danger"
-                        (click)="removeServico(animal.id)">Remover</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="removeServico(animal.id)">Remover</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -99,7 +91,7 @@
                 <label for="preco" class="col-sm-3 col-form-label">Preço máximo<br>(em reais)</label>
                 <div class="col">
                   <input type="range" class="custom-range" min="10" max="500" step="10" id="preco"
-                    [(ngModel)]="precoMaximo" name="preco"> {{precoMaximo}} Reais
+                    [(ngModel)]="precoMaximo" name="preco" [disabled]="animalViews?.length==0"> {{precoMaximo}} Reais
                 </div>
               </div>
 
@@ -107,13 +99,13 @@
                 <label for="distancia" class="col-sm-3 col-form-label">Distância máxima<br>(em metros)</label>
                 <div class="col">
                   <input type="range" class="custom-range" min="100" max="20000" step="10" id="distancia"
-                    [(ngModel)]="distanciaMaxima" name="distancia"> {{distanciaMaxima}} Metros
+                    [(ngModel)]="distanciaMaxima" name="distancia" [disabled]="animalViews?.length==0"> {{distanciaMaxima}} Metros ({{distanciaMaxima/1000}} Km)
                 </div>
               </div>
 
             </form>
             <button type="button" class="btn btn-primary" (click)="searchPrestadores()"
-              [disabled]="!solicitarForm.form.valid">Buscar</button>
+              [disabled]="!solicitarForm.form.valid" [disabled]="animalViews?.length==0">Buscar</button>
           </div>
         </div>
 
@@ -122,7 +114,7 @@
 
     <!--Resultados-->
     <br>
-    <div class="card">
+    <div class="card" *ngIf="showPrestadores()">
       <div class="card-body">
 
         <div class="row">
