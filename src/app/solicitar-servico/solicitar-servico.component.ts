@@ -13,9 +13,7 @@ export class SolicitarServicoComponent implements OnInit {
 
   /**
    * TODO: 
-   * - Tornar pelo menos 1 item do checkbox de serviço obrigatório
    * - Perfil de prestador (esperar a natália atualizar o perfil, vou só copiar) 
-   * - Esconder/mostrar card de prestadores
    */
 
   public imgPrestadorDefault = '/assets/person.png';
