@@ -114,6 +114,7 @@ export class SolicitarServicoComponent implements OnInit {
     for (var i = 0; i < this.animalViews.length; i++) {
       if (this.animalViews[i].id == id) {
         this.animalViews.splice(i, 1);
+        break;
       }
     }
 
@@ -128,6 +129,7 @@ export class SolicitarServicoComponent implements OnInit {
     for (var i = 0; i < this.animais.length; i++) {
       if (this.animais[i].id == id) {
         this.animais.splice(i, 1);
+        break;
       }
     }
   }
