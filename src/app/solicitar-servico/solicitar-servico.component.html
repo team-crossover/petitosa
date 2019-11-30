@@ -48,8 +48,8 @@
               </div>
 
             </form>
-            <button type="button" class="btn btn-primary" (click)="addServico()" 
-            [disabled]="!servicoForm.form.valid || (!checkboxes[0] && !checkboxes[1] && !checkboxes[2])">Adicionar</button>
+            <button type="button" class="btn btn-primary" (click)="addServico()"
+              [disabled]="!servicoForm.form.valid || (!checkboxes[0] && !checkboxes[1] && !checkboxes[2])">Adicionar</button>
           </div>
         </div>
 
@@ -91,7 +91,8 @@
                 <label for="preco" class="col-sm-3 col-form-label">Preço máximo<br>(em reais)</label>
                 <div class="col">
                   <input type="range" class="custom-range" min="10" max="500" step="10" id="preco"
-                    [(ngModel)]="precoMaximo" name="preco" [disabled]="animalViews?.length==0"> {{precoMaximo}} Reais
+                    [(ngModel)]="precoMaximo" name="preco" [disabled]="animalViews?.length==0">
+                  <p *ngIf="precoMaximo>0">{{precoMaximo}} Reais</p>
                 </div>
               </div>
 
@@ -99,7 +100,8 @@
                 <label for="distancia" class="col-sm-3 col-form-label">Distância máxima<br>(em metros)</label>
                 <div class="col">
                   <input type="range" class="custom-range" min="100" max="20000" step="10" id="distancia"
-                    [(ngModel)]="distanciaMaxima" name="distancia" [disabled]="animalViews?.length==0"> {{distanciaMaxima}} Metros ({{distanciaMaxima/1000}} Km)
+                    [(ngModel)]="distanciaMaxima" name="distancia" [disabled]="animalViews?.length==0">
+                  <p *ngIf="distanciaMaxima>0">{{distanciaMaxima}} Metros ({{distanciaMaxima/1000}} Km)</p>
                 </div>
               </div>
 
@@ -134,9 +136,9 @@
                   class="card-img-top img-thumbnail mx-auto d-block" alt="...">
                 <h5 class="card-title">{{prestador.nome}}</h5>
                 <p class="card-text">
-                  {{prestador.avaliacao}} 🐾
+                  🐾 {{prestador.avaliacao}}
                   <br />
-                  Há {{distanciaMaxima/1000}} Km de distância
+                  A {{prestador.distancia/1000}} quilômetros
                   <br />
                   <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span>
                   <br />

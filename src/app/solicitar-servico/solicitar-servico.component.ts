@@ -25,7 +25,6 @@ export class SolicitarServicoComponent implements OnInit {
   idAnimal: number;
   servicos: ServicosPorAnimal[];
   checkboxes: boolean[] = [];
-  tiposServicos: string[] = [];
   prestadoresEncontrados: PrestadorEncontrado[] = [];
 
   animalViews: AnimalView[] = [];
@@ -119,7 +118,7 @@ export class SolicitarServicoComponent implements OnInit {
     }
 
     //retorna animal para as opções
-    this.returnAnimalFromOptions(id);
+    this.returnAnimalToOptions(id);
 
     //Limpa a busca de prestadores
     this.clearPrestadores();
@@ -135,7 +134,7 @@ export class SolicitarServicoComponent implements OnInit {
     this.idAnimal = null
   }
 
-  returnAnimalFromOptions(id: number) {
+  returnAnimalToOptions(id: number) {
     this.animalService.getAnimal(id).subscribe(data => {
       this.animais.push(data);
     });
