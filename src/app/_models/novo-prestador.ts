@@ -8,6 +8,7 @@ export class NovoPrestador {
     email: string;
     endereco: NovoEndereco;
     genero: string;
+    imgPerfil: string;
     nome: string;
     precos: number[];
     senha: string;
