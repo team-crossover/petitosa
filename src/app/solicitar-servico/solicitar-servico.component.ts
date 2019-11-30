@@ -132,6 +132,7 @@ export class SolicitarServicoComponent implements OnInit {
         break;
       }
     }
+    this.idAnimal = null
   }
 
   returnAnimalFromOptions(id: number) {
