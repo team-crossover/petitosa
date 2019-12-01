@@ -10,7 +10,7 @@ import { ServicoService, AuthenticationService } from '../_services';
 export class VerSolicitacoesComponent implements OnInit {
 
   public idPrestador: number;
-  private servicosPorStatus: ServicosPorStatus = new ServicosPorStatus();
+  servicosPorStatus: ServicosPorStatus = new ServicosPorStatus();
 
   constructor(
     private auth: AuthenticationService,
@@ -27,8 +27,12 @@ export class VerSolicitacoesComponent implements OnInit {
       this.servicoService.getByPrestador(this.idPrestador).subscribe(servicos => {
         this.servicosPorStatus = servicos;
         console.log(this.servicosPorStatus);
-      })
+      });
     })
+  }
+
+  acceptSolicitacao() {
+    console.log(this.idPrestador);
   }
 
 }

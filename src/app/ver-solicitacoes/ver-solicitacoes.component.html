@@ -37,6 +37,7 @@
                             <th scope="col" class="text-center">Data esperada para o serviço</th>
                             <th scope="col" class="text-center">Animais e serviços</th>
                             <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Contratante</th>
                             <th scope="col" class="text-center">Ações</th>
                             </tr>
                         </thead>
@@ -46,8 +47,9 @@
                                 <td>pendente.dataEsperadaRealizacao</td>
                                 <td><!--pendente.servicosPorAnimais--></td>
                                 <td>pendente.valorTotal</td>
+                                <td><a routerLinkActive="active" routerLink="./perfil-contratante/{{pendente.idContratante}}" class="stretched-link">Ver perfil</a></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Aceitar</button>
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="acceptService()">Aceitar</button>
                                     <button type="button" class="btn btn-danger btn-sm">Rejeitar</button>
                                 </td>
                             </tr>
