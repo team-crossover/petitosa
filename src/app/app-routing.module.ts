@@ -16,6 +16,10 @@ import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico
 import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
 import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.component';
 import { ConfirmarSolicitarServicoComponent } from './confirmar-solicitar-servico/confirmar-solicitar-servico.component';
+import { RejeitarServicoComponent } from './rejeitar-servico/rejeitar-servico.component';
+import { VerAnimalSolicitacaoComponent } from './ver-animal-solicitacao/ver-animal-solicitacao.component';
+import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
+import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -44,7 +48,14 @@ const routes: Routes = [
       { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent },
     ]
   },
-  { path: 'ver-solicitacoes', component: VerSolicitacoesComponent },
+  { path: 'ver-solicitacoes', component: VerSolicitacoesComponent,
+    children: [
+      { path: ':id/rejeitar-servico', component: RejeitarServicoComponent },
+      { path: ':id/ver-animal', component: VerAnimalSolicitacaoComponent },
+      { path: ':id/desistir-servico', component: DesistirServicoComponent },
+      { path: ':id/servico-finalizado', component: ServicoFinalizadoComponent }
+    ]
+  },
   { path: '', pathMatch: 'full', redirectTo: 'login' }
 ];
 

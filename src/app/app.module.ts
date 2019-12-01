@@ -24,6 +24,12 @@ import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico
 import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
 import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.component';
 import { ConfirmarSolicitarServicoComponent } from './confirmar-solicitar-servico/confirmar-solicitar-servico.component';
+import { RejeitarServicoComponent } from './rejeitar-servico/rejeitar-servico.component';
+import { VerAnimalSolicitacaoComponent } from './ver-animal-solicitacao/ver-animal-solicitacao.component';
+import { DataHoraPipe } from './_pipes/data-hora.pipe';
+import { ServicoPipe } from './_pipes/servico.pipe';
+import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
+import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,13 @@ import { ConfirmarSolicitarServicoComponent } from './confirmar-solicitar-servic
     SolicitarServicoComponent,
     VerPrestadorComponent,
     VerSolicitacoesComponent,
-    ConfirmarSolicitarServicoComponent
+    ConfirmarSolicitarServicoComponent,
+    RejeitarServicoComponent,
+    VerAnimalSolicitacaoComponent,
+    DataHoraPipe,
+    ServicoPipe,
+    DesistirServicoComponent,
+    ServicoFinalizadoComponent
   ],
   imports: [
     BrowserModule,

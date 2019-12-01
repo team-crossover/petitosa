@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicosPorStatus } from '../_models';
 import { ServicoService, AuthenticationService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ver-solicitacoes',
@@ -14,7 +15,8 @@ export class VerSolicitacoesComponent implements OnInit {
 
   constructor(
     private auth: AuthenticationService,
-    private servicoService: ServicoService
+    private servicoService: ServicoService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -31,8 +33,31 @@ export class VerSolicitacoesComponent implements OnInit {
     })
   }
 
-  acceptSolicitacao() {
-    console.log(this.idPrestador);
+  acceptSolicitacao(id) {
+    this.servicoService.acceptServico(id).subscribe(data => {
+      if (data) {
+        this.toastr.success('Serviço aceito com sucesso');
+        this.loadSolicitacoes();
+      }
+    })
+  }
+
+  startSolicitacao(id) {
+    this.servicoService.startServico(id).subscribe(data => {
+      if (data) {
+        this.toastr.success('Serviço iniciado com sucesso');
+        this.loadSolicitacoes();
+      }
+    });
+  }
+
+  finishSolicitacao(id) {
+    this.servicoService.finishServico(id).subscribe(data => {
+      if (data) {
+        this.toastr.success('Serviço finalizado com sucesso');
+        this.loadSolicitacoes();
+      }
+    });
   }
 
 }
