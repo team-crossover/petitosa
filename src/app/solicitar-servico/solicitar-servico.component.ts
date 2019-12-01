@@ -22,7 +22,8 @@ export class SolicitarServicoComponent implements OnInit {
   animais: Animal[] = [];
   error: any;
 
-  idAnimal: number;
+  //idAnimal: number;
+  currentAnimal: Animal = new Animal();
   servicos: ServicosPorAnimal[];
   checkboxes: boolean[] = [];
   prestadoresEncontrados: PrestadorEncontrado[] = [];
@@ -93,12 +94,10 @@ export class SolicitarServicoComponent implements OnInit {
     }
     animalSelecionado.tiposServicos = servicosSelecionados;
 
-    animalSelecionado.id = this.idAnimal;
-    this.animalService.getAnimal(this.idAnimal).subscribe(data => {
-      animalSelecionado.porte = data.porte;
-      animalSelecionado.especie = data.especie;
-      animalSelecionado.apelido = data.apelido;
-    });
+    animalSelecionado.id = this.currentAnimal.id;
+      animalSelecionado.porte = this.currentAnimal.porte;
+      animalSelecionado.especie = this.currentAnimal.especie;
+      animalSelecionado.apelido = this.currentAnimal.apelido;
 
     this.animalViews.push(animalSelecionado);
 
@@ -131,7 +130,7 @@ export class SolicitarServicoComponent implements OnInit {
         break;
       }
     }
-    this.idAnimal = null
+    this.currentAnimal = null;
   }
 
   returnAnimalToOptions(id: number) {

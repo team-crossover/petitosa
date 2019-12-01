@@ -22,8 +22,8 @@
                 <label for="animal" class="col-sm-3 col-form-label">Animal</label>
                 <div class="col-sm-9">
                   <select class="form-control" id="animal" required placeholder="Escolha um animal de estimação"
-                    name="animal" [(ngModel)]="idAnimal" #animal="ngModel">
-                    <option *ngFor="let animal of animais" value={{animal.id}}>
+                    name="animal" [(ngModel)]="currentAnimal" #animal="ngModel">
+                    <option *ngFor="let animal of animais" [ngValue]="animal">
                       {{ animal.apelido }}
                     </option>
                   </select>
@@ -43,7 +43,8 @@
                   <br>
                   <input type="checkbox" id="tosa" name="tosa" [(ngModel)]="checkboxes[1]"> Tosa
                   <br>
-                  <input type="checkbox" id="passeio" name="passeio" [(ngModel)]="checkboxes[2]"> Passeio
+                  <input type="checkbox" id="passeio" name="passeio" [(ngModel)]="checkboxes[2]"
+                    [disabled]="!(currentAnimal?.especie == 'CACHORRO')"> Passeio
                 </div>
               </div>
 
@@ -142,7 +143,7 @@
                   <br />
                   <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span>
                   <br />
-                  <a>Ver perfil</a>
+                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#verPrestadorModal" routerLinkActive="active" routerLink="{{prestador.id}}/perfil">Perfil</button>
                 </p>
               </div>
               <div class="card-footer bg-transparent">
@@ -155,7 +156,6 @@
       </div>
     </div>
 
-
-
   </div>
 </div>
+<router-outlet></router-outlet>

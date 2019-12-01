@@ -22,8 +22,8 @@ import { EspeciePipe } from './_pipes/especie.pipe';
 import { TamanhoPipe } from './_pipes/tamanho.pipe';
 import { SolicitarServicoComponent } from './solicitar-servico/solicitar-servico.component';
 import { VerPrestadorComponent } from './ver-prestador/ver-prestador.component';
-import { ConfirmarSoliitarServicoComponent } from './confirmar-soliitar-servico/confirmar-soliitar-servico.component';
 import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.component';
+import { ConfirmarSolicitarServicoComponent } from './confirmar-solicitar-servico/confirmar-solicitar-servico.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +43,8 @@ import { VerSolicitacoesComponent } from './ver-solicitacoes/ver-solicitacoes.co
     TamanhoPipe,
     SolicitarServicoComponent,
     VerPrestadorComponent,
-    ConfirmarSoliitarServicoComponent,
-    VerSolicitacoesComponent
+    VerSolicitacoesComponent,
+    ConfirmarSolicitarServicoComponent
   ],
   imports: [
     BrowserModule,
