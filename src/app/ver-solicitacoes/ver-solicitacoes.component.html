@@ -20,46 +20,32 @@
                 <li class="nav-item">
                     <a class="nav-link" id="terminadas-tab" data-toggle="tab" href="#terminadas" role="tab" aria-controls="terminadas" aria-selected="false">Terminadas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="desistidas-tab" data-toggle="tab" href="#desistidas" role="tab" aria-controls="desistidas" aria-selected="false">Desistidas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="rejeitadas-tab" data-toggle="tab" href="#rejeitadas" role="tab" aria-controls="rejeitadas" aria-selected="false">Rejeitadas</a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 
                 <div class="tab-pane fade show active" id="pendentes" role="tabpanel" aria-labelledby="pendentes-tab">
-                    <table class="table table-striped">
+                    <table class="table table-striped" *ngIf="servicosPorStatus.pendentes.length > 0; else elsePendente">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data esperada para o serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data esperada para o serviço</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Aceitar</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Rejeitar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Aceitar</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Rejeitar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let pendente of servicosPorStatus.pendentes">
+                                <td>pendente.dataSolicitacao</td>
+                                <td>pendente.dataEsperadaRealizacao</td>
+                                <td><!--pendente.servicosPorAnimais--></td>
+                                <td>pendente.valorTotal</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">Aceitar</button>
                                     <button type="button" class="btn btn-danger btn-sm">Rejeitar</button>
@@ -67,42 +53,27 @@
                             </tr>
                         </tbody>
                     </table>
+                    <ng-template #elsePendente>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações pendentes
+                        </div>
+                    </ng-template>
                 </div>
 
                 <div class="tab-pane fade" id="aceitas" role="tabpanel" aria-labelledby="aceitas-tab">
-                    <table class="table table-striped">
+                    <table class="table table-striped" *ngIf="servicosPorStatus.aceitos.length > 0; else elseAceita">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data esperada para o serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data esperada para o serviço</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th></th>
+                            <tr *ngFor="let aceito of servicosPorStatus.aceitos">
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Iniciar</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Desitir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Iniciar</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Desitir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -113,43 +84,28 @@
                             </tr>
                         </tbody>
                     </table>
+                    <ng-template #elseAceita>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações aceitas
+                        </div>
+                    </ng-template>
                 </div>
 
                 <div class="tab-pane fade" id="andamento" role="tabpanel" aria-labelledby="andamento-tab">
-                    <table class="table table-striped">
+                    <table class="table table-striped" *ngIf="servicosPorStatus.emAndamento.length > 0; else elseAndamento">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data de início</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Contratante</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data de início</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Contratante</th>
+                            <th scope="col" class="text-center">Ações</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let andamento of servicosPorStatus.emAndamento">
                             <tr>
-                                <th></th>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Terminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Terminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -160,36 +116,28 @@
                             </tr>
                         </tbody>
                     </table>
+                    <ng-template #elseAndamento>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações em andamento
+                        </div>
+                    </ng-template>
                 </div>
 
                 <div class="tab-pane fade" id="terminadas" role="tabpanel" aria-labelledby="terminadas-tab">
-                    <table class="table table-striped">
+                    
+                    <table class="table table-striped" *ngIf="servicosPorStatus.terminados.length > 0; else elseTerminada">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data de realização do serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Contratante</th>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data de realização do serviço</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Contratante</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th></th>
+                            <tr *ngFor="let terminado of servicosPorStatus.terminados">
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th></th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -197,7 +145,71 @@
                             </tr>
                         </tbody>
                     </table>
+                    <ng-template #elseTerminada>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações terminadas
+                        </div>
+                    </ng-template>
                 </div>
+
+                <div class="tab-pane fade" id="desistidas" role="tabpanel" aria-labelledby="desistidas-tab">
+                    
+                    <table class="table table-striped" *ngIf="servicosPorStatus.desistidos.length > 0; else elseDesistida">
+                        <thead>
+                            <tr>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data de realização do serviço</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Contratante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let desistido of servicosPorStatus.desistidos">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #elseDesistida>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações desistidas
+                        </div>
+                    </ng-template>
+                </div>
+
+                <div class="tab-pane fade" id="rejeitadas" role="tabpanel" aria-labelledby="rejeitadas-tab">
+                    
+                    <table class="table table-striped" *ngIf="servicosPorStatus.rejeitados.length > 0; else elseRejeitada">
+                        <thead>
+                            <tr>
+                            <th scope="col" class="text-center">Data de solicitação</th>
+                            <th scope="col" class="text-center">Data de realização do serviço</th>
+                            <th scope="col" class="text-center">Animais e serviços</th>
+                            <th scope="col" class="text-center">Valor a receber</th>
+                            <th scope="col" class="text-center">Contratante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rejeitado of servicosPorStatus.rejeitados">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #elseRejeitada>
+                        <div class="alert alert-warning" role="alert">
+                            Você não tem solicitações rejeitdas
+                        </div>
+                    </ng-template>
+                </div>
+
             </div>      
         </div>
     </div>
