@@ -56,8 +56,8 @@ export class AdicionarAnimalComponent implements OnInit {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
-      if (event.target.result.length > 10000000)
-        this.toastr.error("A imagem deve ser menor que 10 MB");
+      if (event.target.result.length > 100000)
+        this.toastr.error("A imagem deve ser menor que 100 kb");
       else
         this.novoAnimal.imgAnimal = event.target.result;
     });

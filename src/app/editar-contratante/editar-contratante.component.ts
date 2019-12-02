@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NovoContratante, Contratante, Endereco } from '../_models';
-import { ContratanteService, AuthenticationService, EnderecoService } from '../_services';
+import { ContratanteService, AuthenticationService, EnderecoService, MoneyService } from '../_services';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PerfilContratanteComponent } from '../perfil-contratante/perfil-contratante.component';
@@ -28,7 +28,8 @@ export class EditarContratanteComponent implements OnInit {
     public auth: AuthenticationService,
     public router: Router,
     public toastr: ToastrService,
-    private perfilContratante: PerfilContratanteComponent
+    private perfilContratante: PerfilContratanteComponent,
+    private money: MoneyService
   ) { }
 
   ngOnInit() {
@@ -48,6 +49,9 @@ export class EditarContratanteComponent implements OnInit {
       this.endereco.uf = this.contratante.endereco.uf;
       this.novoContratante.genero = this.contratante.genero;
       this.novoContratante.nome = this.contratante.nome;
+      this.novoContratante.cartaoCredito.cvv = this.contratante.cartaoCredito.cvv;
+      this.novoContratante.cartaoCredito.numero = this.contratante.cartaoCredito.numero;
+      this.novoContratante.cartaoCredito.validade = this.contratante.cartaoCredito.validade;
 
     });
   }
@@ -107,4 +111,34 @@ export class EditarContratanteComponent implements OnInit {
     var ano = splitted[2];
     this.novoContratante.dataNascimento = ano + "-" + mes + "-" + dia;
   }
+
+  imgChangeListener(imageInput): void {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      if (event.target.result.length > 100000)
+        this.toastr.error("A imagem deve ser menor que 100 kb");
+      else
+        this.novoContratante.imgPerfil = event.target.result;
+    });
+    reader.readAsDataURL(file);
+  }
+
+  verifyCard() {
+    if (this.novoContratante.cartaoCredito != null) {
+      this.money.validateCartao(this.novoContratante.cartaoCredito)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.toastr.success('Cartão válido');
+          }, error => {
+            this.toastr.error('Cartão inválido');
+            console.log(error);
+          }
+        )
+    } else {
+      this.toastr.error('Preencha todos os campos antes de validar o cartão');
+    }
+  }
+
 }

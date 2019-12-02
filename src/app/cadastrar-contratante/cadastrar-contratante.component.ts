@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NovoContratante, Endereco } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ContratanteService, EnderecoService } from '../_services';
+import { ContratanteService, EnderecoService, MoneyService } from '../_services';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,7 +20,8 @@ export class CadastrarContratanteComponent implements OnInit {
     public contratanteService: ContratanteService,
     public enderecoService: EnderecoService,
     public router: Router,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private money: MoneyService
   ) { }
 
   ngOnInit() { }
@@ -70,5 +71,35 @@ export class CadastrarContratanteComponent implements OnInit {
     var ano = splitted[0];
     this.novoContratante.dataNascimento = dia + "/" + mes + "/" + ano;
   }
+
+  imgChangeListener(imageInput): void {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      if (event.target.result.length > 100000)
+        this.toastr.error("A imagem deve ser menor que 100 kb");
+      else
+        this.novoContratante.imgPerfil = event.target.result;
+    });
+    reader.readAsDataURL(file);
+  }
+
+  verifyCard() {
+    if (this.novoContratante.cartaoCredito != null) {
+      this.money.validateCartao(this.novoContratante.cartaoCredito)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.toastr.success('Cartão válido');
+          }, error => {
+            this.toastr.error('Cartão inválido');
+            console.log(error);
+          }
+        )
+    } else {
+      this.toastr.error('Preencha todos os campos antes de validar o cartão');
+    }
+  }
+
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NovoPrestador, Endereco } from '../_models';
-import { PrestadorService, EnderecoService } from '../_services';
+import { PrestadorService, EnderecoService, MoneyService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -24,7 +24,8 @@ export class CadastrarPrestadorComponent implements OnInit {
     public prestadorService: PrestadorService,
     public enderecoService: EnderecoService,
     public router: Router,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private money: MoneyService
   ) { }
 
   ngOnInit() {
@@ -46,6 +47,25 @@ export class CadastrarPrestadorComponent implements OnInit {
         this.endereco.logradouro = '';
         this.endereco.uf = '';
       })
+    }
+  }
+
+  verifyAccount() {
+    console.log(this.novoPrestador.contaBancaria);
+    console.log(this.novoPrestador.contaBancaria.tipo);
+    if (this.novoPrestador.contaBancaria != null) {
+      this.money.validateConta(this.novoPrestador.contaBancaria)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.toastr.success('Conta válida');
+          }, error => {
+            this.toastr.error('Conta inválida');
+            console.log(error);
+          }
+        )
+    } else {
+      this.toastr.error('Preencha todos os campos antes de validar a conta');
     }
   }
 
@@ -97,6 +117,18 @@ export class CadastrarPrestadorComponent implements OnInit {
     var mes = splitted[1];
     var ano = splitted[0];
     this.novoPrestador.dataNascimento = dia + "/" + mes + "/" + ano;
+  }
+
+  imgChangeListener(imageInput): void {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      if (event.target.result.length > 100000)
+        this.toastr.error("A imagem deve ser menor que 100 kb");
+      else
+        this.novoPrestador.imgPerfil = event.target.result;
+    });
+    reader.readAsDataURL(file);
   }
 
 }

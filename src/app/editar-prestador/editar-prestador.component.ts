@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NovoPrestador, Prestador, Endereco } from '../_models';
-import { PrestadorService, AuthenticationService, EnderecoService } from '../_services';
+import { PrestadorService, AuthenticationService, EnderecoService, MoneyService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -28,7 +28,8 @@ export class EditarPrestadorComponent implements OnInit {
     public auth: AuthenticationService,
     public router: Router,
     public toastr: ToastrService,
-    private perfilPrestador: PerfilPrestadorComponent
+    private perfilPrestador: PerfilPrestadorComponent,
+    private money: MoneyService
   ) { }
 
   ngOnInit() {
@@ -51,6 +52,11 @@ export class EditarPrestadorComponent implements OnInit {
       this.novoPrestador.nome = this.prestador.nome;
       this.precos = this.prestador.precos;
       this.servicosPrestados = this.prestador.servicosPrestados;
+      this.novoPrestador.contaBancaria.agencia = this.prestador.contaBancaria.agencia;
+      this.novoPrestador.contaBancaria.digito = this.prestador.contaBancaria.digito;
+      this.novoPrestador.contaBancaria.numero = this.prestador.contaBancaria.numero;
+      this.novoPrestador.contaBancaria.tipo = this.prestador.contaBancaria.tipo;
+
     });
   }
 
@@ -111,5 +117,35 @@ export class EditarPrestadorComponent implements OnInit {
     var ano = splitted[2];
     this.novoPrestador.dataNascimento = ano + "-" + mes + "-" + dia;
   }
+
+  verifyAccount() {
+    if (this.novoPrestador.contaBancaria != null) {
+      this.money.validateConta(this.novoPrestador.contaBancaria)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.toastr.success('Conta válida');
+          }, error => {
+            this.toastr.error('Conta inválida');
+            console.log(error);
+          }
+        )
+    } else {
+      this.toastr.error('Preencha todos os campos antes de validar a conta');
+    }
+  }
+
+  imgChangeListener(imageInput): void {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      if (event.target.result.length > 100000)
+        this.toastr.error("A imagem deve ser menor que 100 kb");
+      else
+        this.novoPrestador.imgPerfil = event.target.result;
+    });
+    reader.readAsDataURL(file);
+  }
+
 
 }

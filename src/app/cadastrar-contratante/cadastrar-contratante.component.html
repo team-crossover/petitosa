@@ -32,18 +32,20 @@
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
                   <input type="email" class="form-control" id="email" required placeholder="Informar endereço de e-mail"
-                    [(ngModel)]="novoContratante.email" name="email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                    [(ngModel)]="novoContratante.email" name="email" #email="ngModel"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                   <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger"
                     style="background-color: white">
                     <div [hidden]="!email.errors.required">
                       <i>E-mail é um campo obrigatório</i>
                     </div>
                   </div>
-                  <div *ngIf="email.errors &&(email.touched || email.dirty)" class ="alert-danger" style="background-color: white">
+                  <div *ngIf="email.errors &&(email.touched || email.dirty)" class="alert-danger"
+                    style="background-color: white">
                     <div [hidden]="!email.errors?.pattern">
                       Email inválido
-                    </div> 
-                  </div> 
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
@@ -88,6 +90,62 @@
                       <i>Gênero é um campo obrigatório</i>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="observacoes" class="col-sm-3 col-form-label">Imagem</label>
+                <div class="col-sm-9">
+                  <input type="file" #imageInput class="form-control-file" accept="image/*"
+                    (change)="imgChangeListener(imageInput)">
+                </div>
+              </div>
+
+              <h5>Cartão de crédito</h5>
+              <div class="form-group row">
+
+                <label for="numero" class="col-sm-3 col-form-label">Número</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" id="numero" required
+                    [(ngModel)]="novoContratante.cartaoCredito.numero" name="numero" #numero="ngModel">
+                  <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!numero.errors.required">
+                      <i>Número é um campo obrigatório</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+
+                <label for="validade" class="col-sm-3 col-form-label">Validade</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="validade" required
+                    [(ngModel)]="novoContratante.cartaoCredito.validade" name="validade" #validade="ngModel">
+                  <div *ngIf="validade.errors && (validade.dirty || validade.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!validade.errors.required">
+                      <i>Validade é um campo obrigatório</i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <label for="cvv" class="col-sm-3 col-form-label">CVV</label>
+                <div class="col">
+                  <input type="number" class="form-control" id="cvv" required
+                  [(ngModel)]="novoContratante.cartaoCredito.cvv" name="cvv" #cvv="ngModel">
+                  <div *ngIf="cvv.errors && (cvv.dirty || cvv.touched)" class="alert-danger"
+                    style="background-color: white">
+                    <div [hidden]="!cvv.errors.required">
+                      <i>CVV é um campo obrigatório</i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-light" (click)="verifyCard()">Verificar cartão</button>
                 </div>
               </div>
 

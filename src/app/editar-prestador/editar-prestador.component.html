@@ -55,8 +55,9 @@
                     <div class="form-group row">
                       <label for="senha" class="col-sm-3 col-form-label">Senha</label>
                       <div class="col-sm-9">
-                        <input type="password" class="form-control" id="senha" placeholder="Informar nova senha (opcional)"
-                          [(ngModel)]="novoPrestador.senha" name="senha" #senha="ngModel">
+                        <input type="password" class="form-control" id="senha"
+                          placeholder="Informar nova senha (opcional)" [(ngModel)]="novoPrestador.senha" name="senha"
+                          #senha="ngModel">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -102,6 +103,79 @@
                             <i>Descrição é um campo obrigatório</i>
                           </div>
                         </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="observacoes" class="col-sm-3 col-form-label">Imagem</label>
+                      <div class="col-sm-9">
+                        <input type="file" #imageInput class="form-control-file" accept="image/*"
+                          (change)="imgChangeListener(imageInput)">
+                      </div>
+                    </div>
+
+                    <h5>Conta bancária</h5>
+                    <div class="form-group row">
+
+                      <label for="agencia" class="col-sm-3 col-form-label">Agência</label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="agencia" required
+                          [(ngModel)]="novoPrestador.contaBancaria.agencia" name="agencia" #agencia="ngModel">
+                        <div *ngIf="agencia.errors && (agencia.dirty || agencia.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!agencia.errors.required">
+                            <i>Agência é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <label for="digito" class="col-sm-3 col-form-label">Dígito</label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="digito" required
+                          [(ngModel)]="novoPrestador.contaBancaria.digito" name="digito" #digito="ngModel">
+                        <div *ngIf="digito.errors && (digito.dirty || digito.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!digito.errors.required">
+                            <i>Dígito é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="numero" class="col-sm-3 col-form-label">Número</label>
+                      <div class="col">
+                        <input type="text" class="form-control" id="numero" required
+                          placeholder="Informar número da conta" [(ngModel)]="novoPrestador.contaBancaria.numero"
+                          name="numero" #numero="ngModel">
+                        <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!numero.errors.required">
+                            <i>Número é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="tipo" class="col-sm-3 col-form-label">Tipo</label>
+                      <div class="col">
+                        <select class="form-control" id="tipo" required placeholder="Informar tipo"
+                          [(ngModel)]="novoPrestador.contaBancaria.tipo" name="tipo" #tipo="ngModel">
+                          <option value="CORRENTE">Corrente</option>
+                          <option value="POUPANCA">Poupança</option>
+                          <option value="SALARIO">Salário</option>
+                        </select>
+                        <div *ngIf="tipo.errors && (tipo.dirty || tipo.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!tipo.errors.required">
+                            <i>Tipo é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-light" (click)="verifyAccount()">Verificar Conta</button>
                       </div>
                     </div>
 

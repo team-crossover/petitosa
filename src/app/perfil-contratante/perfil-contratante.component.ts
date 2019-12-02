@@ -19,6 +19,8 @@ export class PerfilContratanteComponent implements OnInit {
 
   public idContratante: number;
 
+  public imgContratanteDefault = 'assets/avatar.jpg';
+
   constructor(
     private route: ActivatedRoute,
     private contratanteService: ContratanteService,

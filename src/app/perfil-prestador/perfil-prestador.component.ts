@@ -18,6 +18,8 @@ export class PerfilPrestadorComponent implements OnInit {
   servicosPrestados: boolean[] = [];
   precos: number[] = [];
 
+  public imgPrestadorDefault = 'assets/avatar.jpg';
+
   constructor(
     private route: ActivatedRoute,
     private prestadorService: PrestadorService,
