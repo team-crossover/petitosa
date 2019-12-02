@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Contratante, Endereco } from '../_models';
-import { ContratanteService, EnderecoService, AuthenticationService } from '../_services';
+import { Contratante, Endereco, ServicosPorStatus, Servico } from '../_models';
+import { ContratanteService, EnderecoService, AuthenticationService, ServicoService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,6 +16,8 @@ export class PerfilContratanteComponent implements OnInit {
   error: any;
   servicosPrestados: boolean[] = [];
   precos: number[] = [];
+  solicitacoes: ServicosPorStatus = new ServicosPorStatus();
+  servicos: Array<Servico> = new Array<Servico>();
 
   public idContratante: number;
 
@@ -28,6 +30,7 @@ export class PerfilContratanteComponent implements OnInit {
     private route: ActivatedRoute,
     private contratanteService: ContratanteService,
     private enderecoService: EnderecoService,
+    private servicoService: ServicoService,
     public toastr: ToastrService,
     private auth: AuthenticationService
   ) {
@@ -36,10 +39,12 @@ export class PerfilContratanteComponent implements OnInit {
         this.idContratante = params['id'];
       }
     })
+    this.verifyAuth();
   }
 
   ngOnInit() {
     this.loadContratante();
+    this.loadSolicitacoes();
   }
 
   loadContratante() {
@@ -84,5 +89,19 @@ export class PerfilContratanteComponent implements OnInit {
     })
 
   }
+
+  loadSolicitacoes() {
+    this.servicoService.searchByContratante(this.idContratante).subscribe(data => {
+      this.solicitacoes = data;
+      for (let i = this.solicitacoes.terminados.length - 1; i >= 0; i --) {
+        if (this.servicos.length < 3) {
+          this.servicos.push(this.solicitacoes.terminados[i]);
+          console.log(this.solicitacoes.terminados[i]);
+        }
+      }
+    });
+  }
+
+
 
 }

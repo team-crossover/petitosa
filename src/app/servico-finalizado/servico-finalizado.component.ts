@@ -29,12 +29,14 @@ export class ServicoFinalizadoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadServico();
   }
 
   loadServico() {
     this.servicoService.getServico(this.idServico).subscribe(data => {
       if (data && data.dataTerminoRealizacao) {
         this.servico = data;
+        console.log(this.servico)
       }
     });
   }
