@@ -8,7 +8,7 @@
                         <h3>Perfil do Contratante
                             <button type="button" class="btn btn-primary" routerLinkActive="active"
                                 routerLink="editar-contratante" data-toggle="modal" style="float: right;"
-                                data-target="#modalEditarContratante">Editar</button>
+                                data-target="#modalEditarContratante" *ngIf="isAuthenticated && userRole == 'CONTRATANTE'">Editar</button>
                         </h3>
                     </div>
                 </div>

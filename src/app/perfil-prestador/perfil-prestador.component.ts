@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Prestador, Endereco } from '../_models';
-import { PrestadorService, EnderecoService } from '../_services';
+import { PrestadorService, EnderecoService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -20,11 +20,15 @@ export class PerfilPrestadorComponent implements OnInit {
 
   public imgPrestadorDefault = 'assets/avatar.jpg';
 
+  isAuthenticated = false;
+  userRole = '';
+
   constructor(
     private route: ActivatedRoute,
     private prestadorService: PrestadorService,
     private enderecoService: EnderecoService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private auth: AuthenticationService
   ) {
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -35,6 +39,7 @@ export class PerfilPrestadorComponent implements OnInit {
 
   ngOnInit() {
     this.loadPrestador();
+    this.verifyAuth();
   }
 
   loadPrestador() {
@@ -63,6 +68,23 @@ export class PerfilPrestadorComponent implements OnInit {
     }, error => {
       this.toastr.error(error.error.error);
     });
+  }
+
+  verifyAuth() {
+    this.auth.currentUser.subscribe(user => {
+      if (user) {
+        this.userRole = user.role;
+        if (this.userRole == 'PRESTADOR') {
+          this.isAuthenticated = true;
+        } else {
+          this.isAuthenticated = false;
+        } 
+      } else {
+        this.isAuthenticated = false;
+        this.userRole = null;
+      }
+    })
+
   }
 
 }

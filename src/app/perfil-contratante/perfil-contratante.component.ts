@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Contratante, Endereco } from '../_models';
-import { ContratanteService, EnderecoService } from '../_services';
+import { ContratanteService, EnderecoService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -21,11 +21,15 @@ export class PerfilContratanteComponent implements OnInit {
 
   public imgContratanteDefault = 'assets/avatar.jpg';
 
+  isAuthenticated = false;
+  userRole = '';
+
   constructor(
     private route: ActivatedRoute,
     private contratanteService: ContratanteService,
     private enderecoService: EnderecoService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private auth: AuthenticationService
   ) {
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -62,6 +66,23 @@ export class PerfilContratanteComponent implements OnInit {
     }, error => {
       this.toastr.error(error.error.error);
     });
+  }
+
+  verifyAuth() {
+    this.auth.currentUser.subscribe(user => {
+      if (user) {
+        this.userRole = user.role;
+        if (this.userRole == 'CONTRATANTE') {
+          this.isAuthenticated = true;
+        } else {
+          this.isAuthenticated = false;
+        } 
+      } else {
+        this.isAuthenticated = false;
+        this.userRole = null;
+      }
+    })
+
   }
 
 }

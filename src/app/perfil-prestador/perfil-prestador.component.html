@@ -8,7 +8,7 @@
                         <h3>Perfil do Prestador de serviços
                             <button type="button" style="float: right;" class="btn btn-primary"
                                 routerLinkActive="active" routerLink="editar-prestador" data-toggle="modal"
-                                data-target="#modalEditarPrestador">Editar</button>
+                                data-target="#modalEditarPrestador" *ngIf="isAuthenticated && userRole == 'PRESTADOR'">Editar</button>
                         </h3>
                     </div>
                 </div>
