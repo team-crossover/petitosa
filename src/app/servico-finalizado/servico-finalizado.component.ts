@@ -34,8 +34,9 @@ export class ServicoFinalizadoComponent implements OnInit {
 
   loadServico() {
     this.servicoService.getServico(this.idServico).subscribe(data => {
-      if (data && data.dataTerminoRealizacao) {
+      if (data) {
         this.servico = data;
+        this.servico.valorTotal = data.valorTotal / 1.25;
         console.log(this.servico)
       }
     });
