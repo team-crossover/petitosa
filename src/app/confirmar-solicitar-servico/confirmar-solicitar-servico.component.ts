@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Prestador, Contratante, FiltroServico, SolicitacaoServico, PrestadorEncontrado } from '../_models';
+import { Prestador, Contratante, FiltroServico, SolicitacaoServico } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PrestadorService, AuthenticationService, ServicoService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { SolicitarServicoComponent } from '../solicitar-servico/solicitar-servico.component';
 import { first } from 'rxjs/operators';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-confirmar-solicitar-servico',
@@ -12,91 +13,94 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./confirmar-solicitar-servico.component.css']
 })
 export class ConfirmarSolicitarServicoComponent implements OnInit {
-  
-    private idPrestador: number;
-    prestador: Prestador = new Prestador();
-    contratante: Contratante = new Contratante();
-    filtroServico: FiltroServico = new FiltroServico;
-    prestadoresEncontrados: PrestadorEncontrado[] = [];
-    distancia: number;
-    precoTotal: number;
 
-    dataServico: string;
-    horaServico: string;
-    observacoes: string;
+  private idPrestador: number;
+  prestador: Prestador = new Prestador();
+  contratante: Contratante = new Contratante();
+  filtroServico: FiltroServico = new FiltroServico;
 
-    novaSolicitacao: SolicitacaoServico = new SolicitacaoServico();
-  
-    constructor(
-      private prestadorService: PrestadorService,
-      private router: Router,
-      private activatedRoute: ActivatedRoute,
-      private auth: AuthenticationService,
-      private servicoService: ServicoService,
-      private solicitarComponent: SolicitarServicoComponent,
-      public toastr: ToastrService
-    ) { 
-      this.activatedRoute.params.subscribe(params => {
-        if (params['id']) {
-          this.idPrestador = null;
-          this.idPrestador = params['id'];
-        }
-      });
-    }
-  
-    ngOnInit() {
-      this.filtroServico = this.solicitarComponent.novoFiltro;
-      this.loadPrestador();
-      this.loadContratante();
-    }
+  dataMinima: Date;
+  dataServico: string;
+  horaServico: string;
+  observacoes: string;
 
-    loadContratante() {
-      this.auth.getCurrentUserContratante().subscribe(data => {
-        this.contratante = data;
-      });
-    }
-  
-    loadPrestador(){
-      this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
-        this.prestador = data;
-      });
-    }
+  novaSolicitacao: SolicitacaoServico = new SolicitacaoServico();
 
-    onSubmit(){
-      this.dateAndTimeFormatToSave();
-      this.novaSolicitacao.idPrestador = this.idPrestador;
-      this.novaSolicitacao.observacoes = this.observacoes;
-      this.novaSolicitacao.idContratante = this.contratante.id;
-      this.novaSolicitacao.servicosPorAnimais = this.filtroServico.servicosPorAnimais;
+  constructor(
+    private prestadorService: PrestadorService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private auth: AuthenticationService,
+    private servicoService: ServicoService,
+    private solicitarComponent: SolicitarServicoComponent,
+    public toastr: ToastrService
+  ) {
+    this.activatedRoute.params.subscribe(params => {
+      if (params['id']) {
+        this.idPrestador = null;
+        this.idPrestador = params['id'];
+      }
+    });
+  }
 
-      this.servicoService.requestServico(this.novaSolicitacao).pipe(first())
+  ngOnInit() {
+    this.filtroServico = this.solicitarComponent.novoFiltro;
+    this.setTomorrow();
+    this.loadPrestador();
+    this.loadContratante();
+  }
+
+  setTomorrow(){
+    var tomorrow: Date = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.dataMinima = tomorrow;
+    this.dataServico = formatDate(tomorrow, 'yyyy-MM-dd', 'en');
+  }
+
+  loadContratante() {
+    this.auth.getCurrentUserContratante().subscribe(data => {
+      this.contratante = data;
+    });
+  }
+
+  loadPrestador() {
+    this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
+      this.prestador = data;
+    });
+  }
+
+  onSubmit() {
+    this.dateAndTimeFormatToSave();
+    this.novaSolicitacao.idPrestador = this.idPrestador;
+    this.novaSolicitacao.observacoes = this.observacoes;
+    this.novaSolicitacao.idContratante = this.contratante.id;
+    this.novaSolicitacao.servicosPorAnimais = this.filtroServico.servicosPorAnimais;
+
+    this.servicoService.requestServico(this.novaSolicitacao).pipe(first())
       .subscribe(
         data => {
           if (data) {
             this.toastr.success('Solicitação de serviço requisitada com sucesso');
             this.router.navigate(["/solicitacoes-contratante"]);
           }
-        }, 
+        },
         error => {
           console.log(error);
           this.toastr.error('Não foi possível efetuar a solicitação');
         }
       );
-
-    }
-
-    dateAndTimeFormatToSave(){
-      //required: hh:mm dd/MM/yyyy 
-      var data = this.dataServico;
-      var splitted = data.split("-");
-      var dia = splitted[2];
-      var mes = splitted[1];
-      var ano = splitted[0];
-      this.dataServico = dia + "/" + mes + "/" + ano;
-
-      this.novaSolicitacao.dataEsperada = this.horaServico + " " + this.dataServico;
-      console.log(this.novaSolicitacao.dataEsperada);
-    }
-  
   }
-  
+
+  dateAndTimeFormatToSave() {
+    //required: hh:mm dd/MM/yyyy 
+    var data = this.dataServico;
+    var splitted = data.split("-");
+    var dia = splitted[2];
+    var mes = splitted[1];
+    var ano = splitted[0];
+    this.dataServico = dia + "/" + mes + "/" + ano;
+
+    this.novaSolicitacao.dataEsperada = this.horaServico + " " + this.dataServico;
+  }
+
+}

@@ -26,7 +26,8 @@
 
                     <div class="row">
                       <div class="col">
-                        <h5><strong>Local de atendimento:</strong> {{contratante.endereco.logradouro}}, {{contratante.endereco.bairro}}, cep
+                        <h5><strong>Local de atendimento:</strong> {{contratante.endereco.logradouro}},
+                          {{contratante.endereco.bairro}}, cep
                           {{contratante.endereco.cep}}, {{contratante.endereco.cidade}}</h5>
                       </div>
                     </div>
@@ -40,7 +41,7 @@
                     <div class="form-group row">
                       <label for="data" class="col-sm-3 col-form-label">Data do atendimento</label>
                       <div class="col-sm-9">
-                        <input type="date" class="form-control" id="data" required placeholder="Informar data desejada"
+                        <input type="date" min="{{dataMinima | date:'yyyy-MM-dd'}}" class="form-control" id="data" required placeholder="Informar data desejada"
                           [(ngModel)]="dataServico" name="data" #data="ngModel">
                         <div *ngIf="data.errors && (data.dirty || data.touched)" class="alert-danger"
                           style="background-color: white">
@@ -68,8 +69,8 @@
                     <div class="form-group row">
                       <label for="observacoes" class="col-sm-3 col-form-label">Observações</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="observacoes" name="observacoes" placeholder="Observações (opcional)"
-                          [(ngModel)]="observacoes">
+                        <input type="text" class="form-control" id="observacoes" name="observacoes"
+                          placeholder="Observações (opcional)" [(ngModel)]="observacoes">
                       </div>
                     </div>
 
