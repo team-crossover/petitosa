@@ -3,6 +3,7 @@ import { AnimalService, AuthenticationService, PrestadorService, ServicoService 
 import { ToastrService } from 'ngx-toastr';
 import { ServicosPorAnimal, FiltroServico, Contratante, Animal, Endereco, Prestador, PrestadorEncontrado } from '../_models';
 import { AnimalView } from '../_models/animal-view';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitar-servico',
@@ -11,14 +12,8 @@ import { AnimalView } from '../_models/animal-view';
 })
 export class SolicitarServicoComponent implements OnInit {
 
-  /**
-   * TODO: 
-   * - Perfil de prestador (esperar a natália atualizar o perfil, vou só copiar) 
-   */
+  public imgPrestadorDefault = 'assets/avatar.jpg';
 
-  public imgPrestadorDefault = '/assets/person.png';
-
-  novoFiltro: FiltroServico = new FiltroServico;
   animais: Animal[] = [];
   error: any;
 
@@ -33,10 +28,12 @@ export class SolicitarServicoComponent implements OnInit {
   distanciaMaxima: number;
 
   public idContratante: number;
+  public novoFiltro: FiltroServico = new FiltroServico;
 
   constructor(
     private animalService: AnimalService,
     private auth: AuthenticationService,
+    private router: Router,
     private servicoService: ServicoService,
     public toastr: ToastrService
   ) { }
@@ -49,6 +46,11 @@ export class SolicitarServicoComponent implements OnInit {
     this.auth.getCurrentUserContratante().subscribe(data => {
       this.idContratante = data.id;
       this.animalService.getAnimals(this.idContratante).subscribe(data => {
+        //Redireciona para cadastro de animais se não houver nenhum
+        if(data.length==0) {
+          this.toastr.info('Cadastre animais para poder solicitar serviços');
+          this.router.navigate(["/adicionar-animal"]);
+        }
         this.animais = data;
       });
     });

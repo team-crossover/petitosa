@@ -31,6 +31,7 @@ import { ServicoPipe } from './_pipes/servico.pipe';
 import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
+import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/solicitacoes-contratante.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.compo
     ServicoPipe,
     DesistirServicoComponent,
     ServicoFinalizadoComponent,
-    AvaliarServicoComponent
+    AvaliarServicoComponent,
+    SolicitacoesContratanteComponent
   ],
   imports: [
     BrowserModule,

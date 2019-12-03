@@ -21,6 +21,7 @@ import { VerAnimalSolicitacaoComponent } from './ver-animal-solicitacao/ver-anim
 import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
+import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/solicitacoes-contratante.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -43,12 +44,12 @@ const routes: Routes = [
     ]
   },
   { path: 'adicionar-animal', component: AdicionarAnimalComponent },
-  { path: 'solicitar-servico', component: SolicitarServicoComponent,
-    children: [
-      { path: ':id/perfil', component: VerPrestadorComponent },
-      { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent },
-    ]
-  },
+  { path: 'solicitar-servico', component: SolicitarServicoComponent, 
+  children: [
+    { path: ':id/perfil', component: VerPrestadorComponent },
+    { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent }
+  ]},
+  { path: 'solicitacoes-contratante', component: SolicitacoesContratanteComponent },
   { path: 'ver-solicitacoes', component: VerSolicitacoesComponent,
     children: [
       { path: ':id/rejeitar-servico', component: RejeitarServicoComponent },

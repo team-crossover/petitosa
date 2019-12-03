@@ -136,18 +136,19 @@
                 <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
                   class="card-img-top img-thumbnail mx-auto d-block" alt="...">
                 <h5 class="card-title">{{prestador.nome}}</h5>
-                <p class="card-text">
-                  🐾 {{prestador.avaliacao}}
-                  <br />
-                  A {{prestador.distancia/1000}} quilômetros
-                  <br />
-                  <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span>
-                  <br />
-                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#verPrestadorModal" routerLinkActive="active" routerLink="{{prestador.id}}/perfil">Perfil</button>
-                </p>
+                <div class="card-text">
+                  <h5>🐾 {{prestador.avaliacao}}</h5>
+                  <h5>A {{prestador.distancia/1000}} quilômetros</h5>
+                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>                 
+                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                    data-target="#modalVerPrestador" routerLinkActive="active" routerLink="{{prestador.id}}/perfil">Ver
+                    Perfil</button>
+                </div>
               </div>
               <div class="card-footer bg-transparent">
-                botao confirmar solicitação
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                  data-target="#modalConfirmarSolicitacao" routerLinkActive="active"
+                  routerLink="{{prestador.id}}/confirmar">Solicitar Serviço</button>
               </div>
             </div>
           </div>

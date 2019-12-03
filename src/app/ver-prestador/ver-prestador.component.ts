@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Prestador } from '../_models';
+import { Prestador, Endereco, ServicosPorStatus, Servico } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PrestadorService } from '../_services';
+import { PrestadorService, ServicoService, EnderecoService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ver-prestador',
@@ -10,13 +11,21 @@ import { PrestadorService } from '../_services';
 })
 export class VerPrestadorComponent implements OnInit {
 
-  private idPrestador: number;
+  public idPrestador: number;
   prestador: Prestador = new Prestador();
+  endereco: Endereco = new Endereco();
+  error: any;
+  solicitacoes: ServicosPorStatus = new ServicosPorStatus();
+  servicos: Array<Servico> = new Array<Servico>();
+
+  public imgPrestadorDefault = 'assets/avatar.jpg';
 
   constructor(
     private prestadorService: PrestadorService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private enderecoService: EnderecoService,
+    public toastr: ToastrService,
+    private servicoService: ServicoService
   ) { 
     this.activatedRoute.params.subscribe(params => {
       if (params['id']) {
@@ -27,11 +36,45 @@ export class VerPrestadorComponent implements OnInit {
 
   ngOnInit() {
     this.loadPrestador();
+    this.loadUltimasAvaliacoes();
   }
 
-  loadPrestador(){
+  loadPrestador() {
     this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
       this.prestador = data;
+      this.loadEndereco(this.prestador.endereco.cep);
+
+      if (this.prestador.genero === "M") {
+        this.prestador.genero = "Masculino";
+      }
+      else if (this.prestador.genero === "F") {
+        this.prestador.genero = "Feminino";
+      }
+      else {
+        this.prestador.genero = "Outro";
+      }
+    });
+  }
+
+  loadEndereco(cep: number) {
+    this.enderecoService.getEndereco(cep).subscribe(data => {
+      this.endereco = data;
+      console.log(this.endereco);
+    }, error => {
+      this.toastr.error(error.error.error);
+    });
+  }
+
+
+  loadUltimasAvaliacoes() {
+    this.servicoService.getByPrestador(this.idPrestador).subscribe(data => {
+      this.solicitacoes = data;
+      for (let i = this.solicitacoes.terminados.length - 1; i >= 0; i --) {
+        if (this.servicos.length < 3) {
+          this.servicos.push(this.solicitacoes.terminados[i]);
+          console.log(this.solicitacoes.terminados[i]);
+        }
+      }
     });
   }
 

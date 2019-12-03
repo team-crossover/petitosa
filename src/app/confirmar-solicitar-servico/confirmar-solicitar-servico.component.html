@@ -1,3 +1,90 @@
-<p>
-  confirmar-solicitar-servico works!
-</p>
+<div class="modal fade" id="modalConfirmarSolicitacao" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar solicitação de serviço</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col">
+
+          <div class="card">
+            <div class="card-body">
+
+              <div class="row justify-content-md-center">
+                <div class="col">
+                  <form #usuarioForm="ngForm" novalidate>
+
+                    <div class="row">
+                      <div class="col">
+                        <h5><strong>Contratar {{prestador.nome}}</strong></h5>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <h5><strong>Local de atendimento:</strong> {{contratante.endereco.logradouro}}, {{contratante.endereco.bairro}}, cep
+                          {{contratante.endereco.cep}}, {{contratante.endereco.cidade}}</h5>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col">
+                        <h5>Selecione data e hora:</h5>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="data" class="col-sm-3 col-form-label">Data do atendimento</label>
+                      <div class="col-sm-9">
+                        <input type="date" class="form-control" id="data" required placeholder="Informar data desejada"
+                          [(ngModel)]="dataServico" name="data" #data="ngModel">
+                        <div *ngIf="data.errors && (data.dirty || data.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!data.errors.required">
+                            <i>Data é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="hora" class="col-sm-3 col-form-label">Hora do atendimento</label>
+                      <div class="col-sm-9">
+                        <input type="time" class="form-control" id="hora" required
+                          placeholder="Informar a hora desejada" [(ngModel)]="horaServico" name="hora" #hora="ngModel">
+                        <div *ngIf="hora.errors && (hora.dirty || hora.touched)" class="alert-danger"
+                          style="background-color: white">
+                          <div [hidden]="!hora.errors.required">
+                            <i>Hora é um campo obrigatório</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="senha" class="col-sm-3 col-form-label">Observações</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="observacoes" name="observacoes" placeholder="Observações (opcional)"
+                          [(ngModel)]="observacoes">
+                      </div>
+                    </div>
+
+                  </form>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()"
+                    [disabled]="!usuarioForm.form.valid">Solicitar</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

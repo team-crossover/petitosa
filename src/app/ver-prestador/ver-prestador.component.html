@@ -1,18 +1,124 @@
-<div class="modal fade" id="verPrestadorModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Perfil de prestador</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Vc está vendo o prestador {{prestador.id}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="modal fade" id="modalVerPrestador" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perfil de {{ prestador.nome }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
+                    style="max-width: 300px;" class="card-img-top img-thumbnail mx-auto d-block" alt="...">
+
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <h5 style="margin-bottom: 20px;">Dados pessoais</h5>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Nome:</strong> {{ prestador.nome }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Email:</strong> {{ prestador.email }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Data de nascimento:</strong> {{ prestador.dataNascimento }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Gênero:</strong> {{ prestador.genero }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Descrição:</strong> {{ prestador.descricao }}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h5>Endereço</h5>
+                        <br>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>UF: </strong> {{endereco.uf}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Cidade: </strong> {{endereco.cidade}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>CEP: </strong> {{prestador.endereco.cep}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Bairro: </strong> {{endereco.bairro}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <strong>Logradouro: </strong> {{prestador.endereco.logradouro}}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h5>Atendimento</h5>
+                        <br>
+
+                        <div class="form-group row">
+                            <div class="col-sm-3" style="font-weight: bold">Média de avaliações</div>
+                            <div class="col-sm-9">
+                                🐾 {{ prestador.notaMedia }}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h6>Últimas avaliações</h6>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-4" *ngFor="let solicitacao of servicos">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <b>Nota:</b>
+                                                🐾 {{ solicitacao.avaliacao.nota }}
+                                                <br />
+                                                "{{ solicitacao.avaliacao.texto }}"
+                                                <br />
+                                                <br />
+                                                <i>Avaliado em {{ solicitacao.avaliacao.dataAvaliacao | dataHora }}</i>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <em *ngIf="servicos?.length==0">Este prestador ainda não possui avaliações</em>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
