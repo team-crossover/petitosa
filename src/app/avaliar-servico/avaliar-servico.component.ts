@@ -4,6 +4,7 @@ import { ServicoService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { SolicitacoesContratanteComponent } from '../solicitacoes-contratante/solicitacoes-contratante.component';
 
 @Component({
   selector: 'app-avaliar-servico',
@@ -16,6 +17,7 @@ export class AvaliarServicoComponent implements OnInit {
   novaAvaliacao: NovaAvaliacao = new NovaAvaliacao();
 
   constructor(
+    private solicitacoesContratante: SolicitacoesContratanteComponent,
     private toastr: ToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -37,10 +39,9 @@ export class AvaliarServicoComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
-            // TODO: Nagevar para component de ver solicitações do cliente
-            this.router.navigate(['']);
+            this.router.navigate(["/solicitacoes-contratante"]);
             this.toastr.success('Serviço avaliado com sucesso');
-            // TODO: Chamar instância de component pai e recarregar a lista de solicitações
+            this.solicitacoesContratante.loadContratanteAndSolicitacoes();
           }
           
         }

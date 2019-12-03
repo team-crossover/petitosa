@@ -1,0 +1,16 @@
+<div class="modal fade" id="modalDesistirContratante" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Desistir da Solicitação</h5>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza de que deseja desistir dessa solicitação de serviço? Esta ação é irreversível.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLinkActive="active" routerLink="../../">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onSubmit()">Desistir</button>
+        </div>
+      </div>
+    </div>
+  </div>

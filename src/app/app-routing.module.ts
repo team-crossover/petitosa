@@ -22,97 +22,48 @@ import { DesistirServicoComponent } from './desistir-servico/desistir-servico.co
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
 import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/solicitacoes-contratante.component';
-import { AuthGuard } from './_guards';
+import { DesistirSolicitacaoContratanteComponent } from './desistir-solicitacao-contratante/desistir-solicitacao-contratante.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: {
-      requiresGuest: true,
-    }
-  },
-  { path: 'cadastrar-prestador', component: CadastrarPrestadorComponent, canActivate: [AuthGuard], data: {
-      requiresGuest: true,
-    }
-  },
-  { path: 'perfil-prestador/:id', component: PerfilPrestadorComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['prestador', 'contratante']
-    },
+  { path: 'login', component: LoginComponent },
+  { path: 'cadastrar-prestador', component: CadastrarPrestadorComponent },
+  { path: 'perfil-prestador/:id', component: PerfilPrestadorComponent,
     children: [
-      { path: 'editar-prestador', component: EditarPrestadorComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['prestador'],
-        }
-      }
+      { path: 'editar-prestador', component: EditarPrestadorComponent }
     ]
   },
-  { path: 'cadastrar-contratante', component: CadastrarContratanteComponent, canActivate: [AuthGuard], data: {
-      requiresGuest: true,
-    }
-  },
-  { path: 'perfil-contratante/:id', component: PerfilContratanteComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['contratante', 'prestador']
-    },
+  { path: 'cadastrar-contratante', component: CadastrarContratanteComponent },
+  { path: 'perfil-contratante/:id', component: PerfilContratanteComponent,
     children: [
-      { path: 'editar-contratante', component: EditarContratanteComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['contratante'],
-        }
-     }
+      { path: 'editar-contratante', component: EditarContratanteComponent }
     ]
   },
-  { path: 'animais', component: AnimaisComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['contratante'],
-    },
+  { path: 'animais', component: AnimaisComponent,
     children: [
-      { path: ':id/editar', component: EditarAnimalComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['contratante'],
-        }
-      },
-      { path: ':id/remover', component: RemoverAnimalComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['contratante'],
-        }
-      },
+      { path: ':id/editar', component: EditarAnimalComponent },
+      { path: ':id/remover', component: RemoverAnimalComponent },
     ]
   },
-  { path: 'adicionar-animal', component: AdicionarAnimalComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['contratante']
-    }
-  },
-  { path: 'solicitar-servico', component: SolicitarServicoComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['contratante']
-    },
+  { path: 'adicionar-animal', component: AdicionarAnimalComponent },
+  { path: 'solicitar-servico', component: SolicitarServicoComponent, 
     children: [
-      { path: ':id/perfil', component: VerPrestadorComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['contratante']
-        }
-      },
-      { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['contratante']
-        }
-      }
+      { path: ':id/perfil', component: VerPrestadorComponent },
+      { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent }
     ]
   },
-  { path: 'solicitacoes-contratante', component: SolicitacoesContratanteComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['contratante']
-    }
-  },
-  { path: 'ver-solicitacoes', component: VerSolicitacoesComponent, canActivate: [AuthGuard], data: {
-      requiresRoles: ['prestador']
-    },
+  { path: 'solicitacoes-contratante', component: SolicitacoesContratanteComponent,
     children: [
-      { path: ':id/rejeitar-servico', component: RejeitarServicoComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['prestador']
-        }
-      },
-      { path: ':id/ver-animal', component: VerAnimalSolicitacaoComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['prestador']
-        }
-      },
-      { path: ':id/desistir-servico', component: DesistirServicoComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['prestador']
-        }
-      },
-      { path: ':id/servico-finalizado', component: ServicoFinalizadoComponent, canActivate: [AuthGuard], data: {
-          requiresRoles: ['prestador']
-        }
-      }
+      { path: ':id/ver-animal', component: VerAnimalSolicitacaoComponent },
+      { path: ':id/desistir', component: DesistirSolicitacaoContratanteComponent },
+      { path: ':id/avaliar', component: AvaliarServicoComponent }
+    ]
+  },
+  { path: 'ver-solicitacoes', component: VerSolicitacoesComponent,
+    children: [
+      { path: ':id/rejeitar-servico', component: RejeitarServicoComponent },
+      { path: ':id/ver-animal', component: VerAnimalSolicitacaoComponent },
+      { path: ':id/desistir-servico', component: DesistirServicoComponent },
+      { path: ':id/servico-finalizado', component: ServicoFinalizadoComponent }
     ]
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' }

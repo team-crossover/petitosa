@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService, ServicoService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
+import { SolicitacaoServico, ServicosPorStatus } from '../_models';
 
 @Component({
   selector: 'app-solicitacoes-contratante',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolicitacoesContratanteComponent implements OnInit {
 
-  constructor() { }
+  idContratante: number;
+  servicosPorStatus: ServicosPorStatus = new ServicosPorStatus();
+
+  constructor(
+    private auth: AuthenticationService,
+    private servicoService: ServicoService,
+    public toastr: ToastrService
+  ) { }
 
   ngOnInit() {
+    this.loadContratanteAndSolicitacoes();
+  }
+
+  loadContratanteAndSolicitacoes() {
+    this.auth.getCurrentUserContratante().subscribe(data => {
+      this.idContratante = data.id;
+      this.servicoService.searchByContratante(this.idContratante).subscribe(servicos => {
+        this.servicosPorStatus = servicos;
+      });
+    });
   }
 
 }

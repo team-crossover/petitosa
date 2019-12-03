@@ -32,6 +32,7 @@ import { DesistirServicoComponent } from './desistir-servico/desistir-servico.co
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
 import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
 import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/solicitacoes-contratante.component';
+import { DesistirSolicitacaoContratanteComponent } from './desistir-solicitacao-contratante/desistir-solicitacao-contratante.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/sol
     DesistirServicoComponent,
     ServicoFinalizadoComponent,
     AvaliarServicoComponent,
-    SolicitacoesContratanteComponent
+    SolicitacoesContratanteComponent,
+    DesistirSolicitacaoContratanteComponent
   ],
   imports: [
     BrowserModule,
