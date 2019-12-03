@@ -50,7 +50,9 @@
                             </div>
                         </div>
 
+                        <br>
                         <h5>Endereço</h5>
+                        <br>
 
                         <div class="form-group row">
                             <div class="col-sm-12">
@@ -85,9 +87,45 @@
 
                         <br>
                         <h5>Atendimento</h5>
+                        <br>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-3" style="font-weight: bold">Média de avaliações</div>
+                            <div class="col-sm-9">
+                                🐾  {{ prestador.notaMedia }}
+                            </div>
+                        </div>
+
+                        <br>
+                        <h6>Últimas avaliações</h6>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-4" *ngFor="let solicitacao of servicos">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <b>Nota:</b>
+                                                🐾 {{ solicitacao.avaliacao.nota }}
+                                                <br />
+                                                "{{ solicitacao.avaliacao.texto }}"
+                                                <br />
+                                                <br />
+                                                <i>Avaliado em {{ solicitacao.avaliacao.dataAvaliacao | dataHora }}</i>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+
 
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Serviços prestados</label>
+                            <label for="staticEmail" class="col-sm-3 col-form-label" style="font-weight: bold">Serviços prestados</label>
                             <div class="col-sm-9 table-responsive">
                                 <h6 class="text-center"><i>Cães</i></h6>
                                 <table class="table">
@@ -169,7 +207,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Preços</label>
+                            <label for="staticEmail" class="col-sm-3 col-form-label" style="font-weight: bold">Preços</label>
                             <div class="col-sm-9 table-responsive">
                                 <h6 class="text-center"><i>Cães</i></h6>
                                 <table class="table">

@@ -1,0 +1,49 @@
+<div class="modal fade" id="modalAvaliarServico" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Avaliar serviço</h5>
+      </div>
+      <div class="modal-body">
+
+        <form #avaliacaoForm="ngForm" novalidate>
+
+          <div class="form-group row">
+            <label for="Nota" class="col-sm-3 col-form-label">Espécie</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="nota" required placeholder="Dê uma nota"
+                [(ngModel)]="novaAvaliacao.nota" name="nota" #nota="ngModel">
+                <option value=1>1 🐾</option>
+                <option value=2>2 🐾</option>
+                <option value=3>3 🐾</option>
+                <option value=4>4 🐾</option>
+                <option value=5>5 🐾</option>
+              </select>
+              <div *ngIf="nota.errors && (nota.dirty || nota.touched)" class="alert-danger"
+                style="background-color: white">
+                <div [hidden]="!nota.errors.required">
+                  <i>Nota é um campo obrigatório</i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="texto" class="col-sm-3 col-form-label">Comentário</label>
+            <div class="col-sm-9">
+              <textarea type="text" class="form-control" id="texto" rows="2"
+                placeholder="Escrever comentário (opcional)" [(ngModel)]="novaAvaliacao.texto" name="texto"
+                #texto="ngModel"></textarea>
+            </div>
+          </div>
+
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLinkActive="active" routerLink="../../">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()" [disabled]="!avaliacaoForm.form.valid">Avaliar</button>
+      </div>
+    </div>
+  </div>
+</div>

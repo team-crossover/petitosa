@@ -30,6 +30,7 @@ import { DataHoraPipe } from './_pipes/data-hora.pipe';
 import { ServicoPipe } from './_pipes/servico.pipe';
 import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
+import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finaliz
     DataHoraPipe,
     ServicoPipe,
     DesistirServicoComponent,
-    ServicoFinalizadoComponent
+    ServicoFinalizadoComponent,
+    AvaliarServicoComponent
   ],
   imports: [
     BrowserModule,

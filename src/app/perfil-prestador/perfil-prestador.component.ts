@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Prestador, Endereco } from '../_models';
-import { PrestadorService, EnderecoService, AuthenticationService } from '../_services';
+import { Prestador, Endereco, ServicosPorStatus, Servico } from '../_models';
+import { PrestadorService, EnderecoService, AuthenticationService, ServicoService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -23,12 +23,16 @@ export class PerfilPrestadorComponent implements OnInit {
   isAuthenticated = false;
   userRole = '';
 
+  solicitacoes: ServicosPorStatus = new ServicosPorStatus();
+  servicos: Array<Servico> = new Array<Servico>();
+
   constructor(
     private route: ActivatedRoute,
     private prestadorService: PrestadorService,
     private enderecoService: EnderecoService,
     public toastr: ToastrService,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    private servicoService: ServicoService
   ) {
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -40,6 +44,7 @@ export class PerfilPrestadorComponent implements OnInit {
   ngOnInit() {
     this.loadPrestador();
     this.verifyAuth();
+    this.loadUltimasAvaliacoes();
   }
 
   loadPrestador() {
@@ -85,6 +90,18 @@ export class PerfilPrestadorComponent implements OnInit {
       }
     })
 
+  }
+
+  loadUltimasAvaliacoes() {
+    this.servicoService.getByPrestador(this.idPrestador).subscribe(data => {
+      this.solicitacoes = data;
+      for (let i = this.solicitacoes.terminados.length - 1; i >= 0; i --) {
+        if (this.servicos.length < 3) {
+          this.servicos.push(this.solicitacoes.terminados[i]);
+          console.log(this.solicitacoes.terminados[i]);
+        }
+      }
+    });
   }
 
 }

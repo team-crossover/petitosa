@@ -20,6 +20,7 @@ import { RejeitarServicoComponent } from './rejeitar-servico/rejeitar-servico.co
 import { VerAnimalSolicitacaoComponent } from './ver-animal-solicitacao/ver-animal-solicitacao.component';
 import { DesistirServicoComponent } from './desistir-servico/desistir-servico.component';
 import { ServicoFinalizadoComponent } from './servico-finalizado/servico-finalizado.component';
+import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

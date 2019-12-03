@@ -3,6 +3,7 @@ import { ContaBancaria } from './conta-bancaria';
 import { ResumoServico } from './resumo-servico';
 
 export class Prestador {
+    avaliacao: number;
     contaBancaria: ContaBancaria;
     dataNascimento: string;
     descricao: string;
