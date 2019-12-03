@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServicosPorStatus } from '../_models';
 import { ServicoService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ver-solicitacoes',
@@ -16,7 +17,8 @@ export class VerSolicitacoesComponent implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private servicoService: ServicoService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit() {

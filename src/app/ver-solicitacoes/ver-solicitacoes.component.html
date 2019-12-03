@@ -9,36 +9,43 @@
         <div class="col">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pendentes-tab" data-toggle="tab" href="#pendentes" role="tab" aria-controls="pendentes" aria-selected="true">Pendentes</a>
+                    <a class="nav-link active" id="pendentes-tab" data-toggle="tab" href="#pendentes" role="tab"
+                        aria-controls="pendentes" aria-selected="true">Pendentes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="aceitas-tab" data-toggle="tab" href="#aceitas" role="tab" aria-controls="aceitas" aria-selected="false">Aceitas</a>
+                    <a class="nav-link" id="aceitas-tab" data-toggle="tab" href="#aceitas" role="tab"
+                        aria-controls="aceitas" aria-selected="false">Aceitas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="andamento-tab" data-toggle="tab" href="#andamento" role="tab" aria-controls="andamento" aria-selected="false">Em andamento</a>
+                    <a class="nav-link" id="andamento-tab" data-toggle="tab" href="#andamento" role="tab"
+                        aria-controls="andamento" aria-selected="false">Em andamento</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="terminadas-tab" data-toggle="tab" href="#terminadas" role="tab" aria-controls="terminadas" aria-selected="false">Terminadas</a>
+                    <a class="nav-link" id="terminadas-tab" data-toggle="tab" href="#terminadas" role="tab"
+                        aria-controls="terminadas" aria-selected="false">Terminadas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="desistidas-tab" data-toggle="tab" href="#desistidas" role="tab" aria-controls="desistidas" aria-selected="false">Desistidas</a>
+                    <a class="nav-link" id="desistidas-tab" data-toggle="tab" href="#desistidas" role="tab"
+                        aria-controls="desistidas" aria-selected="false">Desistidas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="rejeitadas-tab" data-toggle="tab" href="#rejeitadas" role="tab" aria-controls="rejeitadas" aria-selected="false">Rejeitadas</a>
+                    <a class="nav-link" id="rejeitadas-tab" data-toggle="tab" href="#rejeitadas" role="tab"
+                        aria-controls="rejeitadas" aria-selected="false">Rejeitadas</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                
+
                 <div class="tab-pane fade show active" id="pendentes" role="tabpanel" aria-labelledby="pendentes-tab">
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.pendentes.length > 0; else elsePendente">
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.pendentes.length > 0; else elsePendente">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data esperada para o serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Contratante</th>
-                            <th scope="col">Ações</th>
+                                <th scope="col">Data de solicitação</th>
+                                <th scope="col">Data esperada para o serviço</th>
+                                <th scope="col">Animais e serviços</th>
+                                <th scope="col">Valor a receber</th>
+                                <th scope="col">Contratante</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,18 +53,32 @@
                                 <td>{{ pendente.dataSolicitacao | dataHora }}</td>
                                 <td>{{ pendente.dataEsperadaRealizacao | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of pendente.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of pendente.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="pendente.observacoes && pendente.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ pendente.observacoes }}</span>
+                                    </div>
                                 </td>
                                 <td>R$ {{ pendente.valorTotal }}</td>
-                                <td><a routerLinkActive="active" routerLink="../perfil-contratante/{{pendente.idContratante}}">Ver perfil</a></td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{pendente.idContratante}}">{{ pendente.nomeContratante }}</a>
+                                </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="acceptSolicitacao(pendente.id)">Aceitar</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRejeitarServico" routerLinkActive="active" routerLink="{{pendente.id}}/rejeitar-servico">Rejeitar</button>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        (click)="acceptSolicitacao(pendente.id)">Aceitar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#modalRejeitarServico" routerLinkActive="active"
+                                        routerLink="{{pendente.id}}/rejeitar-servico">Rejeitar</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -70,14 +91,16 @@
                 </div>
 
                 <div class="tab-pane fade" id="aceitas" role="tabpanel" aria-labelledby="aceitas-tab">
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.aceitos.length > 0; else elseAceita">
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.aceitos.length > 0; else elseAceita">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data esperada para o serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Ações</th>
+                                <th scope="col">Data de solicitação</th>
+                                <th scope="col">Data esperada para o serviço</th>
+                                <th scope="col">Animais e serviços</th>
+                                <th scope="col">Valor a receber</th>
+                                <th scope="col">Contratante</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,17 +108,32 @@
                                 <td>{{ aceito.dataSolicitacao | dataHora }}</td>
                                 <td>{{ aceito.dataEsperadaRealizacao | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of aceito.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of aceito.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="aceito.observacoes && aceito.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ aceito.observacoes }}</span>
+                                    </div>
                                 </td>
                                 <td>R$ {{ aceito.valorTotal }}</td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{aceito.idContratante}}">{{ aceito.nomeContratante }}</a>
+                                </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="startSolicitacao(aceito.id)">Iniciar</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDesistirServico" routerLinkActive="active" routerLink="{{aceito.id}}/desistir-servico">Desitir</button>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        (click)="startSolicitacao(aceito.id)">Iniciar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#modalDesistirServico" routerLinkActive="active"
+                                        routerLink="{{aceito.id}}/desistir-servico">Desitir</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -108,15 +146,16 @@
                 </div>
 
                 <div class="tab-pane fade" id="andamento" role="tabpanel" aria-labelledby="andamento-tab">
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.emAndamento.length > 0; else elseAndamento">
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.emAndamento.length > 0; else elseAndamento">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data de início</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Contratante</th>
-                            <th scope="col">Ações</th>
+                                <th scope="col">Data de solicitação</th>
+                                <th scope="col">Data de início do serviço</th>
+                                <th scope="col">Animais e serviços</th>
+                                <th scope="col">Valor a receber</th>
+                                <th scope="col">Contratante</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let andamento of servicosPorStatus.emAndamento">
@@ -124,17 +163,31 @@
                                 <td>{{ andamento.dataSolicitacao | dataHora }}</td>
                                 <td>{{ andamento.dataInicioRealizacao | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of andamento.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of andamento.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="andamento.observacoes && andamento.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ andamento.observacoes }}</span>
+                                    </div>
                                 </td>
                                 <td>R$ {{ andamento.valorTotal }}</td>
-                                <td><a routerLinkActive="active" routerLink="../perfil-contratante/{{andamento.idContratante}}">Ver perfil</a></td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{andamento.idContratante}}">{{ andamento.nomeContratante }}</a>
+                                </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalServicoFinalizado" routerLinkActive="active" routerLink="{{andamento.id}}/servico-finalizado" (click)="finishSolicitacao(andamento.id)">Terminar</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#modalServicoFinalizado" routerLinkActive="active"
+                                        routerLink="{{andamento.id}}/servico-finalizado"
+                                        (click)="finishSolicitacao(andamento.id)">Terminar</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -147,15 +200,16 @@
                 </div>
 
                 <div class="tab-pane fade" id="terminadas" role="tabpanel" aria-labelledby="terminadas-tab">
-                    
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.terminados.length > 0; else elseTerminada">
+
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.terminados.length > 0; else elseTerminada">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data de realização do serviço</th>
-                            <th scope="col">Animais e serviços</th>
-                            <th scope="col">Valor a receber</th>
-                            <th scope="col">Contratante</th>
+                                <th scope="col">Data de solicitação</th>
+                                <th scope="col">Data de término do serviço</th>
+                                <th scope="col">Animais e serviços</th>
+                                <th scope="col">Valor recebido</th>
+                                <th scope="col">Contratante</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,15 +217,26 @@
                                 <td>{{ terminado.dataSolicitacao | dataHora }}</td>
                                 <td>{{ terminado.dataTerminoRealizacao | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of terminado.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of terminado.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="terminado.observacoes && terminado.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ terminado.observacoes }}</span>
+                                    </div>
                                 </td>
                                 <td>R$ {{ terminado.valorTotal }}</td>
-                                <td><a routerLinkActive="active" routerLink="../perfil-contratante/{{terminado.idContratante}}">Ver perfil</a></td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{terminado.idContratante}}">{{ terminado.nomeContratante }}</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -183,14 +248,16 @@
                 </div>
 
                 <div class="tab-pane fade" id="desistidas" role="tabpanel" aria-labelledby="desistidas-tab">
-                    
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.desistidos.length > 0; else elseDesistida">
+
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.desistidos.length > 0; else elseDesistida">
                         <thead>
                             <tr>
                                 <th scope="col">Data de solicitação</th>
                                 <th scope="col">Data de aceitação</th>
                                 <th scope="col">Data de desistência</th>
                                 <th scope="col">Animais e serviços</th>
+                                <th scope="col">Contratante</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -199,12 +266,24 @@
                                 <td>{{ desistido.dataAceitacao | dataHora }}</td>
                                 <td>{{ desistido.dataDesistencia | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of desistido.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of desistido.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="desistido.observacoes && desistido.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ desistido.observacoes }}</span>
+                                    </div>
+                                </td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{desistido.idContratante}}">{{ desistido.nomeContratante }}</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -217,13 +296,15 @@
                 </div>
 
                 <div class="tab-pane fade" id="rejeitadas" role="tabpanel" aria-labelledby="rejeitadas-tab">
-                    
-                    <table class="table table-striped table-bordered" *ngIf="servicosPorStatus.rejeitados.length > 0; else elseRejeitada">
+
+                    <table class="table table-striped table-bordered"
+                        *ngIf="servicosPorStatus.rejeitados.length > 0; else elseRejeitada">
                         <thead>
                             <tr>
-                            <th scope="col">Data de solicitação</th>
-                            <th scope="col">Data de rejeição</th>
-                            <th scope="col">Animais e serviços</th>
+                                <th scope="col">Data de solicitação</th>
+                                <th scope="col">Data de rejeição</th>
+                                <th scope="col">Animais e serviços</th>
+                                <th scope="col">Contratante</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -231,12 +312,24 @@
                                 <td>{{ rejeitado.dataSolicitacao | dataHora }}</td>
                                 <td>{{ rejeitado.dataRejeicao | dataHora }}</td>
                                 <td>
-                                    <ul *ngFor="let animal of rejeitado.servicosPorAnimais">
-                                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                                        <small class="text-muted">
-                                            <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerAnimal" routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                                        </small>
-                                    </ul>
+                                    <div *ngFor="let animal of rejeitado.servicosPorAnimais">
+                                        <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                            data-target="#modalVerAnimal" routerLinkActive="active"
+                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                            ({{animal.especieAnimal | especie}}
+                                            {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                    </div>
+                                    <div *ngIf="rejeitado.observacoes && rejeitado.observacoes.length > 0">
+                                        <hr>
+                                        <span><b>Observações: </b> {{ rejeitado.observacoes }}</span>
+                                    </div>
+                                </td>
+                                <td><a routerLinkActive="active"
+                                        routerLink="../perfil-contratante/{{rejeitado.idContratante}}">{{ rejeitado.nomeContratante }}</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -248,7 +341,7 @@
                     </ng-template>
                 </div>
 
-            </div>      
+            </div>
         </div>
     </div>
 </div>

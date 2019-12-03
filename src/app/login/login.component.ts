@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(data);
           if (data.body.idContratante == null) {
-            this.returnUrl = 'perfil-prestador/' + data.body.idPrestador;
+            this.returnUrl = 'ver-solicitacoes';
           } else if (data.body.idPrestador == null) {
-            this.returnUrl = 'perfil-contratante/' + data.body.idContratante;
+            this.returnUrl = 'solicitacoes-contratante';
           }
           this.router.navigate([this.returnUrl]);
         }, 

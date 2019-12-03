@@ -53,20 +53,27 @@
                 <td>{{ pendente.dataSolicitacao | dataHora }}</td>
                 <td>{{ pendente.dataEsperadaRealizacao | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of pendente.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of pendente.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
+                  </div>
+                  <div *ngIf="pendente.observacoes && pendente.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ pendente.observacoes }}</span>
+                  </div>
                 </td>
                 <td>R$ {{ pendente.valorTotal }}</td>
-                <td><a routerLinkActive="active" routerLink="../perfil-prestador/{{pendente.idPrestador}}">Ver
-                    perfil</a></td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{pendente.idPrestador}}">{{ pendente.nomePrestador }}</a></td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDesistirContratante" routerLinkActive="active" routerLink="{{pendente.id}}/desistir">Desitir</button>
+                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                    data-target="#modalDesistirContratante" routerLinkActive="active"
+                    routerLink="{{pendente.id}}/desistir">Desitir</button>
                 </td>
               </tr>
             </tbody>
@@ -87,6 +94,7 @@
                 <th scope="col">Data esperada para o serviço</th>
                 <th scope="col">Animais e serviços</th>
                 <th scope="col">Valor a pagar</th>
+                <th scope="col">Prestador</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
@@ -95,18 +103,27 @@
                 <td>{{ aceito.dataSolicitacao | dataHora }}</td>
                 <td>{{ aceito.dataEsperadaRealizacao | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of aceito.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of aceito.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                      <ul>
+                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                      </ul>
+                  </div>
+                  <div *ngIf="aceito.observacoes && aceito.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ aceito.observacoes }}</span>
+                  </div>
                 </td>
                 <td>R$ {{ aceito.valorTotal }}</td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{aceito.idPrestador}}">{{ aceito.nomePrestador }}</a></td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDesistirContratante" routerLinkActive="active" routerLink="{{aceito.id}}/desistir">Desitir</button>
+                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                    data-target="#modalDesistirContratante" routerLinkActive="active"
+                    routerLink="{{aceito.id}}/desistir">Desitir</button>
                 </td>
               </tr>
             </tbody>
@@ -124,10 +141,10 @@
             <thead>
               <tr>
                 <th scope="col">Data de solicitação</th>
-                <th scope="col">Data de início</th>
+                <th scope="col">Data de início do serviço</th>
                 <th scope="col">Animais e serviços</th>
                 <th scope="col">Valor a pagar</th>
-                <th scope="col">Perstador</th>
+                <th scope="col">Prestador</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
@@ -136,18 +153,23 @@
                 <td>{{ andamento.dataSolicitacao | dataHora }}</td>
                 <td>{{ andamento.dataInicioRealizacao | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of andamento.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of andamento.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                      <ul>
+                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                      </ul>
+                  </div>
+                  <div *ngIf="andamento.observacoes && andamento.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ andamento.observacoes }}</span>
+                  </div>
                 </td>
                 <td>R$ {{ andamento.valorTotal }}</td>
-                <td><a routerLinkActive="active" routerLink="../perfil-prestador/{{andamento.idPrestador}}">Ver
-                    perfil</a></td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{andamento.idPrestador}}">{{ andamento.nomePrestador }}</a></td>
                 <td>
                   <p>Aguarde o prestador finalizar o serviço para que você possa avaliá-lo</p>
                 </td>
@@ -168,9 +190,10 @@
             <thead>
               <tr>
                 <th scope="col">Data de solicitação</th>
-                <th scope="col">Data de realização do serviço</th>
+                <th scope="col">Data de término do serviço</th>
                 <th scope="col">Animais e serviços</th>
-                <th scope="col">Valor a pagar</th>
+                <th scope="col">Valor pago</th>
+                <th scope="col">Prestador</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
@@ -179,16 +202,23 @@
                 <td>{{ terminado.dataSolicitacao | dataHora }}</td>
                 <td>{{ terminado.dataTerminoRealizacao | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of terminado.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of terminado.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                      <ul>
+                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                      </ul>
+                  </div>
+                  <div *ngIf="terminado.observacoes && terminado.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ terminado.observacoes }}</span>
+                  </div>
                 </td>
                 <td>R$ {{ terminado.valorTotal }}</td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{terminado.idPrestador}}">{{ terminado.nomePrestador }}</a></td>
                 <td>
                   <button [disabled]="terminado.avaliacao != null" type="button" class="btn btn-warning btn-sm"
                     data-toggle="modal" data-target="#modalAvaliarServico" routerLinkActive="active"
@@ -196,8 +226,7 @@
 
                   <div *ngIf="terminado.avaliacao != null">
                     <hr>
-                    Sua avaliação:
-                    🐾{{ terminado.avaliacao.nota }} <br>
+                    <b>Sua avaliação: 🐾{{ terminado.avaliacao.nota }} <br></b>
                     <div *ngIf="terminado.avaliacao.texto != null">{{ terminado.avaliacao.texto }}</div>
                   </div>
 
@@ -222,6 +251,7 @@
                 <th scope="col">Data de aceitação</th>
                 <th scope="col">Data de desistência</th>
                 <th scope="col">Animais e serviços</th>
+                <th scope="col">Prestador</th>
               </tr>
             </thead>
             <tbody>
@@ -230,15 +260,22 @@
                 <td>{{ desistido.dataAceitacao | dataHora }}</td>
                 <td>{{ desistido.dataDesistencia | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of desistido.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of desistido.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                      <ul>
+                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                      </ul>
+                  </div>
+                  <div *ngIf="desistido.observacoes && desistido.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ desistido.observacoes }}</span>
+                  </div>
                 </td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{desistido.idPrestador}}">{{ desistido.nomePrestador }}</a></td>
               </tr>
             </tbody>
           </table>
@@ -258,6 +295,7 @@
                 <th scope="col">Data de solicitação</th>
                 <th scope="col">Data de rejeição</th>
                 <th scope="col">Animais e serviços</th>
+                <th scope="col">Prestador</th>
               </tr>
             </thead>
             <tbody>
@@ -265,15 +303,22 @@
                 <td>{{ rejeitado.dataSolicitacao | dataHora }}</td>
                 <td>{{ rejeitado.dataRejeicao | dataHora }}</td>
                 <td>
-                  <ul *ngFor="let animal of rejeitado.servicosPorAnimais">
-                    <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }}</li>
-                    <small class="text-muted">
-                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                        data-target="#modalVerAnimal" routerLinkActive="active"
-                        routerLink="{{animal.idAnimal}}/ver-animal">Ver animal</button>
-                    </small>
-                  </ul>
+                  <div *ngFor="let animal of rejeitado.servicosPorAnimais">
+                    <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"
+                      routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                      ({{animal.especieAnimal | especie}}
+                      {{animal.porteAnimal | tamanho}})</button>:
+                      <ul>
+                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                      </ul>
+                  </div>
+                  <div *ngIf="rejeitado.observacoes && rejeitado.observacoes.length > 0">
+                    <hr>
+                    <span><b>Observações: </b> {{ rejeitado.observacoes }}</span>
+                  </div>
                 </td>
+                <td><a routerLinkActive="active"
+                    routerLink="../perfil-prestador/{{rejeitado.idPrestador}}">{{ rejeitado.nomePrestador }}</a></td>
               </tr>
             </tbody>
           </table>

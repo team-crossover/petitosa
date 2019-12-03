@@ -14,7 +14,9 @@ export class Servico {
     enderecoEsperado: Endereco;
     id: number;
     idContratante: number;
+    nomeContratante: string;
     idPrestador: number;
+    nomePrestador : string;
     observacoes: string;
     servicosPorAnimais: Array<ServicosPorAnimal>; 
     status: string;

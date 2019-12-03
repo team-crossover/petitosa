@@ -50,7 +50,7 @@
 
             </form>
             <button type="button" class="btn btn-primary" (click)="addServico()"
-              [disabled]="!servicoForm.form.valid || (!checkboxes[0] && !checkboxes[1] && !checkboxes[2])">Adicionar</button>
+              [disabled]="currentAnimal?.id == null || !servicoForm.form.valid || (!checkboxes[0] && !checkboxes[1] && !checkboxes[2])">Adicionar</button>
           </div>
         </div>
 
@@ -87,6 +87,8 @@
                 </tbody>
               </table>
 
+              <br>
+              <hr>
               <br>
               <h5>Filtros de busca</h5>
               <div class="form-group row">
@@ -136,14 +138,12 @@
               <div class="card-body">
                 <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
                   class="card-img-top img-thumbnail mx-auto d-block" alt="...">
-                <h5 class="card-title">{{prestador.nome}}</h5>
+                <h5 class="card-title btn-link" data-toggle="modal" data-target="#modalVerPrestador" routerLinkActive="active"
+                  routerLink="{{ prestador.idPrestador }}/perfil"><b>{{prestador.nome}}</b></h5>
                 <div class="card-text">
-                  <h5>🐾 {{prestador.avaliacao}}</h5>
-                  <h5>A {{prestador.distancia/1000}} quilômetros</h5>
-                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>
-                  <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerPrestador"
-                    routerLinkActive="active" routerLink="{{ prestador.idPrestador }}/perfil">Ver
-                    Perfil</button>
+                  <p>Avaliado em {{prestador.avaliacao}} 🐾</p>
+                  <i>A {{prestador.distancia/1000}} quilômetros</i>
+                  <h6> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h6>
                 </div>
               </div>
               <div class="card-footer bg-transparent">
