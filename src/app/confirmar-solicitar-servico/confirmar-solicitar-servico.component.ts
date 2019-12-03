@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Prestador, Contratante, FiltroServico, SolicitacaoServico } from '../_models';
+import { Prestador, Contratante, FiltroServico, SolicitacaoServico, PrestadorEncontrado } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PrestadorService, AuthenticationService, ServicoService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
@@ -18,11 +18,15 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
   prestador: Prestador = new Prestador();
   contratante: Contratante = new Contratante();
   filtroServico: FiltroServico = new FiltroServico;
+  prestadores: PrestadorEncontrado[] = [];
 
   dataMinima: Date;
   dataServico: string;
   horaServico: string;
   observacoes: string;
+  preco: number;
+  taxa: number = 1.25;
+  nomePrestador: string;
 
   novaSolicitacao: SolicitacaoServico = new SolicitacaoServico();
 
@@ -39,6 +43,7 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
       if (params['id']) {
         this.idPrestador = null;
         this.idPrestador = params['id'];
+        this.loadInfo();
       }
     });
   }
@@ -46,8 +51,17 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
   ngOnInit() {
     this.filtroServico = this.solicitarComponent.novoFiltro;
     this.setTomorrow();
-    this.loadPrestador();
     this.loadContratante();
+  }
+
+  loadInfo() {
+    this.prestadores = this.solicitarComponent.prestadoresEncontrados;
+    this.prestadores.forEach(element => {
+      if (element.idPrestador == this.idPrestador) {
+        this.preco = element.precoTotal;
+        this.nomePrestador = element.nome;
+      }
+    });
   }
 
   setTomorrow(){
@@ -60,12 +74,6 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
   loadContratante() {
     this.auth.getCurrentUserContratante().subscribe(data => {
       this.contratante = data;
-    });
-  }
-
-  loadPrestador() {
-    this.prestadorService.getPrestador(this.idPrestador).subscribe(data => {
-      this.prestador = data;
     });
   }
 

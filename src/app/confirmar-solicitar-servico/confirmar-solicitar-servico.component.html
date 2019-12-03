@@ -20,15 +20,20 @@
 
                     <div class="row">
                       <div class="col">
-                        <h5><strong>Contratar {{prestador.nome}}</strong></h5>
+                        <h5><strong>Contratar {{ nomePrestador }}</strong></h5>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col">
-                        <h5><strong>Local de atendimento:</strong> {{contratante.endereco.logradouro}},
-                          {{contratante.endereco.bairro}}, cep
-                          {{contratante.endereco.cep}}, {{contratante.endereco.cidade}}</h5>
+                        <h4><span class="badge badge-info">Por R$ {{ preco.toFixed(2) }}</span></h4>
+                      </div>
+                    </div>
+                      <br>
+                    <div class="row">
+                      <div class="col">
+                        <h5>O atendimento será efetuado no seu endereço:</h5>
+                        <h6>{{contratante.endereco.logradouro}}, {{contratante.endereco.bairro}}, CEP {{contratante.endereco.cep}}, {{contratante.endereco.cidade}}</h6>
                       </div>
                     </div>
                     <hr>

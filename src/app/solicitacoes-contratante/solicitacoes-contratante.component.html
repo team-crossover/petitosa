@@ -67,7 +67,7 @@
                     <span><b>Observações: </b> {{ pendente.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ pendente.valorTotal }}</td>
+                <td>R$ {{ pendente.valorTotal.toFixed(2) }}</td>
                 <td><a routerLinkActive="active"
                     routerLink="../perfil-prestador/{{pendente.idPrestador}}">{{ pendente.nomePrestador }}</a></td>
                 <td>
@@ -117,7 +117,7 @@
                     <span><b>Observações: </b> {{ aceito.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ aceito.valorTotal }}</td>
+                <td>R$ {{ aceito.valorTotal.toFixed(2) }}</td>
                 <td><a routerLinkActive="active"
                     routerLink="../perfil-prestador/{{aceito.idPrestador}}">{{ aceito.nomePrestador }}</a></td>
                 <td>
@@ -167,7 +167,7 @@
                     <span><b>Observações: </b> {{ andamento.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ andamento.valorTotal }}</td>
+                <td>R$ {{ andamento.valorTotal.toFixed(2) }}</td>
                 <td><a routerLinkActive="active"
                     routerLink="../perfil-prestador/{{andamento.idPrestador}}">{{ andamento.nomePrestador }}</a></td>
                 <td>
@@ -216,7 +216,7 @@
                     <span><b>Observações: </b> {{ terminado.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ terminado.valorTotal }}</td>
+                <td>R$ {{ terminado.valorTotal.toFixed(2) }}</td>
                 <td><a routerLinkActive="active"
                     routerLink="../perfil-prestador/{{terminado.idPrestador}}">{{ terminado.nomePrestador }}</a></td>
                 <td>
