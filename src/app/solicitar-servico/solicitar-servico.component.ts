@@ -81,7 +81,7 @@ export class SolicitarServicoComponent implements OnInit {
 
   }
 
-  addServico() {
+  addServico() {    
     let animalSelecionado: AnimalView = new AnimalView();
     let servicosSelecionados: string[] = [];
 
