@@ -78,7 +78,8 @@
                     <th scope="row">{{ animal.apelido }}</th>
                     <td>{{ animal.especie | especie}}</td>
                     <td>{{ animal.porte | tamanho }}</td>
-                    <td> {{animal.tiposServicos[0] | servico }} <br> {{animal.tiposServicos[1] | servico}} <br> {{animal.tiposServicos[2] | servico}}
+                    <td> {{animal.tiposServicos[0] | servico }} <br> {{animal.tiposServicos[1] | servico}} <br>
+                      {{animal.tiposServicos[2] | servico}}
                     </td>
                     <td><button type="button" class="btn btn-danger" (click)="removeServico(animal.id)">Remover</button>
                     </td>
@@ -139,9 +140,9 @@
                 <div class="card-text">
                   <h5>🐾 {{prestador.avaliacao}}</h5>
                   <h5>A {{prestador.distancia/1000}} quilômetros</h5>
-                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>                
-                  <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                    data-target="#modalVerPrestador" routerLinkActive="active" routerLink="{{ prestador.idPrestador }}/perfil" (click)="onSubmit()">Ver
+                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>
+                  <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active" routerLink="{{ prestador.idPrestador }}/perfil">Ver
                     Perfil</button>
                 </div>
               </div>

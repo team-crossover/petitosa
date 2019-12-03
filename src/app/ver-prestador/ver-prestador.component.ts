@@ -29,10 +29,10 @@ export class VerPrestadorComponent implements OnInit {
   ) { 
     this.activatedRoute.params.subscribe(params => {
       if (params['id']) {
+        this.idPrestador = null;
         this.idPrestador = params['id'];
       }
     });
-    console.log(this.idPrestador);
   }
 
   ngOnInit() {
@@ -60,7 +60,6 @@ export class VerPrestadorComponent implements OnInit {
   loadEndereco(cep: number) {
     this.enderecoService.getEndereco(cep).subscribe(data => {
       this.endereco = data;
-      console.log(this.endereco);
     }, error => {
       this.toastr.error(error.error.error);
     });

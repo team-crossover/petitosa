@@ -38,6 +38,7 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
     ) { 
       this.activatedRoute.params.subscribe(params => {
         if (params['id']) {
+          this.idPrestador = null;
           this.idPrestador = params['id'];
         }
       });
@@ -64,13 +65,9 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
     onSubmit(){
       this.dateAndTimeFormatToSave();
       this.novaSolicitacao.idPrestador = this.idPrestador;
-      console.log(this.novaSolicitacao.idPrestador);
       this.novaSolicitacao.observacoes = this.observacoes;
-      console.log(this.novaSolicitacao.observacoes);
       this.novaSolicitacao.idContratante = this.contratante.id;
-      console.log(this.novaSolicitacao.idContratante);
       this.novaSolicitacao.servicosPorAnimais = this.filtroServico.servicosPorAnimais;
-      console.log(this.novaSolicitacao.servicosPorAnimais);
 
       this.servicoService.requestServico(this.novaSolicitacao).pipe(first())
       .subscribe(
