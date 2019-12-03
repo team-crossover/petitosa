@@ -71,8 +71,10 @@ export class VerPrestadorComponent implements OnInit {
       this.solicitacoes = data;
       for (let i = this.solicitacoes.terminados.length - 1; i >= 0; i --) {
         if (this.servicos.length < 3) {
-          this.servicos.push(this.solicitacoes.terminados[i]);
-          console.log(this.solicitacoes.terminados[i]);
+          if (this.solicitacoes.terminados[i].avaliacao) {
+            this.servicos.push(this.solicitacoes.terminados[i]);
+            console.log(this.solicitacoes.terminados[i]);
+          }
         }
       }
     });
