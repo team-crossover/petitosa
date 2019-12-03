@@ -45,10 +45,11 @@ const routes: Routes = [
   },
   { path: 'adicionar-animal', component: AdicionarAnimalComponent },
   { path: 'solicitar-servico', component: SolicitarServicoComponent, 
-  children: [
-    { path: ':id/perfil', component: VerPrestadorComponent },
-    { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent }
-  ]},
+    children: [
+      { path: ':id/perfil', component: VerPrestadorComponent },
+      { path: ':id/confirmar', component: ConfirmarSolicitarServicoComponent }
+    ]
+  },
   { path: 'solicitacoes-contratante', component: SolicitacoesContratanteComponent },
   { path: 'ver-solicitacoes', component: VerSolicitacoesComponent,
     children: [

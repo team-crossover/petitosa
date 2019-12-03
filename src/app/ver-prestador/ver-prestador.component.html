@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Perfil de {{ prestador.nome }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" routerLinkActive="active" routerLink="../../">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -95,6 +95,14 @@
                         <br>
                         <h6>Últimas avaliações</h6>
                         <br>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div *ngIf="servicos.length == 0" class="alert alert-warning" role="alert">
+                                    Este prestador não possui avaliações
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-4" *ngFor="let solicitacao of servicos">

@@ -67,7 +67,7 @@
                 <thead>
                   <tr>
                     <th scope="col">Apelido</th>
-                    <th scope="col">Especie</th>
+                    <th scope="col">Espécie</th>
                     <th scope="col">Porte</th>
                     <th scope="col">Serviço(s)</th>
                     <th scope="col">Ação</th>
@@ -76,9 +76,9 @@
                 <tbody>
                   <tr *ngFor="let animal of animalViews">
                     <th scope="row">{{ animal.apelido }}</th>
-                    <td>{{ animal.especie }}</td>
-                    <td>{{ animal.porte }}</td>
-                    <td> {{animal.tiposServicos[0]}} <br> {{animal.tiposServicos[1]}} <br> {{animal.tiposServicos[2]}}
+                    <td>{{ animal.especie | especie}}</td>
+                    <td>{{ animal.porte | tamanho }}</td>
+                    <td> {{animal.tiposServicos[0] | servico }} <br> {{animal.tiposServicos[1] | servico}} <br> {{animal.tiposServicos[2] | servico}}
                     </td>
                     <td><button type="button" class="btn btn-danger" (click)="removeServico(animal.id)">Remover</button>
                     </td>
@@ -139,16 +139,16 @@
                 <div class="card-text">
                   <h5>🐾 {{prestador.avaliacao}}</h5>
                   <h5>A {{prestador.distancia/1000}} quilômetros</h5>
-                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>                 
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                    data-target="#modalVerPrestador" routerLinkActive="active" routerLink="{{prestador.id}}/perfil">Ver
+                  <h5> <span class="badge badge-info"> Por R$ {{prestador.precoTotal}}</span></h5>                
+                  <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
+                    data-target="#modalVerPrestador" routerLinkActive="active" routerLink="{{ prestador.idPrestador }}/perfil" (click)="onSubmit()">Ver
                     Perfil</button>
                 </div>
               </div>
               <div class="card-footer bg-transparent">
                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
                   data-target="#modalConfirmarSolicitacao" routerLinkActive="active"
-                  routerLink="{{prestador.id}}/confirmar">Solicitar Serviço</button>
+                  routerLink="{{prestador.idPrestador}}/confirmar">Solicitar Serviço</button>
               </div>
             </div>
           </div>

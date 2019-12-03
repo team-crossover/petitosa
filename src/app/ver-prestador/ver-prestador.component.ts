@@ -32,6 +32,7 @@ export class VerPrestadorComponent implements OnInit {
         this.idPrestador = params['id'];
       }
     });
+    console.log(this.idPrestador);
   }
 
   ngOnInit() {
