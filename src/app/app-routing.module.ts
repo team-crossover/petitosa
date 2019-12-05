@@ -24,6 +24,7 @@ import { AvaliarServicoComponent } from './avaliar-servico/avaliar-servico.compo
 import { SolicitacoesContratanteComponent } from './solicitacoes-contratante/solicitacoes-contratante.component';
 import { DesistirSolicitacaoContratanteComponent } from './desistir-solicitacao-contratante/desistir-solicitacao-contratante.component';
 import { AuthGuard } from './_guards';
+import { VerContratanteComponent } from './ver-contratante/ver-contratante.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: {
@@ -105,6 +106,10 @@ const routes: Routes = [
       { path: ':id/avaliar', component: AvaliarServicoComponent, canActivate: [AuthGuard], data: {
           requiresRoles: ['contratante']
         }
+      },
+      { path: ':id/perfil-prestador', component: VerPrestadorComponent, canActivate: [AuthGuard], data: {
+        requiresRoles: ['contratante']
+        }
       }
     ]
   },
@@ -126,6 +131,10 @@ const routes: Routes = [
       },
       { path: ':id/servico-finalizado', component: ServicoFinalizadoComponent, canActivate: [AuthGuard], data: {
           requiresRoles: ['prestador']
+        }
+      },
+      { path: ':id/perfil-contratante', component: VerContratanteComponent, canActivate: [AuthGuard], data: {
+        requiresRoles: ['prestador']
         }
       }
     ]

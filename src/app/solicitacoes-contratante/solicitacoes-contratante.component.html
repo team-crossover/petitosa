@@ -68,8 +68,11 @@
                   </div>
                 </td>
                 <td>R$ {{ pendente.valorTotal.toFixed(2) }}</td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{pendente.idPrestador}}">{{ pendente.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{pendente.idPrestador}}/perfil-prestador">{{ pendente.nomePrestador }}</button>
+                </td>
                 <td>
                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                     data-target="#modalDesistirContratante" routerLinkActive="active"
@@ -108,9 +111,9 @@
                       routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
                       ({{animal.especieAnimal | especie}}
                       {{animal.porteAnimal | tamanho}})</button>:
-                      <ul>
-                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
-                      </ul>
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
                   </div>
                   <div *ngIf="aceito.observacoes && aceito.observacoes.length > 0">
                     <hr>
@@ -118,8 +121,11 @@
                   </div>
                 </td>
                 <td>R$ {{ aceito.valorTotal.toFixed(2) }}</td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{aceito.idPrestador}}">{{ aceito.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{aceito.idPrestador}}/perfil-prestador">{{ aceito.nomePrestador }}</button>
+                </td>
                 <td>
                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                     data-target="#modalDesistirContratante" routerLinkActive="active"
@@ -158,9 +164,9 @@
                       routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
                       ({{animal.especieAnimal | especie}}
                       {{animal.porteAnimal | tamanho}})</button>:
-                      <ul>
-                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
-                      </ul>
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
                   </div>
                   <div *ngIf="andamento.observacoes && andamento.observacoes.length > 0">
                     <hr>
@@ -168,8 +174,11 @@
                   </div>
                 </td>
                 <td>R$ {{ andamento.valorTotal.toFixed(2) }}</td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{andamento.idPrestador}}">{{ andamento.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{andamento.idPrestador}}/perfil-prestador">{{ andamento.nomePrestador }}</button>
+                </td>
                 <td>
                   <p>Aguarde o prestador finalizar o serviço para que você possa avaliá-lo</p>
                 </td>
@@ -207,9 +216,9 @@
                       routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
                       ({{animal.especieAnimal | especie}}
                       {{animal.porteAnimal | tamanho}})</button>:
-                      <ul>
-                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
-                      </ul>
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
                   </div>
                   <div *ngIf="terminado.observacoes && terminado.observacoes.length > 0">
                     <hr>
@@ -217,8 +226,11 @@
                   </div>
                 </td>
                 <td>R$ {{ terminado.valorTotal.toFixed(2) }}</td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{terminado.idPrestador}}">{{ terminado.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{terminado.idPrestador}}/perfil-prestador">{{ terminado.nomePrestador }}</button>
+                </td>
                 <td>
                   <button [disabled]="terminado.avaliacao != null" type="button" class="btn btn-warning btn-sm"
                     data-toggle="modal" data-target="#modalAvaliarServico" routerLinkActive="active"
@@ -265,17 +277,20 @@
                       routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
                       ({{animal.especieAnimal | especie}}
                       {{animal.porteAnimal | tamanho}})</button>:
-                      <ul>
-                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
-                      </ul>
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
                   </div>
                   <div *ngIf="desistido.observacoes && desistido.observacoes.length > 0">
                     <hr>
                     <span><b>Observações: </b> {{ desistido.observacoes }}</span>
                   </div>
                 </td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{desistido.idPrestador}}">{{ desistido.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{desistido.idPrestador}}/perfil-prestador">{{ desistido.nomePrestador }}</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -308,17 +323,20 @@
                       routerLinkActive="active" routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
                       ({{animal.especieAnimal | especie}}
                       {{animal.porteAnimal | tamanho}})</button>:
-                      <ul>
-                        <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
-                      </ul>
+                    <ul>
+                      <li *ngFor="let tipoServico of animal.tiposServicos">{{ tipoServico | servico }} </li>
+                    </ul>
                   </div>
                   <div *ngIf="rejeitado.observacoes && rejeitado.observacoes.length > 0">
                     <hr>
                     <span><b>Observações: </b> {{ rejeitado.observacoes }}</span>
                   </div>
                 </td>
-                <td><a routerLinkActive="active"
-                    routerLink="../perfil-prestador/{{rejeitado.idPrestador}}">{{ rejeitado.nomePrestador }}</a></td>
+                <td>
+                  <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
+                    routerLinkActive="active"
+                    routerLink="{{rejeitado.idPrestador}}/perfil-prestador">{{ rejeitado.nomePrestador }}</button>
+                </td>
               </tr>
             </tbody>
           </table>
