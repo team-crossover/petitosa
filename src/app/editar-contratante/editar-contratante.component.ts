@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PerfilContratanteComponent } from '../perfil-contratante/perfil-contratante.component';
 import { first } from 'rxjs/operators';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-editar-contratante',
@@ -29,7 +30,8 @@ export class EditarContratanteComponent implements OnInit {
     public router: Router,
     public toastr: ToastrService,
     private perfilContratante: PerfilContratanteComponent,
-    private money: MoneyService
+    private money: MoneyService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit() {
@@ -65,8 +67,14 @@ export class EditarContratanteComponent implements OnInit {
         data => {
           if (data) {
             this.toastr.success('Contratante atualizado com sucesso');
-            this.auth.logout();
-            this.router.navigate(["/login"]);
+            if (this.novoContratante.senha) {
+              this.auth.logout();
+              this.router.navigate(["/login"]);
+            } else {
+              this.appComponent.loadUsername();
+              this.perfilContratante.loadContratante();
+              this.router.navigate(["/perfil-contratante/" + this.idContratante]);
+            }
           }
         }, 
         error => {

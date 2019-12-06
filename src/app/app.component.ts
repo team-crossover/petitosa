@@ -24,8 +24,17 @@ export class AppComponent {
     public toastr: ToastrService,
     private auth: AuthenticationService
   ) {
+    this.loadUsername();
+  }
 
-    auth.currentUser.subscribe(user => {
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    this.toastr.success('Usuário deslogado com sucesso');
+  }
+
+  loadUsername() {
+    this.auth.currentUser.subscribe(user => {
       if (user) {
         this.isAuthenticated = true;
         this.userRole = user.role;
@@ -40,11 +49,11 @@ export class AppComponent {
         }
           
         if (this.userRole == 'PRESTADOR') {
-          auth.getCurrentUserPrestador().subscribe(prestador => {
+          this.auth.getCurrentUserPrestador().subscribe(prestador => {
             this.userName = prestador.nome;
           });
         } else if (this.userRole == 'CONTRATANTE') {
-          auth.getCurrentUserContratante().subscribe(contratante => {
+          this.auth.getCurrentUserContratante().subscribe(contratante => {
             this.userName = contratante.nome;
           });
         }
@@ -55,14 +64,7 @@ export class AppComponent {
         this.urlProfile = null;
         this.linkBotaoPrincipal = 'login';
       }
-    })
-
-  }
-
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-    this.toastr.success('Usuário deslogado com sucesso');
+    });
   }
 
 }

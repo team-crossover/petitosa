@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { PerfilPrestadorComponent } from '../perfil-prestador/perfil-prestador.component'; 
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-editar-prestador',
@@ -29,7 +30,8 @@ export class EditarPrestadorComponent implements OnInit {
     public router: Router,
     public toastr: ToastrService,
     private perfilPrestador: PerfilPrestadorComponent,
-    private money: MoneyService
+    private money: MoneyService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit() {
@@ -71,8 +73,13 @@ export class EditarPrestadorComponent implements OnInit {
         data => {
           if (data) {
             this.toastr.success('Prestador de serviços atualizado com sucesso');
-            this.auth.logout();
-            this.router.navigate(["/login"]);
+            if (this.novoPrestador.senha) {
+              this.auth.logout();
+              this.router.navigate(["/login"]);
+            } else {
+              this.appComponent.loadUsername();
+              this.router.navigate(["/perfil-prestador/" + this.idPrestador]);
+            }
           }
         }, 
         error => {
