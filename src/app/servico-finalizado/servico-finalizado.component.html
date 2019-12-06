@@ -5,7 +5,7 @@
               <h5 class="modal-title">Serviço finalizado</h5>
           </div>
           <div class="modal-body">
-            <p>Serviço finalizado com sucesso. A quantia de R$ {{ servico.valorTotal }} será depositada na sua conta bancária.</p>
+            <p>Serviço finalizado com sucesso. A quantia de R$ {{ servico.valorTotal.toFixed(2) }} será depositada na sua conta bancária.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLinkActive="active" routerLink="../../">Voltar</button>
