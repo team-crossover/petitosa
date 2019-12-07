@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ServicoService } from '../_services';
 import { Servico } from '../_models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, delay, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-servico-finalizado',
@@ -33,7 +34,7 @@ export class ServicoFinalizadoComponent implements OnInit {
   }
 
   loadServico() {
-    this.servicoService.getServico(this.idServico).subscribe(data => {
+    timer(750).pipe(switchMap(() => this.servicoService.getServico(this.idServico))).subscribe(data => {
       console.log(data)
       if (data) {
         this.servico = data;
