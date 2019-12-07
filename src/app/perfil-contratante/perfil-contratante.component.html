@@ -8,13 +8,14 @@
                         <h3>Perfil do Contratante
                             <button type="button" class="btn btn-primary" routerLinkActive="active"
                                 routerLink="editar-contratante" data-toggle="modal" style="float: right;"
-                                data-target="#modalEditarContratante" *ngIf="isAuthenticated && userRole == 'CONTRATANTE'">Editar</button>
+                                data-target="#modalEditarContratante" *ngIf="isOwner">Editar</button>
                         </h3>
                     </div>
                 </div>
                 <hr>
 
-                <img src="{{(contratante && contratante.imgPerfil) ? contratante.imgPerfil : imgContratanteDefault}}" class="card-img-top img-thumbnail mx-auto d-block" alt="...">
+                <img src="{{(contratante && contratante.imgPerfil) ? contratante.imgPerfil : imgContratanteDefault}}"
+                    class="card-img-top img-thumbnail mx-auto d-block" alt="...">
 
                 <div class="row justify-content-md-center">
                     <div class="col">
@@ -59,8 +60,8 @@
                                 <strong>Cidade: </strong> {{endereco.cidade}}
                             </div>
                         </div>
-    
-                        
+
+
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <strong>CEP: </strong> {{contratante.endereco.cep}}
@@ -93,18 +94,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4" *ngFor="let solicitacao of servicos">
+                    <div class="col-sm-4" *ngFor="let servico of contratante.ultimosServicos">
                         <div class="card">
                             <div class="card-body">
                                 <p class="card-text">
                                     <small class="text-muted">
-                                        <b>Realizado em:</b>
-                                        <br />
-                                        {{solicitacao.dataTerminoRealizacao | dataHora}}
-                                        <br>
-                                        <b>Valor:</b>
-                                        <br />
-                                        R$ {{solicitacao.valorTotal.toFixed(2)}}
+                                        <b>Prestador: </b> {{ servico.nomePrestador }} <br>
+                                        <b>Realizado em: </b> {{servico.dataTermino | dataHora}} <br>
+                                        <b>Avaliação dada: </b> Nota {{ servico.avaliacao.nota }} <br>
+                                        <em>{{ servico.avaliacao.texto }}</em>
                                     </small>
                                 </p>
                             </div>

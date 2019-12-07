@@ -20,7 +20,12 @@ export class Servico {
     observacoes: string;
     servicosPorAnimais: Array<ServicosPorAnimal>; 
     status: string;
-    valorTotal: number;
+    precoServico: number;
+    precoTotal: number;
+    precoTaxaPetitosa: number;
+    valorRecebidoPeloPrestador : number;
+    taxaDesistenciaPagaPeloContratante : number;
+    taxaDesistenciaAdicionadaAoPrestador : number;
 
     constructor() {
         this.avaliacao = new Avaliacao();

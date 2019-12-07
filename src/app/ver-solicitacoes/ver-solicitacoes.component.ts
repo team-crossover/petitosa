@@ -13,6 +13,8 @@ export class VerSolicitacoesComponent implements OnInit {
 
   public idPrestador: number;
   servicosPorStatus: ServicosPorStatus = new ServicosPorStatus();
+  taxaDesistenciaAPagar: number = 0;
+  math: Math = Math;
 
   constructor(
     private auth: AuthenticationService,
@@ -28,6 +30,7 @@ export class VerSolicitacoesComponent implements OnInit {
   loadSolicitacoes() {
     this.auth.getCurrentUserPrestador().subscribe(data => {
       this.idPrestador = data.id;
+      this.taxaDesistenciaAPagar = data.taxaDesistenciaAPagar;
       this.servicoService.getByPrestador(this.idPrestador).subscribe(servicos => {
         this.servicosPorStatus = servicos;
         console.log(this.servicosPorStatus);

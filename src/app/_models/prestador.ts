@@ -18,6 +18,7 @@ export class Prestador {
     precos: number[];
     servicosPrestados: boolean[];
     ultimosServicos: Array<ResumoServico>;
+    taxaDesistenciaAPagar : number;
 
     constructor() {
         this.endereco = new Endereco();

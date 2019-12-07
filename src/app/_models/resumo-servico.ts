@@ -10,6 +10,7 @@ export class ResumoServico {
     nomeContratante: string;
     nomePrestador: string;
     servicosPorAnimais: Array<ServicosPorAnimal>;
+    dataTermino:string;
 
     constructor() {
         this.avaliacao = new Avaliacao();

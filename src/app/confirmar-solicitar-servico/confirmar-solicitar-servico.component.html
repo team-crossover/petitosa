@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalConfirmarSolicitacao" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-xl" role="document" style="max-width: 700px;">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Confirmar solicitação de serviço</h5>
@@ -18,36 +18,72 @@
                 <div class="col">
                   <form #usuarioForm="ngForm" novalidate>
 
-                    <div class="row">
-                      <div class="col">
-                        <h5><strong>Contratar {{ nomePrestador }}</strong></h5>
-                      </div>
-                    </div>
+                    <h5>Serviços</h5>
 
-                    <div class="row">
-                      <div class="col">
-                        <h4><span class="badge badge-info">Por R$ {{ preco.toFixed(2) }}</span></h4>
-                      </div>
-                    </div>
-                      <br>
-                    <div class="row">
-                      <div class="col">
-                        <h5>O atendimento será efetuado no seu endereço:</h5>
-                        <h6>{{contratante.endereco.logradouro}}, {{contratante.endereco.bairro}}, CEP {{contratante.endereco.cep}}, {{contratante.endereco.cidade}}</h6>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col">
-                        <h5>Selecione data e hora:</h5>
+                    <table class="table table-bordered table-sm" style="max-width: 400px;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Animal</th>
+                          <th scope="col">Serviço(s)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let servicoPorAnimal of filtroServico.servicosPorAnimais">
+                          <th scope="row">{{ servicoPorAnimal.apelidoAnimal }}</th>
+                          <td>
+                            <span>
+                              {{servicoPorAnimal.tiposServicos[0] | servico}}
+                            </span>
+                            <span *ngIf="servicoPorAnimal.tiposServicos.length >= 1">
+                              <br>{{servicoPorAnimal.tiposServicos[1] | servico}}
+                            </span>
+                            <span *ngIf="servicoPorAnimal.tiposServicos.length >= 2">
+                              <br>{{servicoPorAnimal.tiposServicos[2] | servico}}
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <br>
+                    <h5>Preço</h5>
+
+                    <table class="table table-bordered table-sm" style="max-width: 400px;">
+                      <tbody>
+                        <tr>
+                          <th>Preço do serviço</th>
+                          <td>R$ {{ precoServico.toFixed(2) }}</td>
+                        </tr>
+                        <tr>
+                          <th>Taxa de serviço do Petitosa</th>
+                          <td>R$ {{ precoTaxaPetitosa.toFixed(2) }}</td>
+                        </tr>
+                        <tr style="border-top: 2px solid black;">
+                          <th>Preço total a pagar</th>
+                          <td><strong>R$ {{ precoTotal.toFixed(2) }}</strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <br>
+                    <h5>Detalhes</h5>
+
+                    <div class="form-group row">
+                      <label for="endereco" class="col-sm-3 col-form-label">Endereço de atendimento</label>
+                      <div class="col-sm-9">
+                        <span id="endereco" name="endereco">
+                          {{contratante.endereco.logradouro}}, {{contratante.endereco.bairro}}
+                          <br> {{contratante.endereco.cep}}, {{contratante.endereco.cidade}} -
+                          {{contratante.endereco.uf}}</span>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="data" class="col-sm-3 col-form-label">Data do atendimento</label>
                       <div class="col-sm-9">
-                        <input type="date" min="{{dataMinima | date:'yyyy-MM-dd'}}" class="form-control" id="data" required placeholder="Informar data desejada"
-                          [(ngModel)]="dataServico" name="data" #data="ngModel">
+                        <input type="date" min="{{dataMinima | date:'yyyy-MM-dd'}}" class="form-control" id="data"
+                          required placeholder="Informar data desejada" [(ngModel)]="dataServico" name="data"
+                          #data="ngModel">
                         <div *ngIf="data.errors && (data.dirty || data.touched)" class="alert-danger"
                           style="background-color: white">
                           <div [hidden]="!data.errors.required">
@@ -74,12 +110,21 @@
                     <div class="form-group row">
                       <label for="observacoes" class="col-sm-3 col-form-label">Observações</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="observacoes" name="observacoes"
-                          placeholder="Observações (opcional)" [(ngModel)]="observacoes">
+                        <textarea class="form-control" rows="3" id="observacoes" name="observacoes"
+                          placeholder="Observações (opcional)" [(ngModel)]="observacoes"></textarea>
                       </div>
                     </div>
 
+                    <span style="font-style: italic; font-size: small">
+                      * O pagamento será efetuado apenas quando o serviço for terminado.
+                      <br>
+                      ** Enquanto o pedido não for aceito pelo prestador, é possível desistir sem nenhuma cobrança
+                      adicional. Após aceito, a desistência implica no pagamento de uma taxa de R$ 8,00.
+                    </span>
+
                   </form>
+
+                  <br>
                   <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()"
                     [disabled]="!usuarioForm.form.valid">Solicitar</button>
                 </div>

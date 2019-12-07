@@ -20,8 +20,7 @@ export class PerfilPrestadorComponent implements OnInit {
 
   public imgPrestadorDefault = 'assets/avatar.jpg';
 
-  isAuthenticated = false;
-  userRole = '';
+  isOwner = false;
 
   solicitacoes: ServicosPorStatus = new ServicosPorStatus();
   servicos: Array<Servico> = new Array<Servico>();
@@ -77,19 +76,13 @@ export class PerfilPrestadorComponent implements OnInit {
 
   verifyAuth() {
     this.auth.currentUser.subscribe(user => {
+      this.isOwner = false;
       if (user) {
-        this.userRole = user.role;
-        if (this.userRole == 'PRESTADOR') {
-          this.isAuthenticated = true;
-        } else {
-          this.isAuthenticated = false;
-        } 
-      } else {
-        this.isAuthenticated = false;
-        this.userRole = null;
+        if (user.role == "PRESTADOR" && user.idPrestador == this.idPrestador) {
+          this.isOwner = true;
+        }
       }
     })
-
   }
 
   loadUltimasAvaliacoes() {

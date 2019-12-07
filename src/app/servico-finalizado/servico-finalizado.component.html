@@ -1,15 +1,20 @@
 <div class="modal fade" id="modalServicoFinalizado" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Serviço finalizado</h5>
-          </div>
-          <div class="modal-body">
-            <p>Serviço finalizado com sucesso. A quantia de R$ {{ servico.valorTotal.toFixed(2) }} será depositada na sua conta bancária.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLinkActive="active" routerLink="../../">Voltar</button>
-          </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Serviço finalizado</h5>
+      </div>
+      <div class="modal-body">
+        <p>Serviço finalizado com sucesso!</p>
+        <p *ngIf="servico.valorRecebidoPeloPrestador">O pagamento de R$
+          {{ servico.valorRecebidoPeloPrestador.toFixed(2) }} foi depositado na sua
+          conta bancária.</p>
+        <p *ngIf="!servico.valorRecebidoPeloPrestador">O pagamento será em breve depositado em sua conta bancária.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLinkActive="active"
+          routerLink="../../">Voltar</button>
       </div>
     </div>
   </div>
+</div>

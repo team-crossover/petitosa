@@ -28,6 +28,7 @@ export class SolicitarServicoComponent implements OnInit {
   distanciaMaxima: number;
 
   public idContratante: number;
+  taxaDesistenciaAPagar: number = 0;
   public novoFiltro: FiltroServico = new FiltroServico;
 
   constructor(
@@ -47,11 +48,13 @@ export class SolicitarServicoComponent implements OnInit {
       this.idContratante = data.id;
       this.animalService.getAnimals(this.idContratante).subscribe(data => {
         //Redireciona para cadastro de animais se não houver nenhum
-        if(data.length==0) {
+        if (data.length == 0) {
           this.toastr.info('Cadastre animais para poder solicitar serviços');
           this.router.navigate(["/adicionar-animal"]);
         }
         this.animais = data;
+        if (data.length > 0)
+          this.currentAnimal = this.animais[0];
       });
     });
   }
@@ -61,6 +64,9 @@ export class SolicitarServicoComponent implements OnInit {
     this.animalViews.forEach(element => {
       let novoServico: ServicosPorAnimal = new ServicosPorAnimal();
       novoServico.idAnimal = element.id;
+      novoServico.apelidoAnimal = element.apelido;
+      novoServico.especieAnimal = element.especie;
+      novoServico.porteAnimal = element.porte;
       novoServico.tiposServicos = element.tiposServicos;
       this.servicos.push(novoServico);
     });
@@ -81,25 +87,28 @@ export class SolicitarServicoComponent implements OnInit {
 
   }
 
-  addServico() {    
+  addServico() {
     let animalSelecionado: AnimalView = new AnimalView();
     let servicosSelecionados: string[] = [];
 
     if (this.checkboxes[0]) {
+      this.checkboxes[0] = false;
       servicosSelecionados.push('BANHO');
     }
     if (this.checkboxes[1]) {
+      this.checkboxes[1] = false;
       servicosSelecionados.push('TOSA');
     }
     if (this.checkboxes[2]) {
+      this.checkboxes[2] = false;
       servicosSelecionados.push('PASSEIO');
     }
     animalSelecionado.tiposServicos = servicosSelecionados;
 
     animalSelecionado.id = this.currentAnimal.id;
-      animalSelecionado.porte = this.currentAnimal.porte;
-      animalSelecionado.especie = this.currentAnimal.especie;
-      animalSelecionado.apelido = this.currentAnimal.apelido;
+    animalSelecionado.porte = this.currentAnimal.porte;
+    animalSelecionado.especie = this.currentAnimal.especie;
+    animalSelecionado.apelido = this.currentAnimal.apelido;
 
     this.animalViews.push(animalSelecionado);
 
@@ -132,7 +141,10 @@ export class SolicitarServicoComponent implements OnInit {
         break;
       }
     }
-    this.currentAnimal = null;
+    if (this.animais.length == 0)
+      this.currentAnimal = null;
+    else
+      this.currentAnimal = this.animais[0];
   }
 
   returnAnimalToOptions(id: number) {

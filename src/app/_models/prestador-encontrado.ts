@@ -5,5 +5,7 @@ export class PrestadorEncontrado {
     idPrestador: number;
     imgPerfil: string;
     nome: string;
+    precoServico: number;
+    precoTaxaPetitosa: number;
     precoTotal: number;
 }

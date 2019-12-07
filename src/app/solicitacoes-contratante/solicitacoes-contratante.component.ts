@@ -12,6 +12,7 @@ export class SolicitacoesContratanteComponent implements OnInit {
 
   idContratante: number;
   servicosPorStatus: ServicosPorStatus = new ServicosPorStatus();
+  taxaDesistenciaAPagar : number = 0;
 
   constructor(
     private auth: AuthenticationService,

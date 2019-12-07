@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ServicoFinalizadoComponent implements OnInit {
 
   private idServico;
-  servico: Servico = new Servico();
+  servico: Servico;
 
   constructor(
     private servicoService: ServicoService,
@@ -34,12 +34,10 @@ export class ServicoFinalizadoComponent implements OnInit {
 
   loadServico() {
     this.servicoService.getServico(this.idServico).subscribe(data => {
+      console.log(data)
       if (data) {
         this.servico = data;
-        this.servico.valorTotal = data.valorTotal / 1.25;
-        console.log(this.servico)
       }
     });
   }
-
 }

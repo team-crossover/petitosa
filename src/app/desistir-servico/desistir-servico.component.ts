@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicoService } from '../_services';
+import { ServicoService, AuthenticationService } from '../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -13,8 +13,10 @@ import { VerSolicitacoesComponent } from '../ver-solicitacoes/ver-solicitacoes.c
 export class DesistirServicoComponent implements OnInit {
 
   private idServico;
+  servicoFoiAceito: boolean;
 
   constructor(
+    private authService: AuthenticationService,
     private servicoService: ServicoService,
     private toastr: ToastrService,
     private router: Router,
@@ -29,10 +31,20 @@ export class DesistirServicoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadServico();
   }
 
+  loadServico() {
+    this.servicoService.getServico(this.idServico).subscribe(data => {
+      if (data) {
+        this.servicoFoiAceito = data.status == "ACEITO";
+      }
+    });
+  }
   onSubmit() {
-    this.servicoService.quitServico(this.idServico)
+    console.log(this.authService.currentUserValue.id);
+
+    this.servicoService.quitServico(this.idServico, this.authService.currentUserValue.id)
       .pipe(first())
       .subscribe(
         data => {

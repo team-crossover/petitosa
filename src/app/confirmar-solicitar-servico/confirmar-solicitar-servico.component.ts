@@ -24,8 +24,9 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
   dataServico: string;
   horaServico: string;
   observacoes: string;
-  preco: number;
-  taxa: number = 1.25;
+  precoServico: number;
+  precoTaxaPetitosa: number;
+  precoTotal: number;
   nomePrestador: string;
 
   novaSolicitacao: SolicitacaoServico = new SolicitacaoServico();
@@ -58,17 +59,20 @@ export class ConfirmarSolicitarServicoComponent implements OnInit {
     this.prestadores = this.solicitarComponent.prestadoresEncontrados;
     this.prestadores.forEach(element => {
       if (element.idPrestador == this.idPrestador) {
-        this.preco = element.precoTotal;
         this.nomePrestador = element.nome;
+        this.precoServico = element.precoServico;
+        this.precoTaxaPetitosa = element.precoTaxaPetitosa;
+        this.precoTotal = element.precoTotal;
       }
     });
   }
 
-  setTomorrow(){
+  setTomorrow() {
     var tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     this.dataMinima = tomorrow;
     this.dataServico = formatDate(tomorrow, 'yyyy-MM-dd', 'en');
+    this.horaServico = "14:00";
   }
 
   loadContratante() {

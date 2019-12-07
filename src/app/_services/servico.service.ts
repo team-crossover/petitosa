@@ -22,8 +22,8 @@ export class ServicoService {
     return this.http.post<Servico>(`${environment.apiBaseUrl}api/v1/servicos/${idServico}/avaliar`, avaliacao);
   }
 
-  quitServico(idServico) {
-    return this.http.get<Servico>(`${environment.apiBaseUrl}api/v1/servicos/${idServico}/desistir`);
+  quitServico(idServico, idUsuario) {
+    return this.http.get<Servico>(`${environment.apiBaseUrl}api/v1/servicos/${idServico}/desistir`, { params: { "idUsuario": idUsuario } });
   }
 
   startServico(idServico) {

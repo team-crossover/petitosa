@@ -14,17 +14,12 @@ export class PerfilContratanteComponent implements OnInit {
   contratante: Contratante = new Contratante();
   endereco: Endereco = new Endereco();
   error: any;
-  servicosPrestados: boolean[] = [];
-  precos: number[] = [];
-  solicitacoes: ServicosPorStatus = new ServicosPorStatus();
-  servicos: Array<Servico> = new Array<Servico>();
 
   public idContratante: number;
 
   public imgContratanteDefault = 'assets/avatar.jpg';
 
-  isAuthenticated = false;
-  userRole = '';
+  isOwner = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +39,6 @@ export class PerfilContratanteComponent implements OnInit {
 
   ngOnInit() {
     this.loadContratante();
-    this.loadSolicitacoes();
   }
 
   loadContratante() {
@@ -63,7 +57,7 @@ export class PerfilContratanteComponent implements OnInit {
       }
     });
   }
-  
+
   loadEndereco(cep: number) {
     this.enderecoService.getEndereco(cep).subscribe(data => {
       this.endereco = data;
@@ -75,33 +69,13 @@ export class PerfilContratanteComponent implements OnInit {
 
   verifyAuth() {
     this.auth.currentUser.subscribe(user => {
+      this.isOwner = false;
       if (user) {
-        this.userRole = user.role;
-        if (this.userRole == 'CONTRATANTE') {
-          this.isAuthenticated = true;
-        } else {
-          this.isAuthenticated = false;
-        } 
-      } else {
-        this.isAuthenticated = false;
-        this.userRole = null;
-      }
-    })
-
-  }
-
-  loadSolicitacoes() {
-    this.servicoService.searchByContratante(this.idContratante).subscribe(data => {
-      this.solicitacoes = data;
-      for (let i = this.solicitacoes.terminados.length - 1; i >= 0; i --) {
-        if (this.servicos.length < 3) {
-          this.servicos.push(this.solicitacoes.terminados[i]);
-          console.log(this.solicitacoes.terminados[i]);
+        if (user.role == "CONTRATANTE" && user.idContratante == this.idContratante) {
+          this.isOwner = true;
         }
       }
-    });
+    })
   }
-
-
 
 }

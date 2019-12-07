@@ -8,13 +8,25 @@
                         <h3>Perfil do Prestador de serviços
                             <button type="button" style="float: right;" class="btn btn-primary"
                                 routerLinkActive="active" routerLink="editar-prestador" data-toggle="modal"
-                                data-target="#modalEditarPrestador" *ngIf="isAuthenticated && userRole == 'PRESTADOR'">Editar</button>
+                                data-target="#modalEditarPrestador" *ngIf="isOwner">Editar</button>
                         </h3>
                     </div>
                 </div>
                 <hr>
 
-                <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}" class="card-img-top img-thumbnail mx-auto d-block" alt="...">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div *ngIf="isOwner && prestador.taxaDesistenciaAPagar > 0" class="alert alert-danger"
+                            role="alert">
+                            Você tem uma taxa de desistência pendente de R$
+                            {{prestador.taxaDesistenciaAPagar.toFixed(2)}}.
+                            <br>Ela será deduzida do valor recebido ao terminar seu próximo serviço.
+                        </div>
+                    </div>
+                </div>
+
+                <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
+                    class="card-img-top img-thumbnail mx-auto d-block" alt="...">
 
                 <div class="row justify-content-md-center">
                     <div class="col">
@@ -88,11 +100,11 @@
                         <br>
                         <h5>Atendimento</h5>
                         <br>
-                        
+
                         <div class="form-group row">
                             <div class="col-sm-3" style="font-weight: bold">Média de avaliações</div>
                             <div class="col-sm-9">
-                                🐾  {{ prestador.notaMedia }}
+                                🐾 {{ prestador.notaMedia }}
                             </div>
                         </div>
 
@@ -134,7 +146,8 @@
 
 
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label" style="font-weight: bold">Serviços prestados</label>
+                            <label for="staticEmail" class="col-sm-3 col-form-label" style="font-weight: bold">Serviços
+                                prestados</label>
                             <div class="col-sm-9 table-responsive">
                                 <h6 class="text-center"><i>Cães</i></h6>
                                 <table class="table">
@@ -216,7 +229,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label" style="font-weight: bold">Preços</label>
+                            <label for="staticEmail" class="col-sm-3 col-form-label"
+                                style="font-weight: bold">Preços</label>
                             <div class="col-sm-9 table-responsive">
                                 <h6 class="text-center"><i>Cães</i></h6>
                                 <table class="table">
@@ -246,7 +260,8 @@
                                                         [(ngModel)]="precos[3]" name="precos[3]">
                                                 </div>
                                                 <ng-template #else3>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -255,7 +270,8 @@
                                                         [(ngModel)]="precos[6]" name="precos[6]">
                                                 </div>
                                                 <ng-template #else6>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                         </tr>
@@ -267,7 +283,8 @@
                                                         [(ngModel)]="precos[1]" name="precos[1]">
                                                 </div>
                                                 <ng-template #else1>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -276,7 +293,8 @@
                                                         [(ngModel)]="precos[4]" name="precos[4]">
                                                 </div>
                                                 <ng-template #else4>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -285,7 +303,8 @@
                                                         [(ngModel)]="precos[7]" name="precos[7]">
                                                 </div>
                                                 <ng-template #else7>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                         </tr>
@@ -297,7 +316,8 @@
                                                         [(ngModel)]="precos[2]" name="precos[2]">
                                                 </div>
                                                 <ng-template #else2>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -306,7 +326,8 @@
                                                         [(ngModel)]="precos[5]" name="precos[5]">
                                                 </div>
                                                 <ng-template #else5>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -315,7 +336,8 @@
                                                         [(ngModel)]="precos[8]" name="precos[8]">
                                                 </div>
                                                 <ng-template #else8>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                         </tr>
@@ -341,7 +363,8 @@
                                                         [(ngModel)]="precos[9]" name="precos[9]">
                                                 </div>
                                                 <ng-template #else9>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -350,7 +373,8 @@
                                                         [(ngModel)]="precos[11]" name="precos[11]">
                                                 </div>
                                                 <ng-template #else11>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -359,7 +383,8 @@
                                                         [(ngModel)]="precos[13]" name="precos[13]">
                                                 </div>
                                                 <ng-template #else13>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                         </tr>
@@ -371,7 +396,8 @@
                                                         [(ngModel)]="precos[10]" name="precos[10]">
                                                 </div>
                                                 <ng-template #else10>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -380,7 +406,8 @@
                                                         [(ngModel)]="precos[12]" name="precos[12]">
                                                 </div>
                                                 <ng-template #else12>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                             <td>
@@ -389,7 +416,8 @@
                                                         [(ngModel)]="precos[14]" name="precos[14]">
                                                 </div>
                                                 <ng-template #else14>
-                                                    <input disabled type="number" style="width: 75px" step="0.01" disabled>
+                                                    <input disabled type="number" style="width: 75px" step="0.01"
+                                                        disabled>
                                                 </ng-template>
                                             </td>
                                         </tr>

@@ -67,7 +67,7 @@
                     <span><b>Observações: </b> {{ pendente.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ pendente.valorTotal.toFixed(2) }}</td>
+                <td>R$ {{ pendente.precoTotal.toFixed(2) }}</td>
                 <td>
                   <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
                     routerLinkActive="active"
@@ -120,7 +120,7 @@
                     <span><b>Observações: </b> {{ aceito.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ aceito.valorTotal.toFixed(2) }}</td>
+                <td>R$ {{ aceito.precoTotal.toFixed(2) }}</td>
                 <td>
                   <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
                     routerLinkActive="active"
@@ -173,7 +173,7 @@
                     <span><b>Observações: </b> {{ andamento.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ andamento.valorTotal.toFixed(2) }}</td>
+                <td>R$ {{ andamento.precoTotal.toFixed(2) }}</td>
                 <td>
                   <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
                     routerLinkActive="active"
@@ -225,7 +225,7 @@
                     <span><b>Observações: </b> {{ terminado.observacoes }}</span>
                   </div>
                 </td>
-                <td>R$ {{ terminado.valorTotal.toFixed(2) }}</td>
+                <td>R$ {{ terminado.precoTotal.toFixed(2) }}</td>
                 <td>
                   <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerPrestador"
                     routerLinkActive="active"
@@ -269,8 +269,14 @@
             <tbody>
               <tr *ngFor="let desistido of servicosPorStatus.desistidos">
                 <td>{{ desistido.dataSolicitacao | dataHora }}</td>
-                <td>{{ desistido.dataAceitacao | dataHora }}</td>
-                <td>{{ desistido.dataDesistencia | dataHora }}</td>
+                <td *ngIf="desistido.dataAceitacao"> {{ desistido.dataAceitacao | dataHora }} </td>
+                <td *ngIf="!desistido.dataAceitacao" style="font-size: small"> Desistido antes de ser aceito </td>
+                <td>{{ desistido.dataDesistencia | dataHora }}
+                  <span *ngIf="desistido.taxaDesistenciaPagaPeloContratante > 0" style="font-size: small">
+                    <br>Taxa de desistência: R$
+                    {{desistido.taxaDesistenciaPagaPeloContratante.toFixed(2)}}
+                  </span>
+                </td>
                 <td>
                   <div *ngFor="let animal of desistido.servicosPorAnimais">
                     <button class="btn btn-link" style="padding: 0" data-toggle="modal" data-target="#modalVerAnimal"

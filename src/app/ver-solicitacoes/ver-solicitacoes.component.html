@@ -4,6 +4,16 @@
     </div>
 </div>
 
+<div class="form-group row">
+    <div class="col-sm-12">
+        <div *ngIf="taxaDesistenciaAPagar > 0" class="alert alert-danger" role="alert">
+            Você tem uma taxa de desistência pendente de R$
+            {{taxaDesistenciaAPagar.toFixed(2)}}.
+            <br>Ela será deduzida do valor recebido ao terminar seu próximo serviço.
+        </div>
+    </div>
+</div>
+
 <div>
     <div class="row">
         <div class="col">
@@ -36,55 +46,56 @@
             <div class="tab-content" id="myTabContent">
 
                 <div class="tab-pane fade show active" id="pendentes" role="tabpanel" aria-labelledby="pendentes-tab">
-                    <table class="table table-striped table-bordered"
-                        *ngIf="servicosPorStatus.pendentes.length > 0; else elsePendente">
-                        <thead>
-                            <tr>
-                                <th scope="col">Data de solicitação</th>
-                                <th scope="col">Data esperada para o serviço</th>
-                                <th scope="col">Animais e serviços</th>
-                                <th scope="col">Valor a receber</th>
-                                <th scope="col">Contratante</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let pendente of servicosPorStatus.pendentes">
-                                <td>{{ pendente.dataSolicitacao | dataHora }}</td>
-                                <td>{{ pendente.dataEsperadaRealizacao | dataHora }}</td>
-                                <td>
-                                    <div *ngFor="let animal of pendente.servicosPorAnimais">
+                    <div *ngIf="servicosPorStatus.pendentes.length > 0; else elsePendente">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data de solicitação</th>
+                                    <th scope="col">Data esperada para o serviço</th>
+                                    <th scope="col">Animais e serviços</th>
+                                    <th scope="col">Valor do serviço</th>
+                                    <th scope="col">Contratante</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pendente of servicosPorStatus.pendentes">
+                                    <td>{{ pendente.dataSolicitacao | dataHora }}</td>
+                                    <td>{{ pendente.dataEsperadaRealizacao | dataHora }}</td>
+                                    <td>
+                                        <div *ngFor="let animal of pendente.servicosPorAnimais">
+                                            <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                                data-target="#modalVerAnimal" routerLinkActive="active"
+                                                routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                                ({{animal.especieAnimal | especie}}
+                                                {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                        </div>
+                                        <div *ngIf="pendente.observacoes && pendente.observacoes.length > 0">
+                                            <hr>
+                                            <span><b>Observações: </b> {{ pendente.observacoes }}</span>
+                                        </div>
+                                    </td>
+                                    <td>R$ {{ pendente.precoServico.toFixed(2) }} </td>
+                                    <td>
                                         <button class="btn btn-link" style="padding: 0" data-toggle="modal"
-                                            data-target="#modalVerAnimal" routerLinkActive="active"
-                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
-                                            ({{animal.especieAnimal | especie}}
-                                            {{animal.porteAnimal | tamanho}})</button>:
-                                        <ul>
-                                            <li *ngFor="let tipoServico of animal.tiposServicos">
-                                                {{ tipoServico | servico }} </li>
-                                        </ul>
-                                    </div>
-                                    <div *ngIf="pendente.observacoes && pendente.observacoes.length > 0">
-                                        <hr>
-                                        <span><b>Observações: </b> {{ pendente.observacoes }}</span>
-                                    </div>
-                                </td>
-                                <td>R$ {{ (pendente.valorTotal / 1.25).toFixed(2) }}</td>
-                                <td>
-                                    <button class="btn btn-link" style="padding: 0" data-toggle="modal"
-                                        data-target="#modalVerContratante" routerLinkActive="active"
-                                        routerLink="{{pendente.idContratante}}/perfil-contratante">{{ pendente.nomeContratante }}</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"
-                                        (click)="acceptSolicitacao(pendente.id)">Aceitar</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#modalRejeitarServico" routerLinkActive="active"
-                                        routerLink="{{pendente.id}}/rejeitar-servico">Rejeitar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            data-target="#modalVerContratante" routerLinkActive="active"
+                                            routerLink="{{pendente.idContratante}}/perfil-contratante">{{ pendente.nomeContratante }}</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            (click)="acceptSolicitacao(pendente.id)">Aceitar</button>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#modalRejeitarServico" routerLinkActive="active"
+                                            routerLink="{{pendente.id}}/rejeitar-servico">Rejeitar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <ng-template #elsePendente>
                         <div class="alert alert-warning" role="alert">
                             Você não tem solicitações pendentes
@@ -100,7 +111,7 @@
                                 <th scope="col">Data de solicitação</th>
                                 <th scope="col">Data esperada para o serviço</th>
                                 <th scope="col">Animais e serviços</th>
-                                <th scope="col">Valor a receber</th>
+                                <th scope="col">Valor do serviço</th>
                                 <th scope="col">Contratante</th>
                                 <th scope="col">Ações</th>
                             </tr>
@@ -126,7 +137,7 @@
                                         <span><b>Observações: </b> {{ aceito.observacoes }}</span>
                                     </div>
                                 </td>
-                                <td>R$ {{ (aceito.valorTotal / 1.25).toFixed(2) }}</td>
+                                <td>R$ {{ (aceito.precoServico).toFixed(2) }}</td>
                                 <td>
                                     <button class="btn btn-link" style="padding: 0" data-toggle="modal"
                                         data-target="#modalVerContratante" routerLinkActive="active"
@@ -150,54 +161,63 @@
                 </div>
 
                 <div class="tab-pane fade" id="andamento" role="tabpanel" aria-labelledby="andamento-tab">
-                    <table class="table table-striped table-bordered"
-                        *ngIf="servicosPorStatus.emAndamento.length > 0; else elseAndamento">
-                        <thead>
-                            <tr>
-                                <th scope="col">Data de solicitação</th>
-                                <th scope="col">Data de início do serviço</th>
-                                <th scope="col">Animais e serviços</th>
-                                <th scope="col">Valor a receber</th>
-                                <th scope="col">Contratante</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngFor="let andamento of servicosPorStatus.emAndamento">
-                            <tr>
-                                <td>{{ andamento.dataSolicitacao | dataHora }}</td>
-                                <td>{{ andamento.dataInicioRealizacao | dataHora }}</td>
-                                <td>
-                                    <div *ngFor="let animal of andamento.servicosPorAnimais">
+                    <div *ngIf="servicosPorStatus.emAndamento.length > 0; else elseAndamento">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data de solicitação</th>
+                                    <th scope="col">Data de início do serviço</th>
+                                    <th scope="col">Animais e serviços</th>
+                                    <th scope="col">Valor a receber</th>
+                                    <th scope="col">Contratante</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let andamento of servicosPorStatus.emAndamento">
+                                <tr>
+                                    <td>{{ andamento.dataSolicitacao | dataHora }}</td>
+                                    <td>{{ andamento.dataInicioRealizacao | dataHora }}</td>
+                                    <td>
+                                        <div *ngFor="let animal of andamento.servicosPorAnimais">
+                                            <button class="btn btn-link" style="padding: 0" data-toggle="modal"
+                                                data-target="#modalVerAnimal" routerLinkActive="active"
+                                                routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
+                                                ({{animal.especieAnimal | especie}}
+                                                {{animal.porteAnimal | tamanho}})</button>:
+                                            <ul>
+                                                <li *ngFor="let tipoServico of animal.tiposServicos">
+                                                    {{ tipoServico | servico }} </li>
+                                            </ul>
+                                        </div>
+                                        <div *ngIf="andamento.observacoes && andamento.observacoes.length > 0">
+                                            <hr>
+                                            <span><b>Observações: </b> {{ andamento.observacoes }}</span>
+                                        </div>
+                                    </td>
+                                    <td>R$
+                                        {{ math.max((andamento.precoServico - taxaDesistenciaAPagar), 0).toFixed(2) }}
+                                        <span *ngIf="taxaDesistenciaAPagar > 0">*</span>
+                                    </td>
+                                    <td>
                                         <button class="btn btn-link" style="padding: 0" data-toggle="modal"
-                                            data-target="#modalVerAnimal" routerLinkActive="active"
-                                            routerLink="{{animal.idAnimal}}/ver-animal">{{ animal.apelidoAnimal }}
-                                            ({{animal.especieAnimal | especie}}
-                                            {{animal.porteAnimal | tamanho}})</button>:
-                                        <ul>
-                                            <li *ngFor="let tipoServico of animal.tiposServicos">
-                                                {{ tipoServico | servico }} </li>
-                                        </ul>
-                                    </div>
-                                    <div *ngIf="andamento.observacoes && andamento.observacoes.length > 0">
-                                        <hr>
-                                        <span><b>Observações: </b> {{ andamento.observacoes }}</span>
-                                    </div>
-                                </td>
-                                <td>R$ {{ (andamento.valorTotal / 1.25).toFixed(2) }}</td>
-                                <td>
-                                    <button class="btn btn-link" style="padding: 0" data-toggle="modal"
-                                        data-target="#modalVerContratante" routerLinkActive="active"
-                                        routerLink="{{andamento.idContratante}}/perfil-contratante">{{ andamento.nomeContratante }}</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#modalServicoFinalizado" routerLinkActive="active"
-                                        routerLink="{{andamento.id}}/servico-finalizado"
-                                        (click)="finishSolicitacao(andamento.id)">Terminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            data-target="#modalVerContratante" routerLinkActive="active"
+                                            routerLink="{{andamento.idContratante}}/perfil-contratante">{{ andamento.nomeContratante }}</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#modalServicoFinalizado" routerLinkActive="active"
+                                            routerLink="{{andamento.id}}/servico-finalizado"
+                                            (click)="finishSolicitacao(andamento.id)">Terminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="taxaDesistenciaAPagar > 0">
+                            <span style="font-size: small;font-style: italic;">
+                                * Este valor já inclui a dedução de sua taxa de desistência pendente.
+                            </span>
+                        </div>
+                    </div>
                     <ng-template #elseAndamento>
                         <div class="alert alert-warning" role="alert">
                             Você não tem solicitações em andamento
@@ -239,7 +259,7 @@
                                         <span><b>Observações: </b> {{ terminado.observacoes }}</span>
                                     </div>
                                 </td>
-                                <td>R$ {{ (terminado.valorTotal / 1.25).toFixed(2) }}</td>
+                                <td>R$ {{ (terminado.valorRecebidoPeloPrestador).toFixed(2) }}</td>
                                 <td>
                                     <button class="btn btn-link" style="padding: 0" data-toggle="modal"
                                         data-target="#modalVerContratante" routerLinkActive="active"
@@ -271,8 +291,15 @@
                         <tbody>
                             <tr *ngFor="let desistido of servicosPorStatus.desistidos">
                                 <td>{{ desistido.dataSolicitacao | dataHora }}</td>
-                                <td>{{ desistido.dataAceitacao | dataHora }}</td>
-                                <td>{{ desistido.dataDesistencia | dataHora }}</td>
+                                <td *ngIf="desistido.dataAceitacao"> {{ desistido.dataAceitacao | dataHora }} </td>
+                                <td *ngIf="!desistido.dataAceitacao" style="font-size: small"> Desistido antes de ser
+                                    aceito </td>
+                                <td>{{ desistido.dataDesistencia | dataHora }}
+                                    <span *ngIf="desistido.taxaDesistenciaAdicionadaAoPrestador > 0"
+                                        style="font-size: small">
+                                        <br>Taxa de desistência: R$
+                                        {{desistido.taxaDesistenciaAdicionadaAoPrestador.toFixed(2)}}</span>
+                                </td>
                                 <td>
                                     <div *ngFor="let animal of desistido.servicosPorAnimais">
                                         <button class="btn btn-link" style="padding: 0" data-toggle="modal"

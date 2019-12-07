@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitacoesContratanteComponent } from '../solicitacoes-contratante/solicitacoes-contratante.component';
-import { ServicoService } from '../_services';
+import { ServicoService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -13,8 +13,10 @@ import { first } from 'rxjs/operators';
 export class DesistirSolicitacaoContratanteComponent implements OnInit {
 
   private idServico;
+  servicoFoiAceito: boolean;
 
   constructor(
+    private authService: AuthenticationService,
     private servicoService: ServicoService,
     private toastr: ToastrService,
     private router: Router,
@@ -29,15 +31,24 @@ export class DesistirSolicitacaoContratanteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadServico();
+  }
+
+  loadServico() {
+    this.servicoService.getServico(this.idServico).subscribe(data => {
+      if (data) {
+        this.servicoFoiAceito = data.status == "ACEITO";
+      }
+    });
   }
 
   onSubmit() {
-    this.servicoService.quitServico(this.idServico)
+    this.servicoService.quitServico(this.idServico, this.authService.currentUserValue.id)
       .pipe(first())
       .subscribe(
         data => {
           if (data) {
-            this.router.navigate(['/ver-solicitacoes']);
+            this.router.navigate(['/solicitacoes-contratante']);
             this.toastr.success('Você desistiu deste serviço com sucesso');
             this.solicitacoesContratante.loadContratanteAndSolicitacoes();
           }
