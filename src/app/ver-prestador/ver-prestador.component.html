@@ -3,7 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Perfil de {{ prestador.nome }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" routerLinkActive="active" routerLink="../../">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" routerLinkActive="active"
+                    routerLink="../../">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -86,9 +87,11 @@
                         <br>
 
                         <div class="form-group row">
-                            <div class="col-sm-3" style="font-weight: bold">Média de avaliações</div>
-                            <div class="col-sm-9">
-                                🐾 {{ prestador.notaMedia }}
+                            <div class="col-sm-12"><strong>Média de avaliações:</strong>
+                                {{ prestador.notaMedia }}
+                                <ng-container *ngFor="let i of [].constructor(prestador.notaMedia)">
+                                    <img src="../../assets/pawScore.png" style="width: 30px; height: 30px;">
+                                </ng-container>
                             </div>
                         </div>
 
@@ -111,7 +114,11 @@
                                         <p class="card-text">
                                             <small class="text-muted">
                                                 <b>Nota:</b>
-                                                🐾 {{ solicitacao.avaliacao.nota }}
+                                                {{ solicitacao.avaliacao.nota }}
+                                                
+                                                <ng-container *ngFor="let i of [].constructor(prestador.notaMedia)">
+                                                    <img src="../../assets/pawScore.png" style="width: 15px; height: 15px;">
+                                                </ng-container>
                                                 <br />
                                                 "{{ solicitacao.avaliacao.texto }}"
                                                 <br />

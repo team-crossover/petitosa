@@ -13,11 +13,11 @@
             <div class="col-sm-9">
               <select class="form-control" id="nota" required placeholder="Dê uma nota"
                 [(ngModel)]="novaAvaliacao.nota" name="nota" #nota="ngModel">
-                <option value=1>1 🐾</option>
-                <option value=2>2 🐾</option>
-                <option value=3>3 🐾</option>
-                <option value=4>4 🐾</option>
-                <option value=5>5 🐾</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
               </select>
               <div *ngIf="nota.errors && (nota.dirty || nota.touched)" class="alert-danger"
                 style="background-color: white">

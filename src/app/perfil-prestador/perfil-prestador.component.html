@@ -104,7 +104,10 @@
                         <div class="form-group row">
                             <div class="col-sm-3" style="font-weight: bold">Média de avaliações</div>
                             <div class="col-sm-9">
-                                🐾 {{ prestador.notaMedia }}
+                                {{prestador.notaMedia}}
+                                <ng-container *ngFor="let i of [].constructor(prestador.notaMedia)">
+                                    <img src="../../assets/pawScore.png" style="width: 30px; height: 30px;">
+                                </ng-container>
                             </div>
                         </div>
 
@@ -118,8 +121,13 @@
                                     <div class="card-body">
                                         <p class="card-text">
                                             <small class="text-muted">
-                                                <b>Nota:</b>
-                                                🐾 {{ solicitacao.avaliacao.nota }}
+                                                <b>Nota: &nbsp;</b>
+                                                {{ solicitacao.avaliacao.nota }}
+                                                <ng-container
+                                                    *ngFor="let i of [].constructor(solicitacao.avaliacao.nota)">
+                                                    <img src="../../assets/pawScore.png"
+                                                        style="width: 15px; height: 15px;">
+                                                </ng-container>
                                                 <br />
                                                 "{{ solicitacao.avaliacao.texto }}"
                                                 <br />

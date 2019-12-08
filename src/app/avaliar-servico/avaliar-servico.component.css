@@ -1,0 +1,5 @@
+select#nota option[value=1]   { 
+    background-image:url(../../assets/pawScore.png);   
+    width: 10px;
+    height: 10px;
+}

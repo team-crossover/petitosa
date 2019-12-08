@@ -238,7 +238,11 @@
 
                   <div *ngIf="terminado.avaliacao != null">
                     <hr>
-                    <b>Sua avaliação: 🐾{{ terminado.avaliacao.nota }} <br></b>
+                    <b>Sua avaliação: {{ terminado.avaliacao.nota }}
+                      <ng-container *ngFor="let i of [].constructor(terminado.avaliacao.nota)">
+                        <img src="../../assets/pawScore.png" style="width: 15px; height: 15px;">
+                      </ng-container>
+                      <br></b>
                     <div *ngIf="terminado.avaliacao.texto != null">{{ terminado.avaliacao.texto }}</div>
                   </div>
 

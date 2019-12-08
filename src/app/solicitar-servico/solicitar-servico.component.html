@@ -9,7 +9,7 @@
             <hr>
           </div>
         </div>
-        
+
         <!--Adicionar serviço-->
         <div class="row justify-content-md-center">
           <div class="col">
@@ -137,10 +137,15 @@
               <div class="card-body">
                 <img src="{{(prestador && prestador.imgPerfil) ? prestador.imgPerfil : imgPrestadorDefault}}"
                   class="card-img-top img-thumbnail mx-auto d-block" alt="...">
-                <h5 class="card-title btn-link" data-toggle="modal" data-target="#modalVerPrestador" routerLinkActive="active"
-                  routerLink="{{ prestador.idPrestador }}/perfil"><b>{{prestador.nome}}</b></h5>
+                <h5 class="card-title btn-link" data-toggle="modal" data-target="#modalVerPrestador"
+                  routerLinkActive="active" routerLink="{{ prestador.idPrestador }}/perfil"><b>{{prestador.nome}}</b>
+                </h5>
                 <div class="card-text">
-                  <p>Avaliado em {{prestador.avaliacao}} 🐾</p>
+                  <p>Avaliado em {{prestador.avaliacao}} <br>
+                    <ng-container *ngFor="let i of [].constructor(prestador.avaliacao)">
+                      <img src="../../assets/pawScore.png" style="width: 15px; height: 15px;">
+                    </ng-container>
+                  </p>
                   <i>A {{prestador.distancia/1000}} quilômetros</i>
                   <h6> <span class="badge badge-info"> Por R$ {{prestador.precoTotal.toFixed(2)}}</span></h6>
                 </div>
