@@ -1,8 +1,7 @@
 # Petitosa
 Trabalho da disciplina de Engenharia Econômica de software. Aplicação que une donos de animais domésticos e prestadores de serviço de banho e tosa para os animais.
 
-Disponível em: http://petitosa.herokuapp.com/
-Credenciais cadastradas
+Disponível em: http://petitosa.herokuapp.com/. Credenciais cadastradas
 - Perfil de contratante (dono de amnimal doméstico) - login: c@c.com, senha: 123
 - Perfil de prestador de serviço - login: p@p.com, senha: 123
 
