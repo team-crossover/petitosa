@@ -5,6 +5,10 @@ Trabalho feito para disciplina de Engenharia Econômica de Software, do curso de
 
 ## Como testar
 O sistema está implantado em http://petitosa.herokuapp.com/.
+
 As seguintes credenciais podem ser utilizadas para testar o sistema:
 - Perfil de contratante (dono de amnimal doméstico) - login: c@c.com, senha: 123
 - Perfil de prestador de serviço - login: p@p.com, senha: 123
+
+## Licença
+[MIT License](LICENSE)
